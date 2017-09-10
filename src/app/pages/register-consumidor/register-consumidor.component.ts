@@ -4,13 +4,15 @@ import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators } from
 import { HttpModule } from '@angular/http';
 
 import { TipoTelefoneService } from './../../services/tipos-telefone.service';
+import { ConsumidorService } from './../../services/consumidor.service';
 
 @Component({
     selector: 'app-register-consumidor',
     templateUrl: './register-consumidor.component.html',
     styleUrls: ['./register-consumidor.component.scss'],
     providers: [
-        TipoTelefoneService
+        TipoTelefoneService,
+        ConsumidorService
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -19,6 +21,7 @@ export class RegisterConsumidorComponent {
     public router: Router;
     public form: FormGroup;
     public msgErro: any;
+    public formSubmit: any;
 
     public tiposTelefone: Array<any> = [];
     
@@ -33,7 +36,8 @@ export class RegisterConsumidorComponent {
 
     constructor(router: Router,
         fb: FormBuilder,
-        public tipoTelefoneService: TipoTelefoneService) {
+        public tipoTelefoneService: TipoTelefoneService,
+        public consumidorService: ConsumidorService) {
 
         this.router = router;
 
@@ -62,9 +66,18 @@ export class RegisterConsumidorComponent {
 
     public onSubmit(values: Object): void {
         if (this.form.valid) {
-            console.log(values);
+            this.cadastrarConsumidor(values);           
             this.router.navigate(['/login-consumidor']);
         }
+    }
+
+    cadastrarConsumidor(consumidor: any) {           
+        this.consumidorService.setConsumidor(consumidor).subscribe(
+            resp => {
+                this.formSubmit = resp['Response'];
+                console.log(resp);          
+                error => this.msgErro;
+            }); 
     }
 
     listaTiposTelefone() {           
