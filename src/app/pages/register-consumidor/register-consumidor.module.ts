@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxMaskModule} from 'ngx-mask';
 
 import { RegisterConsumidorComponent } from './register-consumidor.component';
 
@@ -16,7 +17,8 @@ export const routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgxMaskModule
   ],
   declarations: [
     RegisterConsumidorComponent

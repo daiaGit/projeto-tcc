@@ -4,7 +4,7 @@ import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators } from
 import { HttpModule } from '@angular/http';
 
 import { TipoTelefoneService } from './../../services/tipos-telefone.service';
-import { ConsumidorService } from './../../services/consumidor-service';
+import { ConsumidorService } from './../../services/consumidor.service';
 
 @Component({
     selector: 'app-register-consumidor',
