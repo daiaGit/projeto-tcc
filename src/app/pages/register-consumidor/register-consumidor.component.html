@@ -31,6 +31,7 @@
                     <div class="form-group">
                         <label for="exampleSelect1"></label>
                         <select [formControl]="tipoTelefone" class="form-control validation-field">
+                                <option value="">Tipo de Telefone</option>
                                 <option *ngFor="let tipoTelefone of tiposTelefone" 
                                 [value]="tipoTelefone.tipo_telefone_id">
                                 {{tipoTelefone.tipo_telefone_descricao}}</option>
