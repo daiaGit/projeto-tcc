@@ -4,6 +4,7 @@ import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators } from
 import { HttpModule } from '@angular/http';
 
 import { TipoTelefoneService } from './../../services/tipos-telefone.service';
+import { ConsumidorService } from './../../services/consumidor-service';
 
 @Component({
     selector: 'app-register-consumidor',
@@ -33,7 +34,8 @@ export class RegisterConsumidorComponent {
 
     constructor(router: Router,
         fb: FormBuilder,
-        public tipoTelefoneService: TipoTelefoneService) {
+        public tipoTelefoneService: TipoTelefoneService,
+        public consumidorService: ConsumidorService) {
 
         this.router = router;
 
@@ -65,6 +67,16 @@ export class RegisterConsumidorComponent {
             console.log(values);
             this.router.navigate(['/login-consumidor']);
         }
+    }
+
+    cadastrarConsumidor() {           
+        this.consumidorService.setConsumidor().subscribe(
+            tiposTelefone => {
+                this.tiposTelefone = tiposTelefone['tiposTelefone'];
+                console.log(tiposTelefone);          
+                error => this.msgErro;
+            });
+
     }
 
     listaTiposTelefone() {           

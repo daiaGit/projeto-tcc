@@ -26,7 +26,7 @@ export class ConsumidorService {
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
  	
-	cadastrar(consumidor: any): Observable<any> {
+	setConsumidor(consumidor: any): Observable<any> {
 		
 		var params = {
 			tipo_usuario_id : 1,
