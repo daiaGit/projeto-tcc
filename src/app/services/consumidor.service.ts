@@ -30,13 +30,13 @@ export class ConsumidorService {
 		
 		var params = {
 			tipo_usuario_id : 1,
-			consumidor_nome : consumidor.nome,
-			consumidor_sobrenome: consumidor.sobrenome,
-			email_descricao: consumidor.email,
-			tipo_telefone_id: consumidor.tipoTelefone,
-			telefone_ddd: consumidor.ddd,
-			telefone_numero: consumidor.telefone,
-			usuario_senha: consumidor.senha
+			consumidor_nome : 		consumidor.nome,
+			consumidor_sobrenome: 	consumidor.sobrenome,
+			email_descricao: 		consumidor.email,
+			tipo_telefone_id: 		consumidor.tipoTelefone,
+			telefone_ddd: 			consumidor.ddd,
+			telefone_numero: 		consumidor.telefone,
+			usuario_senha: 			consumidor.senha
 		};
  
     	return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)
