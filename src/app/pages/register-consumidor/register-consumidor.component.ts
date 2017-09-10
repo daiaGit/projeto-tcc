@@ -11,7 +11,8 @@ import { ConsumidorService } from './../../services/consumidor-service';
     templateUrl: './register-consumidor.component.html',
     styleUrls: ['./register-consumidor.component.scss'],
     providers: [
-        TipoTelefoneService
+        TipoTelefoneService,
+        ConsumidorService
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -20,6 +21,7 @@ export class RegisterConsumidorComponent {
     public router: Router;
     public form: FormGroup;
     public msgErro: any;
+    public formSubmit: any;
 
     public tiposTelefone: Array<any> = [];
     
@@ -64,19 +66,18 @@ export class RegisterConsumidorComponent {
 
     public onSubmit(values: Object): void {
         if (this.form.valid) {
-            console.log(values);
+            this.cadastrarConsumidor(values);           
             this.router.navigate(['/login-consumidor']);
         }
     }
 
-    cadastrarConsumidor() {           
-        this.consumidorService.setConsumidor().subscribe(
-            tiposTelefone => {
-                this.tiposTelefone = tiposTelefone['tiposTelefone'];
-                console.log(tiposTelefone);          
+    cadastrarConsumidor(consumidor: any) {           
+        this.consumidorService.setConsumidor(consumidor).subscribe(
+            resp => {
+                this.formSubmit = resp['Response'];
+                console.log(resp);          
                 error => this.msgErro;
-            });
-
+            }); 
     }
 
     listaTiposTelefone() {           
