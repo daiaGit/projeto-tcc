@@ -19,18 +19,10 @@ import 'rxjs/add/operator/switchMap';
 
  
 @Injectable()
-export class TipoTelefoneService {
- 
-	private path = 'contato/';
- 
-	constructor(private http: Http, private httpUtil: HttpUtilService) {
-	}
- 
-	listarTodos(): Observable<any[]> { 
-		return this.http.get(this.httpUtil.url(this.path) + "getTiposTelefone")
-	                .map(this.httpUtil.extrairDados)
-	                .catch(this.httpUtil.processarErros);
-	}
-		
+export class EstadoService {
+
+    
 	
 }
+
+

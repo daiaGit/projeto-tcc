@@ -19,18 +19,29 @@ import 'rxjs/add/operator/switchMap';
 
  
 @Injectable()
-export class TipoTelefoneService {
+export class ConsumidorService {
  
-	private path = 'contato/';
+	private path = 'consumidor/';
  
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
- 
-	listarTodos(): Observable<any[]> { 
-		return this.http.get(this.httpUtil.url(this.path) + "getTiposTelefone")
-	                .map(this.httpUtil.extrairDados)
-	                .catch(this.httpUtil.processarErros);
-	}
+ 	
+	cadastrar(consumidor: any): Observable<any> {
 		
+		var params = {
+			tipo_usuario_id : 1,
+			consumidor_nome : consumidor.nome,
+			consumidor_sobrenome: consumidor.sobrenome,
+			email_descricao: consumidor.email,
+			tipo_telefone_id: consumidor.tipoTelefone,
+			telefone_ddd: consumidor.ddd,
+			telefone_numero: consumidor.telefone,
+			usuario_senha: consumidor.senha
+		};
+ 
+    	return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)
+      				.map(this.httpUtil.extrairDados)
+	                .catch(this.httpUtil.processarErros); 
+	}
 	
 }
