@@ -5,6 +5,7 @@ import { AppSettings } from './app.settings';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 
+import { HttpUtilService } from './services/http-util.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,10 @@ import { NotFoundComponent } from './pages/errors/not-found/not-found.component'
     BrowserModule,
     routing
   ],
-  providers: [ AppSettings ],
+  providers: [ 
+    AppSettings,
+    HttpUtilService
+   ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -10,12 +10,12 @@
 
                 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
                     <div class="form-group">
-                        <input [formControl]="email" class="form-control validation-field" placeholder="Email" type="text">                      
+                        <input [formControl]="email" class="form-control form-control-rounded validation-field" placeholder="Email" type="text">                      
                         <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">Email is required</small>                              
                         <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('email')">Invalid email address</small>
                     </div>
                     <div class="form-group">
-                        <input [formControl]="password" class="form-control validation-field" placeholder="Password" type="password">
+                        <input [formControl]="password" class="form-control form-control-rounded validation-field" placeholder="Password" type="password">
                         <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">Password is required</small>                              
                         <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">Password isn't long enough, minimum of 6 characters</small>
                     </div>
