@@ -23,8 +23,8 @@ export class LoginConsumidorComponent {
       });
 
       fs.init({
-        appId: '927901630671604',
-        version: 'v2.7'
+        appId: '460634367628229',
+        version: 'v2.9'
       });
 
       this.email = this.form.controls['email'];
@@ -35,7 +35,10 @@ export class LoginConsumidorComponent {
   loginFacebook() {
     this.fs.login()
       .then((res: LoginResponse) => {
-        console.log('Logged in', res);
+          if(res.status == "connected"){
+            console.log('Logged in', res);
+            this.router.navigate(['pages/dashboard']);
+          }
       })
       .catch(this.handleError);
   }
@@ -55,7 +58,6 @@ export class LoginConsumidorComponent {
 
     /**
    * This is a convenience method for the sake of this example project.
-   * Do not use this in production, it's better to handle errors separately.
    * @param error
    */
   private handleError(error) {
