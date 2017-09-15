@@ -4,8 +4,8 @@ import { routing } from './app.routing';
 import { AppSettings } from './app.settings';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
-
 import { HttpUtilService } from './services/http-util.service';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import { HttpUtilService } from './services/http-util.service';
   ],
   imports: [
     BrowserModule,
-    routing
+    routing,
+    FacebookModule.forRoot()
   ],
   providers: [ 
     AppSettings,
