@@ -5,11 +5,8 @@ import { routing } from './app.routing';
 import { AppSettings } from './app.settings';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
-<<<<<<< HEAD
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
 
-=======
->>>>>>> f9c101fd1a2b2a734bea6cab9b60e5c8cfc166e6
 import { HttpUtilService } from './services/http-util.service';
 import { FacebookModule } from 'ngx-facebook';
 
@@ -25,15 +22,12 @@ export function createTranslateLoader(http: Http) {
   imports: [
     BrowserModule,
     routing,
-<<<<<<< HEAD
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
       deps: [Http]
   }),
-=======
     FacebookModule.forRoot()
->>>>>>> f9c101fd1a2b2a734bea6cab9b60e5c8cfc166e6
   ],
   providers: [ 
     AppSettings,
