@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import { FacebookService, LoginResponse, LoginOptions, UIResponse, UIParams, FBVideoComponent } from 'ngx-facebook';
 
 @Component({
   selector: 'app-login-consumidor',
@@ -14,15 +15,53 @@ export class LoginConsumidorComponent {
   public email:AbstractControl;
   public password:AbstractControl;
 
-  constructor(router:Router, fb:FormBuilder) {
+  constructor(router:Router, fb:FormBuilder, private fs: FacebookService) {
       this.router = router;
       this.form = fb.group({
           'email': ['', Validators.compose([Validators.required, emailValidator])],
           'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])]
       });
 
+      fs.init({
+        appId: '460634367628229',
+        version: 'v2.9'
+      });
+
       this.email = this.form.controls['email'];
       this.password = this.form.controls['password'];
+  }
+
+
+  loginFacebook() {
+    this.fs.login()
+      .then((res: LoginResponse) => {
+          if(res.status == "connected"){
+            console.log('Logged in', res);
+            this.router.navigate(['pages/dashboard']);
+          }
+      })
+      .catch(this.handleError);
+  }
+
+  getLoginFacebookStatus() {
+    this.fs.getLoginStatus()
+      .then(console.log.bind(console))
+      .catch(console.error.bind(console));
+  }
+
+  getProfileFacebook() {
+    this.fs.api('/me')
+      .then((res: any) => {
+        console.log('Got the users profile', res);
+      })
+  }
+
+    /**
+   * This is a convenience method for the sake of this example project.
+   * @param error
+   */
+  private handleError(error) {
+    console.error('Error processing action', error);
   }
 
   public onSubmit(values:Object):void {
