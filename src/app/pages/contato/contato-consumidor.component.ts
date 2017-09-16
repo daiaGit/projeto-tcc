@@ -17,7 +17,7 @@ import { ConsumidorService } from './../../services/consumidor.service';
     encapsulation: ViewEncapsulation.None
 })
 
-export class RegisterConsumidorComponent {
+export class ContatoComponent {
     public router: Router;
     public form: FormGroup;
     public msgErro: any;
