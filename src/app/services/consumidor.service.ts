@@ -28,6 +28,8 @@ export class ConsumidorService {
  	
 	setConsumidor(consumidor: any): Observable<any> {
 		
+		console.log(consumidor);
+
 		var params = {
 			tipo_usuario_id : 1,
 			consumidor_nome : 		consumidor.nome,
@@ -36,7 +38,7 @@ export class ConsumidorService {
 			tipo_telefone_id: 		consumidor.tipoTelefone,
 			telefone_ddd: 			consumidor.ddd,
 			telefone_numero: 		consumidor.telefone,
-			usuario_senha: 			consumidor.senha
+			usuario_senha: 			consumidor.password
 		};
  
     	return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)

@@ -1,0 +1,96 @@
+<div class="d-flex justify-content-center align-items-center w-100 h-100 register-container">
+    <div class="col-xl-4 col-md-6 col-10">
+        <div class="card border-0 box-shadow rounded-0">
+            <div class="card-header d-flex justify-content-center align-items-center border-0 box-shadow">
+                <i class="fa fa-registered" aria-hidden="true"></i>
+            </div>
+            <div class="card-block text-center pb-1">
+                <h2>Register member</h2>
+                <a routerLink="/login-consumidor" class="transition">Already have an account? Sign in!</a>
+
+                <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
+
+                    <div class="form-group">
+                        <input [formControl]="nome" class="form-control validation-field" placeholder="Nome" type="text">
+                        <small class="text-danger" *ngIf="form.get('nome').touched">
+                            <span *ngIf="form.get('nome').hasError('required')">Nome obrigatório</span>
+                            <span *ngIf="form.get('nome').hasError('minlength')">Minimo 3 caracteres</span>                            
+                            <span *ngIf="form.get('nome').hasError('maxlength')">Máximo 150 caracteres</span>
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <input [formControl]="sobrenome" class="form-control validation-field" placeholder="Sobrenome" type="text">
+                        <small class="text-danger" *ngIf="form.get('sobrenome').touched">
+                                <span *ngIf="form.get('sobrenome').hasError('required')">Sobrenome obrigatório</span>
+                                <span *ngIf="form.get('sobrenome').hasError('minlength')">Minimo 3 caracteres</span>                            
+                                <span *ngIf="form.get('sobrenome').hasError('maxlength')">Máximo 150 caracteres</span>
+                            </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleSelect1"></label>
+                        <select [formControl]="tipoTelefone" class="form-control validation-field">
+                                <option value="">Tipo de Telefone</option>
+                                <option *ngFor="let tipoTelefone of tiposTelefone" 
+                                [value]="tipoTelefone.tipo_telefone_id">
+                                {{tipoTelefone.tipo_telefone_descricao}}</option>
+                        </select>
+                        <small class="text-danger" *ngIf="form.get('sobrenome').touched">
+                            <span *ngIf="form.get('sobrenome').hasError('required')">Tipo de telefone obrigatório</span>
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <input [formControl]="ddd" class="form-control validation-field" placeholder="ddd" type="text" specialCharacters="false" mask="(00)">
+                        <small class="text-danger" *ngIf="form.get('sobrenome').touched">
+                                <span *ngIf="form.get('sobrenome').hasError('required')">ddd obrigatório</span>
+                            </small>
+                    </div>
+
+                    <div class="form-group">
+                        <input [formControl]="telefone" class="form-control validation-field" placeholder="Telefone" type="text"  specialCharacters="false" mask="0000-0000">
+                        <small class="text-danger" *ngIf="form.get('sobrenome').touched">
+                                <span *ngIf="form.get('sobrenome').hasError('required')">Telefone obrigatório</span>
+                            </small>
+                    </div>
+
+                    <div class="form-group">
+                        <input [formControl]="email" class="form-control validation-field" placeholder="Email" type="text">
+                        <small class="text-danger" *ngIf="form.get('email').touched">
+                            <span *ngIf="form.get('email').hasError('required')">Email obrigatório</span>
+                            <span *ngIf="form.get('email').hasError('invalidEmail')">Email inválido</span>
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <input [formControl]="password" class="form-control validation-field" placeholder="Password" type="password" minlength="6">
+                        <small class="text-danger" *ngIf="form.get('password').touched">
+                            <span *ngIf="form.get('password').hasError('required')">Senha obrigatória</span>
+                            <span *ngIf="form.get('password').hasError('minlength')">Mínimo 6 caracteres</span>
+                            <span *ngIf="form.get('password').hasError('minlength')">Máximo 20 caracteres</span>
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <input [formControl]="confirmPassword" class="form-control validation-field" placeholder="Confirm Password" type="password">
+                        <small class="text-danger" *ngIf="form.get('confirmPassword').touched">
+                            <span *ngIf="form.get('confirmPassword').hasError('required')">Confirmação de senha obrigatória</span>
+                            <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">As senhas não correspondem</span>
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <p class="terms">Ao cadastrar-me, declaro que sou maior de idade e aceito as Políticas de privacidade e os <a class="transition terms"
+                                href="javascript:void(0);">Termos e condições do Smarket</a>.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <button [disabled]="!form.valid" class="btn btn-block" type="submit">Cadastrar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
