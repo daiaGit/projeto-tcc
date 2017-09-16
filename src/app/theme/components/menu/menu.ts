@@ -9,7 +9,12 @@ export const verticalMenuItems = [
     new Menu (23, 'Blank', '/pages/blank', null, 'file-o', null, false, 2),
     new Menu (24, 'Error', '/pagenotfound', null, 'exclamation-circle', null, false, 2),
     new Menu (25, 'Esqueci a senha', '/esqueci-senha', null, 'exclamation-circle', null, false, 2),   
-    new Menu (26, 'Redefinir Senha', '/redefinir-senha', null, 'exclamation-circle', null, false, 2)
+    new Menu (26, 'Redefinir Senha', '/redefinir-senha', null, 'exclamation-circle', null, false, 2),
+    new Menu (3, 'Tables', null, null, 'table', null, true, 0),
+    new Menu (30, 'Basic Tables', '/pages/tables/basic-tables', null, 'th', null, false, 30), 
+    new Menu (31, 'Dynamic Tables', null, null, 'th-large', null, true, 31), 
+    new Menu (32, 'Smart DataTable', '/pages/tables/dynamic-tables/smart', null, 'caret-right', null, false, 32),
+    new Menu (33, 'NGX DataTable', '/pages/tables/dynamic-tables/ngx', null, 'caret-right', null, false, 33)
 ]
 
 export const horizontalMenuItems = [ 
@@ -20,5 +25,10 @@ export const horizontalMenuItems = [
     new Menu (23, 'Blank', '/pages/blank', null, 'file-o', null, false, 2),
     new Menu (24, 'Error', '/pagenotfound', null, 'exclamation-circle', null, false, 2),
     new Menu (25, 'Esqueci a senha', '/esqueci-senha', null, 'exclamation-circle', null, false, 2),
-    new Menu (26, 'Redefinir Senha', '/redefinir-senha', null, 'exclamation-circle', null, false, 2)   
+    new Menu (26, 'Redefinir Senha', '/redefinir-senha', null, 'exclamation-circle', null, false, 2),
+    new Menu (3, 'Tables', null, null, 'table', null, true, 0),
+    new Menu (30, 'Basic Tables', '/pages/tables/basic-tables', null, 'th', null, false, 30), 
+    new Menu (31, 'Dynamic Tables', null, null, 'th-large', null, true, 31), 
+    new Menu (32, 'Smart DataTable', '/pages/tables/dynamic-tables/smart', null, 'caret-right', null, false, 32),
+    new Menu (33, 'NGX DataTable', '/pages/tables/dynamic-tables/ngx', null, 'caret-right', null, false, 33)   
 ]

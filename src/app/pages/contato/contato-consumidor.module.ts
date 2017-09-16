@@ -1,10 +1,11 @@
-import { ContatoComponent } from './contato-consumidor.component';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgxMaskModule} from 'ngx-mask';
+
+import { ContatoComponent } from './contato-consumidor.component';
 
 export const routes = [
   { path: '', component: ContatoComponent, pathMatch: 'full' }
