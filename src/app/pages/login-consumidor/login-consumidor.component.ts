@@ -3,19 +3,31 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import { FacebookService, LoginResponse, LoginOptions, UIResponse, UIParams, FBVideoComponent } from 'ngx-facebook';
 
+/** SERVICES */
+import { AcessoService } from './../../services/acesso.service';
+
 @Component({
   selector: 'app-login-consumidor',
   templateUrl: './login-consumidor.component.html',
   styleUrls: ['./login-consumidor.component.scss'],
+  providers: [
+    AcessoService
+],
   encapsulation: ViewEncapsulation.None
 })
+
 export class LoginConsumidorComponent {
   public router: Router;
   public form:FormGroup;
+  public formSubmit: any;
+  public msgErro: any;
+
   public email:AbstractControl;
   public password:AbstractControl;
 
-  constructor(router:Router, fb:FormBuilder, private fs: FacebookService) {
+  constructor(  router:Router, fb:FormBuilder, 
+                private fs: FacebookService,
+                private acessoService: AcessoService) {
       this.router = router;
       this.form = fb.group({
           'email': ['', Validators.compose([Validators.required, emailValidator])],
@@ -64,11 +76,21 @@ export class LoginConsumidorComponent {
     console.error('Error processing action', error);
   }
 
-  public onSubmit(values:Object):void {
-      if (this.form.valid) {
-          this.router.navigate(['pages/dashboard']);
-      }
+  public onSubmit(values: Object): void {
+    if (this.form.valid) {
+        this.loginEmail(values);           
+        this.router.navigate(['pages/dashboard']);
+    }
   }
+
+  loginEmail(consumidor: any) {           
+    this.acessoService.autenticar(consumidor).subscribe(
+        resp => {
+            this.formSubmit = resp['Response'];
+            console.log(resp);          
+            error => this.msgErro;
+        }); 
+}
 
   ngAfterViewInit(){
       document.getElementById('preloader').classList.add('hide');                 
