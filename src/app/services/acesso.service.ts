@@ -17,24 +17,40 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
- 
+
 @Injectable()
 export class AcessoService {
- 
+
 	private path = 'acesso/';
- 
+
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
- 	
-	autenticar(login: any): Observable<any> {		
+
+	autenticar(login: any): Observable<any> {
 		var params = {
-			usuario_login:	login.email,
-			usuario_senha:	login.password
+			usuario_login: login.email,
+			usuario_senha: login.password
 		};
-		
-    	return this.http.post(this.httpUtil.url(this.path) + "autenticar", params)
-      				.map(this.httpUtil.extrairDados)
-	                .catch(this.httpUtil.processarErros); 
+
+		return this.http.post(this.httpUtil.url(this.path) + "autenticar", params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
 	}
-	
+
+	autenticarFacebook(login: any): Observable<any> {
+
+		console.log('Parametros de login', login);
+
+		var params = {
+			usuario_login: login.email,
+			origin: 1,
+			nome: login.first_name,
+			sobrenome: login.last_name
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + "autenticarFacebook", params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
 }

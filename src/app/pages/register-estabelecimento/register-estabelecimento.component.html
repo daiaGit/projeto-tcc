@@ -6,44 +6,159 @@
             </div>
             <div class="card-block text-center pb-1">
                 <h2>Register member</h2>
-                <a routerLink="/login-estabelecimento" class="transition">Already have an account? Sign in!</a>
+                <a routerLink="/login-consumidor" class="transition">Already have an account? Sign in!</a>
 
                 <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
-                    <div class="form-group">
-                        <input [formControl]="name" class="form-control validation-field" placeholder="Full Name" type="text"> 
-                        <small class="text-danger" *ngIf="form.get('name').touched">
-                            <span *ngIf="form.get('name').hasError('required')">Full Name is required</span>
-                            <span *ngIf="form.get('name').hasError('minlength')">Minimum of 3 characters</span>
-                        </small>       
+
+                    <div class="row">
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input [formControl]="cnpj" class="form-control validation-field" placeholder="CNPJ" type="text">
+                                <small class="text-danger" *ngIf="form.get('cnpj').touched">
+                                        <span *ngIf="form.get('cnpj').hasError('required')">Cnpj obrigatório</span>
+                                        <span *ngIf="form.get('cnpj').hasError('invalidCnpj')">Cnpj inválido</span>                            
+                                    </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input [formControl]="razaoSocial" class="form-control validation-field" placeholder="CNPJ" type="text">
+                                <small class="text-danger" *ngIf="form.get('razaoSocial').touched">
+                                            <span *ngIf="form.get('razaoSocial').hasError('required')">Razão Social Obrigatória</span>
+                                            <span *ngIf="form.get('razaoSocial').hasError('minlength')">Minimo 3  caracteres</span>  
+                                            <span *ngIf="form.get('razaoSocial').hasError('maxlength')">Maximo 150 caracteres </span>                              
+                                        </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input [formControl]="cnpj" class="form-control validation-field" placeholder="Nome Fantasia" type="text">
+                                <small class="text-danger" *ngIf="form.get('nomeFantasia').touched">
+                                                <span *ngIf="form.get('nomeFantasia').hasError('required')">Nome Fantasia Obrigatório</span>
+                                                <span *ngIf="form.get('nomeFantasia').hasError('minlength')">Minimo 3  caracteres</span>  
+                                                <span *ngIf="form.get('nomeFantasia').hasError('maxlength')">Maximo 150 caracteres </span>                              
+                                            </small>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="exampleSelect1"></label>
+                                    <select [formControl]="tipoTelefone" class="form-control validation-field">
+                                    <option value="">Tipo de Telefone</option>
+                                    <option *ngFor="let tipoTelefone of tiposTelefone" 
+                                    [value]="tipoTelefone.tipo_telefone_id">
+                                    {{tipoTelefone.tipo_telefone_descricao}}</option>
+                            </select>
+                                    <small class="text-danger" *ngIf="form.get('sobrenome').touched">
+                                <span *ngIf="form.get('sobrenome').hasError('required')">Tipo de telefone obrigatório</span>
+                            </small>
+                                </div>
+                            </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input [formControl]="contratanteNome" class="form-control validation-field" placeholder="Nome" type="text">
+                                <small class="text-danger" *ngIf="form.get('contratanteNome').touched">
+                                <span *ngIf="form.get('contratanteNome').hasError('required')">Nome obrigatório</span>
+                                <span *ngIf="form.get('contratanteNome').hasError('minlength')">Minimo 3 caracteres</span>                            
+                                <span *ngIf="form.get('contratanteNome').hasError('maxlength')">Máximo 150 caracteres</span>
+                            </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input [formControl]="contratanteSobrenome" class="form-control validation-field" placeholder="Sobrenome" type="text">
+                                <small class="text-danger" *ngIf="form.get('contratanteSobrenome').touched">
+                                <span *ngIf="form.get('contratanteSobrenome').hasError('required')">Sobrenome obrigatório</span>
+                                <span *ngIf="form.get('contratanteSobrenome').hasError('minlength')">Minimo 3 caracteres</span>                            
+                                <span *ngIf="form.get('contratanteSobrenome').hasError('maxlength')">Máximo 150 caracteres</span>
+                            </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleSelect1"></label>
+                                <select [formControl]="tipoTelefone" class="form-control validation-field">
+                                <option value="">Tipo de Telefone</option>
+                                <option *ngFor="let tipoTelefone of tiposTelefone" 
+                                [value]="tipoTelefone.tipo_telefone_id">
+                                {{tipoTelefone.tipo_telefone_descricao}}</option>
+                        </select>
+                                <small class="text-danger" *ngIf="form.get('sobrenome').touched">
+                            <span *ngIf="form.get('sobrenome').hasError('required')">Tipo de telefone obrigatório</span>
+                        </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <input [formControl]="ddd" class="form-control validation-field" placeholder="ddd" type="text" specialCharacters="false"
+                                    mask="(00)">
+                                <small class="text-danger" *ngIf="form.get('sobrenome').touched">
+                                <span *ngIf="form.get('sobrenome').hasError('required')">ddd obrigatório</span>
+                            </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input [formControl]="telefone" class="form-control validation-field" placeholder="Telefone" type="text" specialCharacters="false"
+                                    mask="0000-0000">
+                                <small class="text-danger" *ngIf="form.get('sobrenome').touched">
+                                <span *ngIf="form.get('sobrenome').hasError('required')">Telefone obrigatório</span>
+                            </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input [formControl]="contratanteEmail" class="form-control validation-field" placeholder="Email" type="text">
+                                <small class="text-danger" *ngIf="form.get('email').touched">
+                            <span *ngIf="form.get('contratanteEmail').hasError('required')">Email obrigatório</span>
+                            <span *ngIf="form.get('contratanteEmail').hasError('invalidEmail')">Email inválido</span>
+                        </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input [formControl]="password" class="form-control validation-field" placeholder="Password" type="password" minlength="6">
+                                <small class="text-danger" *ngIf="form.get('password').touched">
+                            <span *ngIf="form.get('password').hasError('required')">Senha obrigatória</span>
+                            <span *ngIf="form.get('password').hasError('minlength')">Mínimo 6 caracteres</span>
+                            <span *ngIf="form.get('password').hasError('minlength')">Máximo 20 caracteres</span>
+                        </small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input [formControl]="confirmPassword" class="form-control validation-field" placeholder="Confirm Password" type="password">
+                                <small class="text-danger" *ngIf="form.get('confirmPassword').touched">
+                            <span *ngIf="form.get('confirmPassword').hasError('required')">Confirmação de senha obrigatória</span>
+                            <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">As senhas não correspondem</span>
+                        </small>
+                            </div>
+                        </div>
+
                     </div>
+
                     <div class="form-group">
-                        <input [formControl]="email" class="form-control validation-field" placeholder="Email" type="text"> 
-                        <small class="text-danger" *ngIf="form.get('email').touched">
-                            <span *ngIf="form.get('email').hasError('required')">Email is required</span>
-                            <span *ngIf="form.get('email').hasError('invalidEmail')">Invalid email address</span>
-                        </small> 
+                        <p class="terms">Ao cadastrar-me, declaro que sou maior de idade e aceito as Políticas de privacidade e os <a class="transition terms"
+                                href="javascript:void(0);">Termos e condições do Smarket</a>.</p>
                     </div>
+
                     <div class="form-group">
-                        <input [formControl]="password" class="form-control validation-field" placeholder="Password" type="password" minlength="6">
-                         <small class="text-danger" *ngIf="form.get('password').touched">
-                            <span *ngIf="form.get('password').hasError('required')">Password is required</span>
-                            <span *ngIf="form.get('password').hasError('minlength')">Password isn't long enough, minimum of 6 characters</span>
-                        </small>                     
+                        <button [disabled]="!form.valid" class="btn btn-block" type="submit">Cadastrar</button>
                     </div>
-                    <div class="form-group">
-                        <input [formControl]="confirmPassword" class="form-control validation-field" placeholder="Confirm Password" type="password">
-                        <small class="text-danger" *ngIf="form.get('confirmPassword').touched">
-                            <span *ngIf="form.get('confirmPassword').hasError('required')">Confirm Password is required</span>
-                            <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">Passwords do not match</span>
-                        </small> 
-                    </div>
-                    <div class="form-group">
-                        <p class="terms">By creating an account, you agree our <a class="transition terms" href="javascript:void(0);">Terms & Privacy Policy</a></p>                  
-                    </div>             
-                    <div class="form-group">
-                        <button [disabled]="!form.valid" class="btn btn-block" type="submit">Sign up</button>
-                    </div>
-                </form>  
+
+                </form>
             </div>
         </div>
     </div>
