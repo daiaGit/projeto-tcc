@@ -43,35 +43,6 @@ export class LoginConsumidorComponent {
       this.password = this.form.controls['password'];
   }
 
-
-  loginFacebook() {
-    this.fs.login()
-      .then((res: LoginResponse) => {
-          if(res.status == "connected"){
-            console.log('Logged in', res);
-            this.router.navigate(['pages/dashboard']);
-          }
-      })
-      .catch(this.handleError);
-  }
-
-  getLoginFacebookStatus() {
-    this.fs.getLoginStatus()
-      .then(console.log.bind(console))
-      .catch(console.error.bind(console));
-  }
-
-  getProfileFacebook() {
-    this.fs.api('/me')
-      .then((res: any) => {
-        console.log('Got the users profile', res);
-      })
-  }
-
-    /**
-   * This is a convenience method for the sake of this example project.
-   * @param error
-   */
   private handleError(error) {
     console.error('Error processing action', error);
   }
@@ -83,14 +54,58 @@ export class LoginConsumidorComponent {
     }
   }
 
-  loginEmail(consumidor: any) {           
+  /** Login com Email */
+  private loginEmail(consumidor: any) {           
     this.acessoService.autenticar(consumidor).subscribe(
         resp => {
             this.formSubmit = resp['Response'];
             console.log(resp);          
             error => this.msgErro;
         }); 
-}
+  }
+
+  /** Login com Facebook */
+  public getLoginFacebook() {
+    const loginOptions: LoginOptions = {
+      enable_profile_selector: true,
+      return_scopes: true,
+      scope: 'public_profile,user_friends,email,pages_show_list'
+    };
+
+    this.fs.login(loginOptions)
+      .then((res: LoginResponse) => {
+          if(res.status == "connected"){
+            console.log('Logando com Facebook:', res);
+            this.getProfileFacebook();
+          }
+      })
+      .catch(this.handleError);
+  }
+
+  getLoginFacebookStatus() {
+    this.fs.getLoginStatus()
+      .then(console.log.bind(console))
+      .catch(console.error.bind(console));
+  }
+
+  private getProfileFacebook() {
+    var params: any;
+    this.fs.api('/me?fields=id,name,first_name,last_name,gender,email')
+      .then((res: any) => {
+        console.log('Resgatando dados do Facebook:', res);
+        this.loginFacebook(res);  
+      })
+  }
+
+  private loginFacebook(consumidor: any) {           
+    this.acessoService.autenticarFacebook(consumidor).subscribe(
+        resp => {
+            this.formSubmit = resp['Response'];
+            console.log(resp);          
+            error => this.msgErro;
+        }); 
+  }
+
 
   ngAfterViewInit(){
       document.getElementById('preloader').classList.add('hide');                 

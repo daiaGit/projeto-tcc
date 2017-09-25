@@ -1,8 +1,12 @@
-import { NgModule } from '@angular/core';
+/** Angular */
+import { HttpModule } from '@angular/http';
+import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxMaskModule} from 'ngx-mask';
 
+/** Component */
 import { RegisterEstabelecimentoComponent } from './register-estabelecimento.component';
 
 export const routes = [
@@ -14,7 +18,9 @@ export const routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    HttpModule,
+    RouterModule.forChild(routes),
+    NgxMaskModule
   ],
   declarations: [
     RegisterEstabelecimentoComponent
