@@ -1,10 +1,15 @@
+import { OnInit } from '@angular/core';
+/** Angular */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+/** Services */
 import { TipoTelefoneService } from './../../services/tipos-telefone.service';
 import { EstabelecimentoService } from './../../services/estabelecimento.service';
+import { CargoService } from './../../services/cargo.service';
+import { TiposEstabelecimentoService } from './../../services/tipos-estabelecimento.service';
 
 @Component({
     selector: 'app-register-estabelecimento',
@@ -12,28 +17,32 @@ import { EstabelecimentoService } from './../../services/estabelecimento.service
     styleUrls: ['./register-estabelecimento.component.scss'],
     providers: [
         TipoTelefoneService,
-        EstabelecimentoService
+        EstabelecimentoService,
+        TiposEstabelecimentoService,
+        CargoService
     ],
     encapsulation: ViewEncapsulation.None
 })
 
-export class RegisterEstabelecimentoComponent {
+export class RegisterEstabelecimentoComponent implements OnInit{
     public router: Router;
     public form: FormGroup;
     public msgErro: any;
     public formSubmit: any;
 
     public tiposTelefone: Array<any> = [];
-
+    public tiposEstabelecimento: Array<any> = [];
+    public cargos: Array<any> = [];    
 
     public cnpj: AbstractControl;
     public razaoSocial: AbstractControl;
     public nomeFantasia: AbstractControl;
     public tipoEstabelecimento: AbstractControl;
-    public contratanteNome: AbstractControl;
-    public contratanteSobrenome: AbstractControl;
-    public contratanteCpf: AbstractControl;
-    public contratanteEmail: AbstractControl;
+    public funcionarioNome: AbstractControl;
+    public funcionarioSobrenome: AbstractControl;
+    public funcionarioCpf: AbstractControl;
+    public funcionarioEmail: AbstractControl;
+    public funcionarioCargo: AbstractControl;
     public ddd: AbstractControl;
     public telefone: AbstractControl;
     public tipoTelefone: AbstractControl;
@@ -43,21 +52,22 @@ export class RegisterEstabelecimentoComponent {
     constructor(router: Router,
         fb: FormBuilder,
         public tipoTelefoneService: TipoTelefoneService,
-        public estabelecimentoService: EstabelecimentoService) {
+        public estabelecimentoService: EstabelecimentoService,
+        public tiposEstabelecimentoService: TiposEstabelecimentoService,
+        public cargoService: CargoService) {
 
-        this.router = router;
-
-        this.listaTiposTelefone();
+        this.router = router; 
 
         this.form = fb.group({
-            cnpj: ['', Validators.required, cnpjValidator],
+            cnpj: ['', Validators.required],
             razaoSocial: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
             nomeFantasia: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
             tipoEstabelecimento: ['', Validators.required],
-            contratanteNome: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
-            contratanteSobrenome: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
-            contratanteCpf: ['', Validators.required, cpfValidator],
-            contratamteEmail: ['', Validators.required, emailValidator],
+            funcionarioCargo: ['', Validators.required],
+            funcionarioNome: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
+            funcionarioSobrenome: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
+            funcionarioCpf: ['', Validators.required],
+            funcionarioEmail: ['', Validators.required, emailValidator],
             tipoTelefone: ['', Validators.required],
             ddd: ['', Validators.required],
             telefone: ['', Validators.required],
@@ -72,15 +82,22 @@ export class RegisterEstabelecimentoComponent {
         this.razaoSocial = this.form.controls['razaoSocial']; 
         this.nomeFantasia = this.form.controls['nomeFantasia'];
         this.tipoEstabelecimento = this.form.controls['tipoEstabelecimento'];
-        this.contratanteNome = this.form.controls['contratanteNome'];
-        this.contratanteSobrenome = this.form.controls['contratanteSobrenome'];
-        this.contratanteCpf = this.form.controls['contratanteCpf'];
-        this.contratanteEmail = this.form.controls['contratanteEmail'];
+        this.funcionarioCargo = this.form.controls['funcionarioCargo'];
+        this.funcionarioNome = this.form.controls['funcionarioNome'];
+        this.funcionarioSobrenome = this.form.controls['funcionarioSobrenome'];
+        this.funcionarioCpf = this.form.controls['funcionarioCpf'];
+        this.funcionarioEmail = this.form.controls['funcionarioEmail'];
         this.tipoTelefone = this.form.controls['tipoTelefone'];
         this.ddd = this.form.controls['ddd'];
         this.telefone = this.form.controls['telefone'];
         this.password = this.form.controls['password'];
         this.confirmPassword = this.form.controls['confirmPassword'];
+    }
+
+    public ngOnInit(){
+        this.listarTiposTelefone();
+        this.listarTiposEstabelecimento();
+        this.listarCargos();
     }
 
     public onSubmit(values: Object): void {
@@ -99,10 +116,28 @@ export class RegisterEstabelecimentoComponent {
             });
     }
 
-    listaTiposTelefone() {
+    listarTiposTelefone() {
         this.tipoTelefoneService.listarTodos().subscribe(
             tiposTelefone => {
                 this.tiposTelefone = tiposTelefone['tiposTelefone'];
+                error => this.msgErro;
+            });
+
+    }
+
+    listarTiposEstabelecimento() {
+        this.tiposEstabelecimentoService.listarTodos().subscribe(
+            tiposEstabelecimento => {
+                this.tiposEstabelecimento = tiposEstabelecimento['tiposEstabelecimento'];
+                error => this.msgErro;
+            });
+
+    }
+
+    listarCargos() {
+        this.cargoService.listarTodos().subscribe(
+            cargos => {
+                this.cargos = cargos['cargo'];
                 error => this.msgErro;
             });
 
@@ -117,76 +152,6 @@ export function emailValidator(control: FormControl): { [key: string]: any } {
     var emailRegexp = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
     if (control.value && !emailRegexp.test(control.value)) {
         return { invalidEmail: true };
-    }
-}
-
-export function cpfValidator(control: FormControl): { [key: string]: any } {
-    var multipliers = [10, 9, 8, 7, 6, 5, 4, 3, 2]
-    var value = control.value.replace(/\D+/g, '');
-    if (value.length === 11) {
-        control.markAsTouched();
-        var total = value.split('').reduce((total, item) => {
-            return total += parseFloat(item)
-        }, 0.0);
-        total /= 11;
-        if (total == value[0]) {
-            return { invalidCPF: true };
-        }
-        var digit = value.substr(value.length - 2, value.length);
-        var cpf = value.substr(0, value.length - 2);
-        total = multipliers.reduce((total, multipler, index) => {
-            return total + (cpf[index] * multipler);
-        }, 0);
-        var firstDigit = (total * 10) % 11;
-        cpf += firstDigit;
-        multipliers.unshift(11);
-        total = multipliers.reduce((total, multipler, index) => {
-            return total + (cpf[index] * multipler);
-        }, 0);
-        var secondDigit = (total * 10) % 11;
-        var calculatedDigit = `${firstDigit}${secondDigit}`;
-        if (calculatedDigit === digit) {
-            return null;
-        } else {
-            return { invalidCPF: true };
-        }
-    } else {
-        return { invalidCPF: true };
-    }
-}
-
-export function cnpjValidator(control: FormControl): { [key: string]: any } {
-    var multipliers = [10, 9, 8, 7, 6, 5, 4, 3, 2]
-    var value = control.value.replace(/\D+/g, '');
-    if (value.length === 11) {
-        control.markAsTouched();
-        var total = value.split('').reduce((total, item) => {
-            return total += parseFloat(item)
-        }, 0.0);
-        total /= 11;
-        if (total == value[0]) {
-            return { invalidCPF: true };
-        }
-        var digit = value.substr(value.length - 2, value.length);
-        var cpf = value.substr(0, value.length - 2);
-        total = multipliers.reduce((total, multipler, index) => {
-            return total + (cpf[index] * multipler);
-        }, 0);
-        var firstDigit = (total * 10) % 11;
-        cpf += firstDigit;
-        multipliers.unshift(11);
-        total = multipliers.reduce((total, multipler, index) => {
-            return total + (cpf[index] * multipler);
-        }, 0);
-        var secondDigit = (total * 10) % 11;
-        var calculatedDigit = `${firstDigit}${secondDigit}`;
-        if (calculatedDigit === digit) {
-            return null;
-        } else {
-            return { invalidCPF: true };
-        }
-    } else {
-        return { invalidCPF: true };
     }
 }
 

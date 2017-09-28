@@ -42,8 +42,8 @@
                                 [value]="tipoTelefone.tipo_telefone_id">
                                 {{tipoTelefone.tipo_telefone_descricao}}</option>
                         </select>
-                                <small class="text-danger" *ngIf="form.get('sobrenome').touched">
-                            <span *ngIf="form.get('sobrenome').hasError('required')">Tipo de telefone obrigatório</span>
+                                <small class="text-danger" *ngIf="form.get('tipoTelefone').touched">
+                            <span *ngIf="form.get('tipoTelefone').hasError('required')">Tipo de telefone obrigatório</span>
                         </small>
                             </div>
                         </div>
@@ -52,8 +52,8 @@
                             <div class="form-group">
                                 <input [formControl]="ddd" class="form-control validation-field" placeholder="ddd" type="text" specialCharacters="false"
                                     mask="(00)">
-                                <small class="text-danger" *ngIf="form.get('sobrenome').touched">
-                                <span *ngIf="form.get('sobrenome').hasError('required')">ddd obrigatório</span>
+                                <small class="text-danger" *ngIf="form.get('ddd').touched">
+                                <span *ngIf="form.get('ddd').hasError('required')">ddd obrigatório</span>
                             </small>
                             </div>
                         </div>
@@ -62,8 +62,8 @@
                             <div class="form-group">
                                 <input [formControl]="telefone" class="form-control validation-field" placeholder="Telefone" type="text" specialCharacters="false"
                                     mask="0000-0000">
-                                <small class="text-danger" *ngIf="form.get('sobrenome').touched">
-                                <span *ngIf="form.get('sobrenome').hasError('required')">Telefone obrigatório</span>
+                                <small class="text-danger" *ngIf="form.get('telefone').touched">
+                                <span *ngIf="form.get('telefone').hasError('required')">Telefone obrigatório</span>
                             </small>
                             </div>
                         </div>
