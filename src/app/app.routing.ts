@@ -6,6 +6,7 @@ import { NotFoundComponent } from './pages/errors/not-found/not-found.component'
 export const routes: Routes = [
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
+  { path: 'shop', loadChildren: 'app/shop/shop.module#ShopModule' },
   { path: 'esqueci-senha', loadChildren: 'app/pages/esqueci-senha/esqueci-senha.module#EsqueciSenhaModule' },
   { path: 'login-estabelecimento', loadChildren: 'app/pages/login-estabelecimento/login-estabelecimento.module#LoginEstabelecimentoModule' },
   { path: 'login-consumidor', loadChildren: 'app/pages/login-consumidor/login-consumidor.module#LoginConsumidorModule' },
