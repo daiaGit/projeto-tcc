@@ -10,7 +10,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
 
 import { HttpUtilService } from './services/http-util.service';
 import { FacebookModule } from 'ngx-facebook';
-import { NgSelect2Module } from 'ng-select2';
+
 
 
 export function createTranslateLoader(http: Http) {
@@ -25,7 +25,6 @@ export function createTranslateLoader(http: Http) {
   imports: [
     BrowserModule,
     routing,
-    NgSelect2Module,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),

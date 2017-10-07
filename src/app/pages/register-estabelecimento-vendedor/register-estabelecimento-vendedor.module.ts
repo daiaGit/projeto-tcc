@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgxMaskModule} from 'ngx-mask';
-import { Select2Module } from 'ng2-select2';
 
 /** Component */
 import { RegisterEstabelecimentoVendedorComponent } from './register-estabelecimento-vendedor.component';
@@ -21,8 +20,7 @@ export const routes = [
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forChild(routes),
-    NgxMaskModule,
-    Select2Module
+    NgxMaskModule
   ],
   declarations: [
     RegisterEstabelecimentoVendedorComponent
