@@ -69,6 +69,16 @@ export class RegisterConsumidorComponent {
             this.cadastrarConsumidor(values);           
             this.router.navigate(['/login-consumidor']);
         }
+        else{
+            this.nome.markAsTouched();
+            this.sobrenome.markAsTouched();
+            this.email.markAsTouched();
+            this.password.markAsTouched();
+            this.confirmPassword.markAsTouched();
+            this.telefone.markAsTouched();
+            this.ddd.markAsTouched();
+            this.tipoTelefone.markAsTouched();
+        }
     }
 
     cadastrarConsumidor(consumidor: any) {           

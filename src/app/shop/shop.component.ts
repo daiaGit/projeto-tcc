@@ -17,10 +17,13 @@ export class ShopComponent implements OnInit {
     public menuOption:string;
     public menuTypes = ['default', 'compact', 'mini'];
     public menuTypeOption:string;
-    
+    public tipoPagina: any;     
     public settings: Settings;
     constructor(public appSettings:AppSettings, public router:Router){        
-        this.settings = this.appSettings.settings; 
+        this.settings = this.appSettings.settings;
+        this.tipoPagina = "shop";
+        localStorage.setItem('tipoPagina', this.tipoPagina); 
+        console.log(localStorage.getItem('tipoPagina'));
         if(sessionStorage["skin"]) {
             this.settings.theme.skin = sessionStorage["skin"];
         }     

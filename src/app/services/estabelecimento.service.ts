@@ -17,42 +17,74 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
- 
+
 @Injectable()
 export class EstabelecimentoService {
- 
+
 	private path = 'estabelecimento/';
- 
+
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
- 	
-	setEstabelecimento(estabelecimento: any): Observable<any> {
-		
+
+	setEstabelecimentoVendedor(estabelecimento: any): Observable<any> {
+
 		var params = {
-			estabelecimento_cnpj:				estabelecimento.cnpj,
-			estabelecimento_razao_social:		estabelecimento.razaoSocial,
-			estabelecimento_nome_fantasia:		estabelecimento.nomeFantasia,
-			estabelecimento_inscricao_estadual:	estabelecimento.inscricaoEstadual,
-			tipo_estabelecimento_id:			estabelecimento.tipoEstabelecimento, 
-			endereco_rua:						estabelecimento.rua,
-			endereco_numero:					estabelecimento.numero, 
-			endereco_complemento:				estabelecimento.complemento, 
-			endereco_bairro:					estabelecimento.bairro, 
-			endereco_cep:						estabelecimento.cep, 
-			estado_id:							estabelecimento.estadoId, 
-			cidade_id:							estabelecimento.cidadeId, 
-			email_descricao:					estabelecimento.emailDescricao, 
-			email_setor:						estabelecimento.emailSetor, 
-			tipo_telefone_id:					estabelecimento.tipoTelefoneId,
-			telefone_ddd:						estabelecimento.telefoneDDD,
-			telefone_numero:					estabelecimento.telefoneNumero,
-			telefone_setor:						estabelecimento.telefoneSetor
+			estabelecimento_cnpj : estabelecimento.cnpj,
+			estabelecimento_razao_social: estabelecimento.razaoSocial,
+			estabelecimento_nome_fantasia: estabelecimento.nomeFantasia,
+			estabelecimento_inscricao_estadual : estabelecimento.inscricaoEstadual,
+			estabelecimento_inscricao_municipal : estabelecimento.inscricaoMunicipal,
+			estabelecimento_vendedor : '1',
+			endereco_rua : estabelecimento.rua,
+			endereco_numero : estabelecimento.numero,
+			endereco_complemento : estabelecimento.complemento,
+			endereco_bairro : estabelecimento.bairro,
+			endereco_cep : estabelecimento.cep,
+			estado_id : estabelecimento.estado,
+			cidade_id : estabelecimento.cidade,
+			tipo_estabelecimento_id: estabelecimento.tipoEstabelecimentoId,
+			telefone_ddd : estabelecimento.ddd,
+			telefone_numero : estabelecimento.telefoneNumero,
+			tipo_telefone_id : estabelecimento.tipoTelefone,
+			funcionario_nome : estabelecimento.funcionarioNome,
+			funcionario_sobrenome : estabelecimento.funcionarioSobrenome,
+			funcionario_cpf : estabelecimento.funcionarioCpf,
+			cargo_id : estabelecimento.cargo,
+			tipo_usuario : estabelecimento.tipoUsuario,
+			usuario_login : estabelecimento.usuarioLogin,
+			usuario_senha : estabelecimento.senha
 
 		};
- 
-    	return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)
-      				.map(this.httpUtil.extrairDados)
-	                .catch(this.httpUtil.processarErros); 
+
+		return this.http.post(this.httpUtil.url(this.path) + 'adicionarVendedor', params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
 	}
-	
+
+	setEstabelecimentoComprador(estabelecimento: any): Observable<any> {
+
+		var params = {
+			estabelecimento_cnpj: estabelecimento.cnpj,
+			estabelecimento_razao_social: estabelecimento.razaoSocial,
+			estabelecimento_nome_fantasia: estabelecimento.nomeFantasia,
+			tipo_estabelecimento_id: estabelecimento.tipoEstabelecimento,
+			funcionario_nome: estabelecimento.funcionarioNome,
+			funcionario_sobrenome: estabelecimento.funcionarioSobrenome,
+			funcionario_cpf: estabelecimento.funcionarioCpf,	
+			cargo_id: estabelecimento.funcionarioCargo,
+			tipo_telefone_id: estabelecimento.tipoTelefone,
+			telefone_ddd: estabelecimento.ddd,
+			telefone_numero: estabelecimento.telefone,
+			usuario_email: estabelecimento.funcionarioEmail,
+			usuario_senha: estabelecimento.password,
+			tipo_usuario: '3'
+		};
+
+		console.log(params);
+
+		return this.http.post(this.httpUtil.url(this.path) + 'adicionarComprador', params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
 }

@@ -21,7 +21,17 @@ import 'rxjs/add/operator/switchMap';
 @Injectable()
 export class EstadoService {
 
+    private path = 'localidade/';
     
+       constructor(private http: Http, private httpUtil: HttpUtilService) {
+       }
+    
+       listarTodos(): Observable<any[]> { 
+           return this.http.get(this.httpUtil.url(this.path) + "getEstados")
+                       .map(this.httpUtil.extrairDados)
+                       .catch(this.httpUtil.processarErros);
+       }
+           
 	
 }
 

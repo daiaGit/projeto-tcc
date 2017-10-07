@@ -60,14 +60,14 @@ export class RegisterEstabelecimentoComponent implements OnInit{
 
         this.form = fb.group({
             cnpj: ['', Validators.required],
-            razaoSocial: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
-            nomeFantasia: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
+            razaoSocial: ['',Validators.compose( [Validators.required, Validators.minLength(3), Validators.maxLength(150)])],
+            nomeFantasia: ['',Validators.compose( [Validators.required, Validators.minLength(3), Validators.maxLength(150)])],
             tipoEstabelecimento: ['', Validators.required],
             funcionarioCargo: ['', Validators.required],
-            funcionarioNome: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
-            funcionarioSobrenome: ['', Validators.required, Validators.minLength(3), Validators.maxLength(150)],
+            funcionarioNome: ['',Validators.compose( [Validators.required, Validators.minLength(3), Validators.maxLength(150)])],
+            funcionarioSobrenome: ['',Validators.compose( [Validators.required, Validators.minLength(3), Validators.maxLength(150)])],
             funcionarioCpf: ['', Validators.required],
-            funcionarioEmail: ['', Validators.required, emailValidator],
+            funcionarioEmail: ['', Validators.compose([Validators.required, emailValidator])],
             tipoTelefone: ['', Validators.required],
             ddd: ['', Validators.required],
             telefone: ['', Validators.required],
@@ -101,14 +101,31 @@ export class RegisterEstabelecimentoComponent implements OnInit{
     }
 
     public onSubmit(values: Object): void {
-        if (this.form.valid) {
+        console.log(values);
+        if (this.form.valid) {            
             this.cadastrarEstabelecimento(values);
             this.router.navigate(['/login-estabelecimento']);
         }
+        else{
+            this.cnpj.markAsTouched();
+            this.confirmPassword.markAsTouched();
+            this.ddd.markAsTouched();
+            this.funcionarioCargo.markAsTouched();
+            this.funcionarioCpf.markAsTouched();
+            this.funcionarioEmail.markAsTouched();
+            this.funcionarioNome.markAsTouched();
+            this.funcionarioSobrenome.markAsTouched();
+            this.nomeFantasia.markAsTouched();
+            this.password.markAsTouched();
+            this.razaoSocial.markAsTouched();
+            this.telefone.markAsTouched();
+            this.tipoEstabelecimento.markAsTouched();
+            this.tipoTelefone.markAsTouched();
+          }
     }
 
     cadastrarEstabelecimento(estabelecimento: any) {
-        this.estabelecimentoService.setEstabelecimento(estabelecimento).subscribe(
+        this.estabelecimentoService.setEstabelecimentoComprador(estabelecimento).subscribe(
             resp => {
                 this.formSubmit = resp['Response'];
                 console.log(resp);

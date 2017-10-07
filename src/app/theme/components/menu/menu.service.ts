@@ -5,6 +5,12 @@ import { Location } from '@angular/common';
 import { Menu } from './menu.model';
 import { verticalMenuItems } from './menu';
 import { horizontalMenuItems } from './menu';
+import { verticalMenuShopItems } from './menu';
+import { horizontalMenuShopItems } from './menu';
+import { verticalMenuEstabelecimentoItems } from './menu';
+import { horizontalMenuEstabelecimentoItems } from './menu';
+import { verticalMenuSmarketItems } from './menu';
+import { horizontalMenuSmarketItems } from './menu';
 
 @Injectable()
 export class MenuService {
@@ -20,6 +26,31 @@ export class MenuService {
 
   public getHorizontalMenuItems():Array<Menu> {
     return horizontalMenuItems;
+  }
+
+  public getVerticalMenuShopItems():Array<Menu> {
+    return verticalMenuShopItems;
+  }
+
+  public getHorizontalMenuShopItems():Array<Menu> {
+    return horizontalMenuShopItems;
+  }
+
+  
+  public getVerticalMenuEstabelecimentoItems():Array<Menu> {
+    return verticalMenuEstabelecimentoItems;
+  }
+
+  public getHorizontalMenuEstabelecimentoItems():Array<Menu> {
+    return horizontalMenuEstabelecimentoItems;
+  }
+
+  public getVerticalMenuSmarketItems():Array<Menu> {
+    return verticalMenuSmarketItems;
+  }
+
+  public getHorizontalMenuSmarketItems():Array<Menu> {
+    return horizontalMenuSmarketItems;
   }
 
   public createMenu(menu:Array<Menu>, nativeElement, type){    

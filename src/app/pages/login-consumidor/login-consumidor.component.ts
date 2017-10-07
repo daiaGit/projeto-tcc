@@ -73,6 +73,7 @@ export class LoginConsumidorComponent implements OnInit {
             this.formSubmit.descricao = resp['response.descricao'];
             error => this.msgErro;
             if(resp['Response.satus']){
+              sessionStorage.setItem("areaLogada", 'shop');
               this.router.navigate(['pages/dashboard']);
             }
             else{
@@ -88,7 +89,7 @@ export class LoginConsumidorComponent implements OnInit {
 
   /** Login com Email */
   public loginEmail(consumidor: any) {           
-
+    
   }
 
   /** Login com Facebook */

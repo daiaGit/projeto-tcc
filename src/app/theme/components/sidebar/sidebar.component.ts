@@ -13,9 +13,23 @@ import { MenuService } from '../menu/menu.service';
 export class SidebarComponent implements OnInit {  
   public settings: Settings;
   public menuItems:Array<any>;
+  public tipoPagina:any;
+
   constructor(public appSettings:AppSettings, public menuService:MenuService) {
       this.settings = this.appSettings.settings;
-      this.menuItems = this.menuService.getVerticalMenuItems();
+      this.tipoPagina = localStorage.getItem('tipoPagina');
+      if(this.tipoPagina == 'home'){
+        this.menuItems = this.menuService.getVerticalMenuItems();
+      }
+      else if(this.tipoPagina == 'shop'){
+        this.menuItems = this.menuService.getVerticalMenuShopItems();
+      }
+      else if(this.tipoPagina == 'estabelecimento'){
+        this.menuItems = this.menuService.getVerticalMenuEstabelecimentoItems();
+      }
+      else if(this.tipoPagina == 'smarket'){
+        this.menuItems = this.menuService.getVerticalMenuSmarketItems();
+      }
   }
 
   ngOnInit() {     

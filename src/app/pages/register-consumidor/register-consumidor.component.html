@@ -16,7 +16,7 @@
         </div>
 
 
-        <!-- Div propaganda -->
+        <!-- Div formulario -->
         <div class="col-sm-5 offset-sm-1 text-center">
 
             <h2>Register member</h2>
@@ -24,69 +24,67 @@
 
             <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
 
-
-
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="email-b-f">Nome</label>
-                            <input [formControl]="nome" class="form-control validation-field" type="text">
+                            <label for="nome">Nome</label>
+                            <input [formControl]="nome" class="form-control validation-field" type="text" name="nome" id="nome">
                             <small class="text-danger" *ngIf="form.get('nome').touched">
-                                                    <span *ngIf="form.get('nome').hasError('required')">Nome obrigatório</span>
-                                                    <span *ngIf="form.get('nome').hasError('minlength')">Minimo 3 caracteres</span>                            
-                                                    <span *ngIf="form.get('nome').hasError('maxlength')">Máximo 150 caracteres</span>
-                                                </small>
+                                                            <span *ngIf="form.get('nome').hasError('required')">Nome obrigatório</span>
+                                                            <span *ngIf="form.get('nome').hasError('minlength')">Minimo 3 caracteres</span>                            
+                                                            <span *ngIf="form.get('nome').hasError('maxlength')">Máximo 150 caracteres</span>
+                                                        </small>
                         </div>
                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="email-b-f">Sobrenome</label>
-                            <input [formControl]="sobrenome" class="form-control validation-field" type="text">
+                            <label for="sobrenome">Sobrenome</label>
+                            <input [formControl]="sobrenome" class="form-control validation-field" type="text" name="sobrenome" id="sobrenome">
                             <small class="text-danger" *ngIf="form.get('sobrenome').touched">
-                                                    <span *ngIf="form.get('sobrenome').hasError('required')">Sobrenome obrigatório</span>
-                                                    <span *ngIf="form.get('sobrenome').hasError('minlength')">Minimo 3 caracteres</span>                            
-                                                    <span *ngIf="form.get('sobrenome').hasError('maxlength')">Máximo 150 caracteres</span>
-                                                </small>
+                                                            <span *ngIf="form.get('sobrenome').hasError('required')">Sobrenome obrigatório</span>
+                                                            <span *ngIf="form.get('sobrenome').hasError('minlength')">Minimo 3 caracteres</span>                            
+                                                            <span *ngIf="form.get('sobrenome').hasError('maxlength')">Máximo 150 caracteres</span>
+                                                        </small>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-5">
                         <div class="form-group">
-                            <label for="email-b-f">Tipo de Telefone</label>
-                            <select [formControl]="tipoTelefone" class="form-control validation-field">
-                                                    <option value="">Selecione</option>
-                                                    <option *ngFor="let tipoTelefone of tiposTelefone" 
-                                                    [value]="tipoTelefone.tipo_telefone_id">
-                                                    {{tipoTelefone.tipo_telefone_descricao}}</option>
-                                            </select>
+                            <label for="tipoTelefone">Tipo de Telefone</label>
+                            <select [formControl]="tipoTelefone" class="form-control validation-field" name="tipoTelefone" id="tipoTelefone">
+                                                            <option value="">Selecione</option>
+                                                            <option *ngFor="let tipoTelefone of tiposTelefone" 
+                                                            [value]="tipoTelefone.tipo_telefone_id">
+                                                            {{tipoTelefone.tipo_telefone_descricao}}</option>
+                                                    </select>
                             <small class="text-danger" *ngIf="form.get('tipoTelefone').touched">
-                                                <span *ngIf="form.get('tipoTelefone').hasError('required')">Tipo de telefone obrigatório</span>
-                                            </small>
+                                                        <span *ngIf="form.get('tipoTelefone').hasError('required')">Tipo de telefone obrigatório</span>
+                                                    </small>
                         </div>
                     </div>
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="email-b-f">DDD</label>
-                            <input [formControl]="ddd" class="form-control validation-field" placeholder="(19)" type="text" specialCharacters="false"
-                                mask="(00)">
+                            <label for="ddd">DDD</label>
+                            <input [formControl]="ddd" class="form-control validation-field" placeholder="(XX)" type="text" specialCharacters="false"
+                                name="ddd" id="ddd" mask="(00)">
                             <small class="text-danger" *ngIf="form.get('ddd').touched">
-                                                    <span *ngIf="form.get('ddd').hasError('required')">ddd obrigatório</span>
-                                                </small>
+                                                            <span *ngIf="form.get('ddd').hasError('required')">ddd obrigatório</span>
+                                                        </small>
                         </div>
                     </div>
 
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="email-b-f">Telefone</label>
-                            <input [formControl]="telefone" class="form-control validation-field" placeholder="9999-9999" type="text" specialCharacters="false"
-                                mask="0000-0000">
+                            <label for="telefone">Telefone</label>
+                            <input [formControl]="telefone" class="form-control validation-field" name="telefone" id="telefone" placeholder="XXXX-XXXX"
+                                type="text" specialCharacters="false" mask="0000-0000">
                             <small class="text-danger" *ngIf="form.get('telefone').touched">
-                                                    <span *ngIf="form.get('telefone').hasError('required')">Telefone obrigatório</span>
-                                                </small>
+                                                            <span *ngIf="form.get('telefone').hasError('required')">Telefone obrigatório</span>
+                                                        </small>
                         </div>
                     </div>
                 </div>
@@ -94,36 +92,36 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="email-b-f">Email</label>
-                            <input [formControl]="email" class="form-control validation-field" type="text">
+                            <label for="email">Email</label>
+                            <input [formControl]="email" class="form-control validation-field" type="text" name="email" id="email">
                             <small class="text-danger" *ngIf="form.get('email').touched">
-                                                <span *ngIf="form.get('email').hasError('required')">Email obrigatório</span>
-                                                <span *ngIf="form.get('email').hasError('invalidEmail')">Email inválido</span>
-                                            </small>
+                                                        <span *ngIf="form.get('email').hasError('required')">Email obrigatório</span>
+                                                        <span *ngIf="form.get('email').hasError('invalidEmail')">Email inválido</span>
+                                                    </small>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="email-b-f">Senha</label>
-                            <input [formControl]="password" class="form-control validation-field" type="password" minlength="6">
+                            <label for="password">Senha</label>
+                            <input [formControl]="password" class="form-control validation-field" type="password" minlength="6" name="password" id="password">
                             <small class="text-danger" *ngIf="form.get('password').touched">
-                                                <span *ngIf="form.get('password').hasError('required')">Senha obrigatória</span>
-                                                <span *ngIf="form.get('password').hasError('minlength')">Mínimo 6 caracteres</span>
-                                                <span *ngIf="form.get('password').hasError('minlength')">Máximo 20 caracteres</span>
-                                            </small>
+                                                        <span *ngIf="form.get('password').hasError('required')">Senha obrigatória</span>
+                                                        <span *ngIf="form.get('password').hasError('minlength')">Mínimo 6 caracteres</span>
+                                                        <span *ngIf="form.get('password').hasError('minlength')">Máximo 20 caracteres</span>
+                                                    </small>
                         </div>
                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="email-b-f">Confirme sua Senha</label>
-                            <input [formControl]="confirmPassword" class="form-control validation-field" type="password">
+                            <label for="confirmPassword">Confirme sua Senha</label>
+                            <input [formControl]="confirmPassword" class="form-control validation-field" type="password" name="confirmPassword" id="confirmPassword">
                             <small class="text-danger" *ngIf="form.get('confirmPassword').touched">
-                                                <span *ngIf="form.get('confirmPassword').hasError('required')">Confirmação de senha obrigatória</span>
-                                                <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">As senhas não correspondem</span>
-                                            </small>
+                                                        <span *ngIf="form.get('confirmPassword').hasError('required')">Confirmação de senha obrigatória</span>
+                                                        <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">As senhas não correspondem</span>
+                                                    </small>
                         </div>
                     </div>
                 </div>
@@ -183,7 +181,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button [disabled]="!form.valid" class="btn btn-block" type="submit">Cadastrar</button>
+                    <button class="btn btn-block" type="submit">Cadastrar</button>
                 </div>
 
             </form>

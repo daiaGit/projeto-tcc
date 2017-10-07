@@ -1,3 +1,4 @@
+
 import { Http } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -9,6 +10,8 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
 
 import { HttpUtilService } from './services/http-util.service';
 import { FacebookModule } from 'ngx-facebook';
+import { NgSelect2Module } from 'ng-select2';
+
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, 'assets/i18n', '.json');
@@ -22,6 +25,7 @@ export function createTranslateLoader(http: Http) {
   imports: [
     BrowserModule,
     routing,
+    NgSelect2Module,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),

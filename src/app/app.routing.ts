@@ -7,10 +7,13 @@ export const routes: Routes = [
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
   { path: 'shop', loadChildren: 'app/shop/shop.module#ShopModule' },
+  { path: 'adm', loadChildren: 'app/adm/adm.module#AdmModule' },
+  { path: 'smarket', loadChildren: 'app/smarket/smarket.module#SmarketModule' },
   { path: 'esqueci-senha', loadChildren: 'app/pages/esqueci-senha/esqueci-senha.module#EsqueciSenhaModule' },
   { path: 'login-estabelecimento', loadChildren: 'app/pages/login-estabelecimento/login-estabelecimento.module#LoginEstabelecimentoModule' },
   { path: 'login-consumidor', loadChildren: 'app/pages/login-consumidor/login-consumidor.module#LoginConsumidorModule' },
   { path: 'register-estabelecimento', loadChildren: 'app/pages/register-estabelecimento/register-estabelecimento.module#RegisterEstabelecimentoModule' },
+  { path: 'register-estabelecimento-vendedor', loadChildren: 'app/pages/register-estabelecimento-vendedor/register-estabelecimento-vendedor.module#RegisterEstabelecimentoVendedorModule' },
   { path: 'register-consumidor', loadChildren: 'app/pages/register-consumidor/register-consumidor.module#RegisterConsumidorModule' },
   { path: 'redefinir-senha', loadChildren: 'app/pages/redefinir-senha/redefinir-senha.module#RedefinirSenhaModule' },
   { path: '**', component: NotFoundComponent }
