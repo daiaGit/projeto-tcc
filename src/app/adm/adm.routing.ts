@@ -8,12 +8,19 @@ export const routes: Routes = [
         component: AdmComponent,
         children:[
             { 
-                path:'', redirectTo:'dashboard-adm', pathMatch:'full' 
+                path:'', redirectTo:'dashboard-adm', pathMatch:'full',
+                 
             },
             { 
                 path: 'dashboard-adm', 
                 loadChildren: 'app/adm/dashboard-adm/dashboard-adm.module#DashboardAdmModule', 
-                data: { breadcrumb: 'Dashboard' } 
+                data: { breadcrumb: 'Dashboard' } ,
+                
+            },
+            { 
+                path: 'tables', 
+                loadChildren: 'app/adm/tables/tables.module#TablesModule', 
+                data: { breadcrumb: 'Tables' } 
             }
         ]
     }

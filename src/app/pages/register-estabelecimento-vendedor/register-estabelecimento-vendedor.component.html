@@ -284,8 +284,8 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="funcionarioCargo">Cargo</label>
-                            <select [formControl]="funcionarioCargo" name="funcionarioCargo" id="funcionarioCargo" class="form-control validation-field">
-                                                    <option value="">Cargo</option>
+                            <select [formControl]="funcionarioCargo" name="funcionarioCargo" id="funcionarioCargo" class="form-control validation-field">                  
+                                <option value="">Cargo</option>
                                                     <option *ngFor="let cargo of cargos" 
                                                     [value]="cargo.cargo_id">
                                                     {{cargo.cargo_descricao}}</option>
@@ -353,10 +353,8 @@
                 </div>
 
             </form>
-
         </div>
     </div>
 </div>
 
 
-<select2 [data]="exampleData"></select2>

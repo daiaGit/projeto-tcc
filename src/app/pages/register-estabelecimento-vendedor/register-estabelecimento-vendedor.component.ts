@@ -13,6 +13,7 @@ import { TiposEstabelecimentoService } from './../../services/tipos-estabelecime
 import { CidadeService } from './../../services/cidade.service';
 import { TermoUsoService } from './../../services/termo-uso.service';
 import { EstadoService } from './../../services/estado.service';
+import {Select2Component} from 'angular-select2-component';
 
 @Component({
     selector: 'app-register-estabelecimento-vendedor',
