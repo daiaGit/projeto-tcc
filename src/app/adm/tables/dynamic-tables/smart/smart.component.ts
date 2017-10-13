@@ -1,109 +1,149 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { CategoriaService } from './../../../../services/categoria.service';
+import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { HttpModule } from '@angular/http';
+
 
 @Component({
   selector: 'app-smart',
   templateUrl: './smart.component.html',
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./smart.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [
+    CategoriaService
+  ],
 })
 
-export class SmartComponent {
+export class SmartComponent implements OnInit {
+  public router: Router;
+
+  //adicionar
+  public formSubmit: any;
+  public categoria_descricao: any;
+  public categoria_img_b64: any;
+  
+  //listar
   public data = [];
+  public file:any;  
+  public msgErro = [];
+
   public settings = {
     selectMode: 'single',  //single|multi
     hideHeader: false,
     hideSubHeader: false,
     actions: {
       columnTitle: 'Actions',
-      add: true,
-      edit: true,
-      delete: true,
+      add: false,
+      edit: false,
+      delete: false,
       custom: [],
       position: 'right' // left|right
     },
-    add: {     
-      addButtonContent: '<h4 class="mb-1"><i class="fa fa-plus ml-3 text-success"></i></h4>',
-      createButtonContent: '<i class="fa fa-check mr-3 text-success"></i>',
-      cancelButtonContent: '<i class="fa fa-times text-danger"></i>'
-    },
-    edit: {
-      editButtonContent: '<i class="fa fa-pencil mr-3 text-primary"></i>',
-      saveButtonContent: '<i class="fa fa-check mr-3 text-success"></i>',
-      cancelButtonContent: '<i class="fa fa-times text-danger"></i>'
-    },
-    delete: {
-      deleteButtonContent: '<i class="fa fa-trash-o text-danger"></i>',
-      confirmDelete: true
-    },
-    noDataMessage: 'No data found',
-    columns: {     
-      id: {
+    noDataMessage: 'Nenhuma categoria encontrada. ',
+    columns: {
+      categoria_id: {
         title: 'ID',
         editable: false,
-        width: '60px',
+        width: '10%',
         type: 'html',
-        valuePrepareFunction: (value) => { return '<div class="text-center">' + value + '</div>'; }       
+        inputClass: 'validate',
+        valuePrepareFunction: (value) => { return '<div class="text-center">' + value + '</div>'; }
       },
-      firstName: {
-        title: 'First Name',
+      categoria_img_b64: {
+        title: 'Imagem',
+        editable: false,
+        type: 'file',
+        valuePrepareFunction: (categoria_img_b64) =>  { return '<img (click)="teste()" src="' + categoria_img_b64 + '" />' },
+        width: '50%'       
+      },
+      categoria_descricao: {
+        title: 'Categoria',
         type: 'string',
-        filter: true
-      },
-      lastName: {
-        title: 'Last Name',
-        type: 'string'
-      },
-      username: {
-        title: 'Username',
-        type: 'string'
-      },
-      email: {
-        title: 'E-mail',
-        type: 'string'
-      },
-      age: {
-        title: 'Age',
-        type: 'number'
+        width: '40%',
+        filter: true,
+        editable: true
       }
     },
     pager: {
       display: true,
-      perPage: 10
+      perPage: 8
     }
   };
 
-  constructor() { 
-    this.getData((data) => {
-      this.data = data;
-    });
+  constructor(
+    router: Router,
+    public fb: FormBuilder,
+    public categoriaService: CategoriaService
+  ) {
+
+
+    this.getData();
   }
 
-  public getData(data) {
-    const req = new XMLHttpRequest();
-    req.open('GET', 'assets/data/users.json');
-    req.onload = () => {
-      data(JSON.parse(req.response));
-    };
-    req.send();
+  ngOnInit(): void {
+
+  }
+
+cadastrarCategoria() {           
+  this.categoriaService.setCategoria(this.categoria_descricao).subscribe(
+      resp => {
+          this.formSubmit = resp['Response'];
+          console.log(resp);          
+          error => this.msgErro;
+      }); 
+}
+
+  public getData() {
+    let listCategoria: any;
+    this.categoriaService.getCategorias().subscribe(
+      data => {
+        listCategoria = data['response'];
+        this.data = listCategoria.objeto;
+        
+        console.log(this.data); 
+        error => this.msgErro;
+        }  
+    );
+  }
+
+  public teste(parametro: any){
+console.log(parametro);
   }
 
   public onDeleteConfirm(event): void {
+    console.log('teste');
     if (window.confirm('Are you sure you want to delete?')) {
       event.confirm.resolve();
     } else {
       event.confirm.reject();
     }
   }
-
-  public onRowSelect(event){
-   // console.log(event);
+  
+  public onSaveConfirm(event):void {
   }
 
-  public onUserRowSelect(event){
+  public onRowSelect(event) {
+    // console.log(event);
+  }
+
+  public onUserRowSelect(event) {
     //console.log(event);   //this select return only one page rows
   }
 
-  public onRowHover(event){
+  public onRowHover(event) {
     //console.log(event);
   }
+
+  fileChange(input){
+    const reader = new FileReader();
+    if (input.files.length) {       
+        this.file = input.files[0].name;            
+    }
+}
+
+removeFile():void{
+    this.file = '';
+}
 
 }

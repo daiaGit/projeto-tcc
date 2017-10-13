@@ -19,7 +19,8 @@ export const routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    BasicTablesComponent
+    BasicTablesComponent,
+
   ]
 })
 export class TablesModule { }
