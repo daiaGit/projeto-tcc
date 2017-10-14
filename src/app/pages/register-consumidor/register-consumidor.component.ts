@@ -34,6 +34,10 @@ export class RegisterConsumidorComponent {
     };
     public passwordType: any = '';;
     public passwordConfirmType: any = '';
+    public confirmTermUso: any = {
+        status: false,
+        validate: false
+    }; 
 
     public nome: AbstractControl;
     public sobrenome: AbstractControl;
@@ -43,7 +47,6 @@ export class RegisterConsumidorComponent {
     public ddd: AbstractControl;
     public telefone: AbstractControl;
     public tipoTelefone: AbstractControl;
-    public confirmTermoUso: AbstractControl;
 
     constructor(router: Router,
         fb: FormBuilder,
@@ -63,8 +66,7 @@ export class RegisterConsumidorComponent {
             confirmPassword: ['', Validators.required],
             telefone: ['', Validators.compose([Validators.required, foneValidator])],
             ddd: ['', Validators.required],
-            tipoTelefone: ['', Validators.required],
-            confirmTermoUso: ['', Validators.required],
+            tipoTelefone: ['', Validators.required]
         }, { validator: matchingPasswords('password', 'confirmPassword') });
 
         this.nome = this.form.controls['nome'];
@@ -75,7 +77,6 @@ export class RegisterConsumidorComponent {
         this.telefone = this.form.controls['telefone'];
         this.ddd = this.form.controls['ddd'];
         this.tipoTelefone = this.form.controls['tipoTelefone'];
-        this.confirmTermoUso = this.form.controls['confirmTermoUso'];
 
         this.maskFone.mask = '0000-0000';
         this.maskFone.placeholder = 'XXXX-XXXX';
@@ -84,7 +85,7 @@ export class RegisterConsumidorComponent {
     }
 
     public onSubmit(values: Object): void {
-        if (this.form.valid) {
+        if (this.form.valid && this.confirmTermUso.status) {
             this.cadastrarConsumidor(values);           
             this.router.navigate(['/login-consumidor']);
         }
@@ -97,6 +98,7 @@ export class RegisterConsumidorComponent {
             this.telefone.markAsTouched();
             this.ddd.markAsTouched();
             this.tipoTelefone.markAsTouched();
+            this.confirmTermUso.validate = true;
         }
     }
 
@@ -136,6 +138,17 @@ export class RegisterConsumidorComponent {
                 error => this.msgErro;
             });
 
+    }
+
+    confirmarTermoUso(){ 
+        if(this.confirmTermUso.status){
+            this.confirmTermUso.status = false;
+        }
+        else{
+            this.confirmTermUso.status = true;
+        }
+        console.log(this.confirmTermUso.status);                
+        console.log(this.confirmTermUso.validate); 
     }
 
     public   ExibirTermoUso() {

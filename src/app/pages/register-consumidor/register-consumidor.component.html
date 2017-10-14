@@ -132,16 +132,16 @@
                 </div>
                 
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         <div class="form-group">
                                 <label class="custom-control custom-checkbox">
-                                        <input [formControl]="confirmTermoUso" class="custom-control-input checkbox-primary" type="checkbox">
+                                        <input class="custom-control-input checkbox-primary" type="checkbox" (change)="confirmarTermoUso()">
                                         <span class="custom-control-indicator"></span>
                                         <span class="custom-control-description">Ao cadastrar-me, declaro que sou maior de idade e aceito as Políticas de privacidade e os <a href="javascript:void(0);"
                                             class="transition terms" data-toggle="modal" data-target="#default-modal">Termos e condições do Smarket</a></span>
                                     </label>
-                            <small class="text-danger" *ngIf="form.get('confirmTermoUso').touched">
-                                                            <span *ngIf="form.get('confirmTermoUso').hasError('required')">Confirmação do termo de uso obrigatória!</span>
+                            <small class="text-danger" *ngIf="confirmTermUso.validate &&  !confirmTermUso.status">
+                                                            <span>Confirmação do termo de uso obrigatória!</span>
                                                         </small>
                         </div>
                     </div>
