@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { TermoUsoService } from './../../services/termo-uso.service';
 import { TipoTelefoneService } from './../../services/tipos-telefone.service';
 import { ConsumidorService } from './../../services/consumidor.service';
 
@@ -12,7 +13,8 @@ import { ConsumidorService } from './../../services/consumidor.service';
     styleUrls: ['./register-consumidor.component.scss'],
     providers: [
         TipoTelefoneService,
-        ConsumidorService
+        ConsumidorService,
+        TermoUsoService  
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -24,7 +26,15 @@ export class RegisterConsumidorComponent {
     public formSubmit: any;
 
     public tiposTelefone: Array<any> = [];
-    
+    public termoUso: any;  
+
+    public maskFone: any={
+        mask: '',
+        placeholder: ''
+    };
+    public passwordType: any = '';;
+    public passwordConfirmType: any = '';
+
     public nome: AbstractControl;
     public sobrenome: AbstractControl;
     public email: AbstractControl;
@@ -33,11 +43,13 @@ export class RegisterConsumidorComponent {
     public ddd: AbstractControl;
     public telefone: AbstractControl;
     public tipoTelefone: AbstractControl;
+    public confirmTermoUso: AbstractControl;
 
     constructor(router: Router,
         fb: FormBuilder,
         public tipoTelefoneService: TipoTelefoneService,
-        public consumidorService: ConsumidorService) {
+        public consumidorService: ConsumidorService,
+        public termoUsoService: TermoUsoService) {
 
         this.router = router;
 
@@ -49,9 +61,10 @@ export class RegisterConsumidorComponent {
             email: ['', Validators.compose([Validators.required, emailValidator])],
             password: ['', Validators.required],
             confirmPassword: ['', Validators.required],
-            telefone: ['', Validators.required],
+            telefone: ['', Validators.compose([Validators.required, foneValidator])],
             ddd: ['', Validators.required],
             tipoTelefone: ['', Validators.required],
+            confirmTermoUso: ['', Validators.required],
         }, { validator: matchingPasswords('password', 'confirmPassword') });
 
         this.nome = this.form.controls['nome'];
@@ -62,6 +75,12 @@ export class RegisterConsumidorComponent {
         this.telefone = this.form.controls['telefone'];
         this.ddd = this.form.controls['ddd'];
         this.tipoTelefone = this.form.controls['tipoTelefone'];
+        this.confirmTermoUso = this.form.controls['confirmTermoUso'];
+
+        this.maskFone.mask = '0000-0000';
+        this.maskFone.placeholder = 'XXXX-XXXX';
+        this.passwordType = 'password';
+        this.passwordConfirmType = 'password'; 
     }
 
     public onSubmit(values: Object): void {
@@ -90,6 +109,25 @@ export class RegisterConsumidorComponent {
             }); 
     }
 
+    setMaskFone() {           
+        if(this.tipoTelefone.value == 2){
+            this.maskFone.mask = '00000-0000';
+            this.maskFone.placeholder = 'XXXXX-XXXX';  
+        }
+        else{
+            this.maskFone.mask = '0000-0000';
+            this.maskFone.placeholder = 'XXXX-XXXX'; 
+        }
+    }
+
+    setTypePassword(type) {
+            this.passwordType = type;
+    }
+
+    setTypePasswordConfirm(type) {
+        this.passwordConfirmType = type;
+}
+    
     listaTiposTelefone() {           
         this.tipoTelefoneService.listarTodos().subscribe(
             tiposTelefone => {
@@ -98,6 +136,10 @@ export class RegisterConsumidorComponent {
                 error => this.msgErro;
             });
 
+    }
+
+    public   ExibirTermoUso() {
+        this.termoUso =  this.termoUsoService.listarTermoUso();
     }
 
     ngAfterViewInit() {
@@ -119,5 +161,12 @@ export function matchingPasswords(passwordKey: string, passwordConfirmationKey: 
         if (password.value !== passwordConfirmation.value) {
             return passwordConfirmation.setErrors({ mismatchedPasswords: true })
         }
+    }
+}
+
+export function foneValidator(control: FormControl): { [key: string]: any } {
+    var foneRegexp = /[0-9]{8,9}$/;
+    if (control.value && !foneRegexp.test(control.value)) {
+        return { invalidTelefone: true };
     }
 }

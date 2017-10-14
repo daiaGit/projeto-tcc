@@ -10,6 +10,7 @@ import { TipoTelefoneService } from './../../services/tipos-telefone.service';
 import { EstabelecimentoService } from './../../services/estabelecimento.service';
 import { CargoService } from './../../services/cargo.service';
 import { TiposEstabelecimentoService } from './../../services/tipos-estabelecimento.service';
+import { TermoUsoService } from './../../services/termo-uso.service';
 
 @Component({
     selector: 'app-register-estabelecimento',
@@ -19,7 +20,8 @@ import { TiposEstabelecimentoService } from './../../services/tipos-estabelecime
         TipoTelefoneService,
         EstabelecimentoService,
         TiposEstabelecimentoService,
-        CargoService
+        CargoService,
+        TermoUsoService  
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -32,7 +34,8 @@ export class RegisterEstabelecimentoComponent implements OnInit{
 
     public tiposTelefone: Array<any> = [];
     public tiposEstabelecimento: Array<any> = [];
-    public cargos: Array<any> = [];    
+    public cargos: Array<any> = [];   
+    public termoUso: any;   
 
     public cnpj: AbstractControl;
     public razaoSocial: AbstractControl;
@@ -48,13 +51,15 @@ export class RegisterEstabelecimentoComponent implements OnInit{
     public tipoTelefone: AbstractControl;
     public password: AbstractControl;
     public confirmPassword: AbstractControl;
+    public confirmTermoUso: AbstractControl;
 
     constructor(router: Router,
         fb: FormBuilder,
         public tipoTelefoneService: TipoTelefoneService,
         public estabelecimentoService: EstabelecimentoService,
         public tiposEstabelecimentoService: TiposEstabelecimentoService,
-        public cargoService: CargoService) {
+        public cargoService: CargoService,
+        public termoUsoService: TermoUsoService) {
 
         this.router = router; 
 
@@ -72,7 +77,8 @@ export class RegisterEstabelecimentoComponent implements OnInit{
             ddd: ['', Validators.required],
             telefone: ['', Validators.required],
             password: ['', Validators.required],
-            confirmPassword: ['', Validators.required]
+            confirmPassword: ['', Validators.required],
+            confirmTermoUso: ['', Validators.required]
         }, 
         { 
             validator: matchingPasswords('password', 'confirmPassword') 
@@ -92,6 +98,7 @@ export class RegisterEstabelecimentoComponent implements OnInit{
         this.telefone = this.form.controls['telefone'];
         this.password = this.form.controls['password'];
         this.confirmPassword = this.form.controls['confirmPassword'];
+        this.confirmTermoUso = this.form.controls['confirmTermoUso'];
     }
 
     public ngOnInit(){
@@ -158,6 +165,10 @@ export class RegisterEstabelecimentoComponent implements OnInit{
                 error => this.msgErro;
             });
 
+    }
+
+    public   ExibirTermoUso() {
+        this.termoUso =  this.termoUsoService.listarTermoUso();
     }
 
     ngAfterViewInit() {
