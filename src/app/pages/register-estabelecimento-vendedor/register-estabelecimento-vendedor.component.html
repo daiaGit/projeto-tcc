@@ -12,7 +12,6 @@
                 SMARKET o mercado que faz toda diferença!
             </h1>
 
-
         </div>
 
 
@@ -80,39 +79,43 @@
                     </div>
                 </div>
 
+                
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="isncricaoEstadual">Inscrição Estadual</label>
-                            <input [formControl]="inscricaoEstadual" name="inscricaoEstadual" id="inscricaoEstadual" class="form-control validation-field"
-                                type="text">
-                            <small class="text-danger" *ngIf="form.get('inscricaoEstadual').touched">
-                                                                    <span *ngIf="form.get('inscricaoEstadual').hasError('required')">Inscrição estudal obrigatório</span>                         
-                                                                </small>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="isncricaoMunicipal">Inscrição Municipal</label>
-                                <input [formControl]="inscricaoMunicipal" name="inscricaoMunicipal" id="inscricaoMunicipal" class="form-control validation-field"
+                                <label for="isncricaoEstadual">Inscrição Estadual</label>
+                                <input [formControl]="inscricaoEstadual" name="inscricaoEstadual" id="inscricaoEstadual" class="form-control validation-field"
                                     type="text">
-                                <small class="text-danger" *ngIf="form.get('inscricaoMunicipal').touched">
-                                                                            <span *ngIf="form.get('inscricaoMunicipal').hasError('required')">Incrição Municipal Obrigatório</span>                                                                                                
-                                                                        </small>
+                                <small class="text-danger" *ngIf="form.get('inscricaoEstadual').touched">
+                                                                        <span *ngIf="form.get('inscricaoEstadual').hasError('required')">Inscrição estudal obrigatório</span>                         
+                                                                    </small>
                             </div>
                         </div>
+    
+              
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="isncricaoMunicipal">Inscrição Municipal</label>
+                                    <input [formControl]="inscricaoMunicipal" name="inscricaoMunicipal" id="inscricaoMunicipal" class="form-control validation-field"
+                                        type="text">
+                                    <small class="text-danger" *ngIf="form.get('inscricaoMunicipal').touched">
+                                                                                <span *ngIf="form.get('inscricaoMunicipal').hasError('required')">Incrição Municipal Obrigatório</span>                                                                                                
+                                                                            </small>
+                                </div>
+                       
+                        </div>
                     </div>
-                </div>
 
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="cep">Cep</label>
-                            <input [formControl]="cep" name="cep" id="cep" class="form-control validation-field" type="text">
+                            <input  [formControl]="cep" name="cep" id="inputCep" class="form-control validation-field cep" type="text" 
+                                    placeholder="XXXXX-XXX" specialCharacters="false" mask="00000-000" >
+                                    <div id="cep" (click)="buscarCep()"></div>
                             <small class="text-danger" *ngIf="form.get('cep').touched">
-                                                                            <span *ngIf="form.get('cep').hasError('required')">Cep obrigatório</span>                         
+                                                                            <span *ngIf="form.get('cep').hasError('required')">Cep obrigatório</span>   
+                                                                            <span *ngIf="form.get('cep').hasError('invalidCep')">Cep inválido</span>                        
                                                                         </small>
                         </div>
                     </div>
@@ -133,7 +136,8 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="numero">Número</label>
-                            <input [formControl]="numero" name="numero" id="numero" class="form-control validation-field" type="text">
+                            <input  [formControl]="numero" name="numero" id="numero" class="form-control validation-field" type="text"
+                                    specialCharacters="false" mask="0000000000">
                             <small class="text-danger" *ngIf="form.get('numero').touched">
                                                                                     <span *ngIf="form.get('numero').hasError('required')">Número Obrigatório</span>                                                                                                
                                                                                 </small>
@@ -141,26 +145,37 @@
                     </div>
 
 
-                    <div class="col-sm-8">
+                    <div class="col-sm-5">
                         <div class="form-group">
                             <label for="complemento">Complemento</label>
                             <input [formControl]="complemento" name="complemento" id="complemento" class="form-control validation-field" type="text">
                         </div>
                     </div>
 
+                    
+                    <div class="col-sm-5">
+                            <div class="form-group">
+                                <label for="bairro">Bairro</label>
+                                <input [formControl]="bairro" name="bairro" id="bairro" class="form-control validation-field" type="text">
+                                <small class="text-danger" *ngIf="form.get('bairro').touched">
+                                                                            <span *ngIf="form.get('bairro').hasError('required')">Bairro obrigatório</span>                         
+                                                                        </small>
+                            </div>
+                        </div>
+
 
                 </div>
 
-                <div class="row">
+                <div class="row">                   
 
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="estado">Estado</label>
-                            <select [formControl]="estado" name="estado" id="estado" class="form-control validation-field">
+                            <select [formControl]="estado" name="estado" id="estado" class="form-control validation-field" (change)="listarCidades()">
                                                                         <option value="">Selecione</option>
                                                                         <option *ngFor="let estado of estados" 
                                                                         [value]="estado.estado_id">
-                                                                        {{estado.tipo_estado_descricao}}</option>
+                                                                        {{estado.estado_descricao}}</option>
                                                                 </select>
                             <small class="text-danger" *ngIf="form.get('estado').touched">
                                                                     <span *ngIf="form.get('estado').hasError('required')">Estado obrigatório</span>
@@ -188,20 +203,20 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label for="tipoTelefone">Tipo de Telefone</label>
-                            <select [formControl]="tipoTelefone" name="tipoTelefone" id="tipoTelefone" class="form-control validation-field">
-                                                                <option value="">Tipo de Telefone</option>
-                                                                <option *ngFor="let tipoTelefone of tiposTelefone" 
-                                                                [value]="tipoTelefone.tipo_telefone_id">
-                                                                {{tipoTelefone.tipo_telefone_descricao}}</option>
-                                                        </select>
-                            <small class="text-danger" *ngIf="form.get('tipoTelefone').touched">
-                                                            <span *ngIf="form.get('tipoTelefone').hasError('required')">Tipo de telefone obrigatório</span>
-                                                        </small>
-                        </div>
-                    </div>
+                        <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label for="tipoTelefone">Tipo de Telefone</label>
+                                    <select [formControl]="tipoTelefone" class="form-control validation-field" name="tipoTelefone" id="tipoTelefone" (change)="setMaskFone()">
+                                                                        <option value="">Selecione</option>
+                                                                        <option *ngFor="let tipoTelefone of tiposTelefone" 
+                                                                        [value]="tipoTelefone.tipo_telefone_id">
+                                                                        {{tipoTelefone.tipo_telefone_descricao}}</option>
+                                                                </select>
+                                    <small class="text-danger" *ngIf="form.get('tipoTelefone').touched">
+                                                                    <span *ngIf="form.get('tipoTelefone').hasError('required')">Tipo de telefone obrigatório</span>
+                                                                </small>
+                                </div>
+                            </div>
 
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -209,21 +224,23 @@
                             <input [formControl]="ddd" name="ddd" id="ddd" class="form-control validation-field" placeholder="(XX)" type="text" specialCharacters="false"
                                 mask="(00)">
                             <small class="text-danger" *ngIf="form.get('ddd').touched">
-                                                                <span *ngIf="form.get('ddd').hasError('required')">ddd obrigatório</span>
+                                                                <span *ngIf="form.get('ddd').hasError('required')">DDD obrigatório</span>
+                                                                <span *ngIf="form.get('ddd').hasError('invalidDDD')">DDD inválido</span>
                                                             </small>
                         </div>
                     </div>
 
                     <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="telefone">Telefone Comercial</label>
-                            <input [formControl]="telefone" name="telefone" id="telefone" class="form-control validation-field" placeholder="XXXX-XXXX"
-                                type="text" specialCharacters="false" mask="0000-0000">
-                            <small class="text-danger" *ngIf="form.get('telefone').touched">
-                                                                <span *ngIf="form.get('telefone').hasError('required')">Telefone obrigatório</span>
-                                                            </small>
+                            <div class="form-group">
+                                <label for="telefone">Telefone Comercial</label>
+                                <input [formControl]="telefone" class="form-control validation-field" name="telefone" id="telefone" [placeholder]="maskFone.placeholder"
+                                    type="text" specialCharacters="false" [mask]="maskFone.mask">
+                                <small class="text-danger" *ngIf="form.get('telefone').touched">
+                                                                    <span *ngIf="form.get('telefone').hasError('required')">Telefone obrigatório</span>
+                                                                    <span *ngIf="form.get('telefone').hasError('invalidTelefone')">Telefone inválido</span>
+                                                                </small>
+                            </div>
                         </div>
-                    </div>
                 </div>
 
                 <div class="row">
@@ -276,7 +293,7 @@
                                 type="text" specialCharacters="false" mask="000.000.000-00">
                             <small class="text-danger" *ngIf="form.get('funcionarioCpf').touched">
                                                             <span *ngIf="form.get('funcionarioCpf').hasError('required')">Cpf obrigatório</span>
-                                                            <span *ngIf="form.get('funcionarioCpf').hasError('invalidCnpj')">Cpf inválido</span>                            
+                                                            <span *ngIf="form.get('funcionarioCpf').hasError('invalidCpf')">Cpf inválido</span>                            
                                                         </small>
                         </div>
                     </div>
@@ -298,31 +315,33 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="password">Senha</label>
-                            <input [formControl]="password" name="password" id="password" class="form-control validation-field" placeholder="Password"
-                                type="password" minlength="6">
-                            <small class="text-danger" *ngIf="form.get('password').touched">
-                                        <span *ngIf="form.get('password').hasError('required')">Senha obrigatória</span>
-                                        <span *ngIf="form.get('password').hasError('minlength')">Mínimo 6 caracteres</span>
-                                        <span *ngIf="form.get('password').hasError('minlength')">Máximo 20 caracteres</span>
-                                    </small>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="password">Senha</label>
+                                <input [formControl]="password" class="form-control validation-field password" [type]="passwordType" minlength="6" name="password"
+                                    id="password">
+                                <div id="senha" (mouseenter)="setTypePassword('text')" (mouseout)="setTypePassword('password')"></div>
+                                <small class="text-danger" *ngIf="form.get('password').touched">
+                                                                <span *ngIf="form.get('password').hasError('required')">Senha obrigatória</span>
+                                                                <span *ngIf="form.get('password').hasError('minlength')">Mínimo 6 caracteres</span>
+                                                                <span *ngIf="form.get('password').hasError('minlength')">Máximo 20 caracteres</span>
+                                                            </small>
+                            </div>
+                        </div>
+    
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirme sua Senha</label>
+                                <input [formControl]="confirmPassword" class="form-control validation-field password" [type]="passwordConfirmType" name="confirmPassword"
+                                    id="confirmPassword">
+                                <div id="senha" (mouseenter)="setTypePasswordConfirm('text')" (mouseout)="setTypePasswordConfirm('password')"></div>
+                                <small class="text-danger" *ngIf="form.get('confirmPassword').touched">
+                                                                <span *ngIf="form.get('confirmPassword').hasError('required')">Confirmação de senha obrigatória</span>
+                                                                <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">As senhas não correspondem</span>
+                                                            </small>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="confirmPassword">Confirmar Senha</label>
-                            <input [formControl]="confirmPassword" name="confirmPassword" id="confirmPassword" class="form-control validation-field"
-                                type="password">
-                            <small class="text-danger" *ngIf="form.get('confirmPassword').touched">
-                                        <span *ngIf="form.get('confirmPassword').hasError('required')">Confirmação de senha obrigatória</span>
-                                        <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">As senhas não correspondem</span>
-                                    </small>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="form-group">
                     <label class="custom-control custom-checkbox">

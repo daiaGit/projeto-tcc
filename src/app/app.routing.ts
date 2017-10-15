@@ -1,7 +1,9 @@
+
 import { Routes, RouterModule, PreloadAllModules  } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
+import { SucessoCadastroComponent } from './pages/sucesso/sucesso-cadastro.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
@@ -16,6 +18,7 @@ export const routes: Routes = [
   { path: 'register-estabelecimento-vendedor', loadChildren: 'app/pages/register-estabelecimento-vendedor/register-estabelecimento-vendedor.module#RegisterEstabelecimentoVendedorModule' },
   { path: 'register-consumidor', loadChildren: 'app/pages/register-consumidor/register-consumidor.module#RegisterConsumidorModule' },
   { path: 'redefinir-senha', loadChildren: 'app/pages/redefinir-senha/redefinir-senha.module#RedefinirSenhaModule' },
+  { path: 'sucesso-cadastro',  component: SucessoCadastroComponent},
   { path: '**', component: NotFoundComponent }
 ];
 

@@ -72,7 +72,8 @@
                             <input [formControl]="ddd" class="form-control validation-field" placeholder="(XX)" type="text" specialCharacters="false"
                                 name="ddd" id="ddd" mask="(00)">
                             <small class="text-danger" *ngIf="form.get('ddd').touched">
-                                                                <span *ngIf="form.get('ddd').hasError('required')">ddd obrigatório</span>
+                                                                <span *ngIf="form.get('ddd').hasError('required')">DDD obrigatório</span>
+                                                                <span *ngIf="form.get('ddd').hasError('invalidDDD')">DDD inválido</span>
                                                             </small>
                         </div>
                     </div>

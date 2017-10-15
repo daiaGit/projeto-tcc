@@ -65,7 +65,7 @@ export class RegisterConsumidorComponent {
             password: ['', Validators.required],
             confirmPassword: ['', Validators.required],
             telefone: ['', Validators.compose([Validators.required, foneValidator])],
-            ddd: ['', Validators.required],
+            ddd: ['', Validators.compose([Validators.required, dddValidator])],
             tipoTelefone: ['', Validators.required]
         }, { validator: matchingPasswords('password', 'confirmPassword') });
 
@@ -87,7 +87,7 @@ export class RegisterConsumidorComponent {
     public onSubmit(values: Object): void {
         if (this.form.valid && this.confirmTermUso.status) {
             this.cadastrarConsumidor(values);           
-            this.router.navigate(['/login-consumidor']);
+            this.router.navigate(['/sucesso-cadastro']);
         }
         else{
             this.nome.markAsTouched();
@@ -128,7 +128,7 @@ export class RegisterConsumidorComponent {
 
     setTypePasswordConfirm(type) {
         this.passwordConfirmType = type;
-}
+    }
     
     listaTiposTelefone() {           
         this.tipoTelefoneService.listarTodos().subscribe(
@@ -147,8 +147,6 @@ export class RegisterConsumidorComponent {
         else{
             this.confirmTermUso.status = true;
         }
-        console.log(this.confirmTermUso.status);                
-        console.log(this.confirmTermUso.validate); 
     }
 
     public   ExibirTermoUso() {
@@ -181,5 +179,12 @@ export function foneValidator(control: FormControl): { [key: string]: any } {
     var foneRegexp = /[0-9]{8,9}$/;
     if (control.value && !foneRegexp.test(control.value)) {
         return { invalidTelefone: true };
+    }
+}
+
+export function dddValidator(control: FormControl): { [key: string]: any } {
+    var dddRegexp = /[0-9]{2,2}$/;
+    if (control.value && !dddRegexp.test(control.value)) {
+        return { invalidDDD: true };
     }
 }
