@@ -124,7 +124,7 @@ export class RegisterEstabelecimentoComponent implements OnInit{
         console.log(values);
         if (this.form.valid && this.confirmTermUso.status) {           
             this.cadastrarEstabelecimento(values);
-            this.router.navigate(['/login-estabelecimento']);
+            this.router.navigate(['/sucesso-cadastro']);
         }
         else{
             this.cnpj.markAsTouched();

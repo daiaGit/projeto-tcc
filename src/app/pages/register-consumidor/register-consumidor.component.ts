@@ -87,7 +87,6 @@ export class RegisterConsumidorComponent {
     public onSubmit(values: Object): void {
         if (this.form.valid && this.confirmTermUso.status) {
             this.cadastrarConsumidor(values);           
-            this.router.navigate(['/sucesso-cadastro']);
         }
         else{
             this.nome.markAsTouched();
@@ -105,9 +104,14 @@ export class RegisterConsumidorComponent {
     cadastrarConsumidor(consumidor: any) {           
         this.consumidorService.setConsumidor(consumidor).subscribe(
             resp => {
-                this.formSubmit = resp['Response'];
-                console.log(resp);          
-                error => this.msgErro;
+                this.formSubmit = resp['response'];
+                if(this.formSubmit.status){
+                    this.router.navigate(['/sucesso-cadastro']);  
+                }
+                else{
+                   this.msgErro = this.formSubmit.msgErro;  
+                }   
+                
             }); 
     }
 

@@ -28,13 +28,15 @@ export class EstabelecimentoService {
 
 	setEstabelecimentoVendedor(estabelecimento: any): Observable<any> {
 
+		console.log(estabelecimento);
+
 		var params = {
 			estabelecimento_cnpj : estabelecimento.cnpj,
 			estabelecimento_razao_social: estabelecimento.razaoSocial,
 			estabelecimento_nome_fantasia: estabelecimento.nomeFantasia,
 			estabelecimento_inscricao_estadual : estabelecimento.inscricaoEstadual,
 			estabelecimento_inscricao_municipal : estabelecimento.inscricaoMunicipal,
-			estabelecimento_vendedor : '1',
+			estabelecimento_vendedor : "1",
 			endereco_rua : estabelecimento.rua,
 			endereco_numero : estabelecimento.numero,
 			endereco_complemento : estabelecimento.complemento,
@@ -42,18 +44,18 @@ export class EstabelecimentoService {
 			endereco_cep : estabelecimento.cep,
 			estado_id : estabelecimento.estado,
 			cidade_id : estabelecimento.cidade,
-			tipo_estabelecimento_id: estabelecimento.tipoEstabelecimentoId,
+			tipo_estabelecimento_id: estabelecimento.tipoEstabelecimento,
 			telefone_ddd : estabelecimento.ddd,
-			telefone_numero : estabelecimento.telefoneNumero,
+			telefone_numero : estabelecimento.telefone,
 			tipo_telefone_id : estabelecimento.tipoTelefone,
 			funcionario_nome : estabelecimento.funcionarioNome,
 			funcionario_sobrenome : estabelecimento.funcionarioSobrenome,
 			funcionario_cpf : estabelecimento.funcionarioCpf,
-			cargo_id : estabelecimento.cargo,
-			tipo_usuario : estabelecimento.tipoUsuario,
+			cargo_id : estabelecimento.funcionarioCargo,
+			tipo_usuario : "4",
 			usuario_login : estabelecimento.usuarioLogin,
-			usuario_senha : estabelecimento.senha
-
+			usuario_senha : estabelecimento.password,
+			usuario_email: estabelecimento.funcionarioEmail
 		};
 
 		return this.http.post(this.httpUtil.url(this.path) + 'adicionarVendedor', params)
@@ -77,7 +79,7 @@ export class EstabelecimentoService {
 			telefone_numero: estabelecimento.telefone,
 			usuario_email: estabelecimento.funcionarioEmail,
 			usuario_senha: estabelecimento.password,
-			tipo_usuario: '3'
+			tipo_usuario: "3"
 		};
 
 		console.log(params);

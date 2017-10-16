@@ -168,7 +168,7 @@ export class RegisterEstabelecimentoVendedorComponent implements OnInit {
         console.log(values);
         if (this.form.valid) {
             this.cadastrarEstabelecimento(values);
-            this.router.navigate(['/login-estabelecimento']);
+            this.router.navigate(['/sucesso-cadastro']);
         }
         else {
             this.cnpj.markAsTouched();
@@ -243,11 +243,33 @@ export class RegisterEstabelecimentoVendedorComponent implements OnInit {
 
     }
 
+    public selecionarEstadoSigla(estadoSigla) {
+        var estado: any;
+        this.estadoService.listarPorSigla(estadoSigla).subscribe(
+            estado => {                
+                estado = estado['estado'];
+                this.estado.setValue(estado['estado_id']);
+                this.listarCidades();            
+                error => this.msgErro;
+            });
+
+    }
+
+    public selecionarCidadeNome(estadoSigla, cidadeNome) {
+        var estado: any;
+        this.cidadeService.getCidadesPorDescricaoEstado(estadoSigla, cidadeNome).subscribe(
+            cidade => {                
+                cidade = cidade['cidade'];
+                this.cidade.setValue(cidade['cidade_id']);          
+                error => this.msgErro;
+            });
+
+    }
+
     public listarCidades() {
         this.cidade.setValue('');
         this.cidadeService.listarTodos(this.estado.value).subscribe(
             cidades => {
-                console.log(cidades);
                 this.cidades = cidades['cidades'];
                 error => this.msgErro;
             });
@@ -281,6 +303,8 @@ export class RegisterEstabelecimentoVendedorComponent implements OnInit {
                         this.rua.setValue(endereco['logradouro']);
                         this.complemento.setValue(endereco['complemento']);
                         this.bairro.setValue(endereco['bairro']);
+                        this.selecionarEstadoSigla(endereco['uf']);
+                        this.selecionarCidadeNome(endereco['uf'], endereco['localidade'])
                     }
                     else {
                         this.rua.setValue('');

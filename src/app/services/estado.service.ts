@@ -31,6 +31,12 @@ export class EstadoService {
                        .map(this.httpUtil.extrairDados)
                        .catch(this.httpUtil.processarErros);
        }
+
+       listarPorSigla(estado_sigla): Observable<any[]> { 
+        return this.http.get(this.httpUtil.url(this.path) + "getEstadoPorSigla/" + estado_sigla)
+                    .map(this.httpUtil.extrairDados)
+                    .catch(this.httpUtil.processarErros);
+        }
            
 	
 }

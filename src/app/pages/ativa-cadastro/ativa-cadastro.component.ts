@@ -2,13 +2,13 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sucesso-cadastro',
-  templateUrl: './sucesso-cadastro.component.html',
-  styleUrls: ['./sucesso-cadastro.component.scss'],
+  selector: 'app-ativa-cadastro',
+  templateUrl: './ativa-cadastro.component.html',
+  styleUrls: ['./ativa-cadastro.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 
-export class SucessoCadastroComponent {
+export class AtivaCadastroComponent {
 
   router: Router;
     

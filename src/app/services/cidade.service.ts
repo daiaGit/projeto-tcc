@@ -31,6 +31,18 @@ export class CidadeService {
                        .map(this.httpUtil.extrairDados)
                        .catch(this.httpUtil.processarErros);
        }
+
+       getCidadesPorDescricaoEstado(sigla_estado,nome_cidade): Observable<any[]> { 
+		var params = {
+			estado_sigla: sigla_estado,
+			cidade_descricao: nome_cidade
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + "getCidadePorDescricaoEstado", params)
+			.map(this.httpUtil.extrairDados)
+            .catch(this.httpUtil.processarErros);
+            
+    }
 	
 }
 
