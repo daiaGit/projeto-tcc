@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -19,19 +20,12 @@ import { VerticalMenuComponent } from './../theme/components/menu/vertical-menu/
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     routing
   ],
   declarations: [
-    SmarketComponent,
-    HeaderComponent,
-    FooterComponent,
-    SidebarComponent,
-    VerticalMenuComponent,
-    HorizontalMenuComponent,
-    BreadcrumbComponent,
-    BackTopComponent,
-    UserMenuComponent
+    SmarketComponent
   ]
 })
 export class SmarketModule { }
