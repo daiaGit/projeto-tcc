@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -14,21 +14,24 @@ import { ConsumidorService } from './../../services/consumidor.service';
     providers: [
         TipoTelefoneService,
         ConsumidorService,
-        TermoUsoService  
+        TermoUsoService
     ],
     encapsulation: ViewEncapsulation.None
 })
 
-export class RegisterConsumidorComponent {
+export class RegisterConsumidorComponent implements OnInit{
     public router: Router;
     public form: FormGroup;
-    public msgErro: any;
-    public formSubmit: any;
+    public erros: Array<any> = []; 
+    public formSubmit: any = {
+        descricao: '',
+        status: false
+    };
 
     public tiposTelefone: Array<any> = [];
-    public termoUso: any;  
+    public termoUso: any;
 
-    public maskFone: any={
+    public maskFone: any = {
         mask: '',
         placeholder: ''
     };
@@ -37,7 +40,7 @@ export class RegisterConsumidorComponent {
     public confirmTermUso: any = {
         status: false,
         validate: false
-    }; 
+    };
 
     public nome: AbstractControl;
     public sobrenome: AbstractControl;
@@ -55,8 +58,6 @@ export class RegisterConsumidorComponent {
         public termoUsoService: TermoUsoService) {
 
         this.router = router;
-
-        this.listaTiposTelefone();
 
         this.form = fb.group({
             nome: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(150)])],
@@ -81,14 +82,26 @@ export class RegisterConsumidorComponent {
         this.maskFone.mask = '0000-0000';
         this.maskFone.placeholder = 'XXXX-XXXX';
         this.passwordType = 'password';
-        this.passwordConfirmType = 'password'; 
+        this.passwordConfirmType = 'password';
     }
+
+    public ngOnInit(){
+        this.listaTiposTelefone();
+        this.listarTermoUso();
+    }
+
+    ngAfterViewInit() {
+        document.getElementById('preloader').classList.add('hide');
+    }
+
+
+    /** ENVIO DE DADOS FORMULARIO*/
 
     public onSubmit(values: Object): void {
         if (this.form.valid && this.confirmTermUso.status) {
-            this.cadastrarConsumidor(values);           
+            this.cadastrarConsumidor(values);
         }
-        else{
+        else {
             this.nome.markAsTouched();
             this.sobrenome.markAsTouched();
             this.email.markAsTouched();
@@ -101,64 +114,90 @@ export class RegisterConsumidorComponent {
         }
     }
 
-    cadastrarConsumidor(consumidor: any) {           
+    cadastrarConsumidor(consumidor: any) {
+        var resp;
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
         this.consumidorService.setConsumidor(consumidor).subscribe(
-            resp => {
-                this.formSubmit = resp['response'];
-                if(this.formSubmit.status){
-                    this.router.navigate(['/sucesso-cadastro']);  
+            consumidor => {
+                resp = consumidor['response'];
+                this.formSubmit.status = resp['status'];
+                this.formSubmit.descricao = resp['descricao'];
+                if (this.formSubmit.status == 'true') {
+                    this.router.navigate(['/sucesso-cadastro']);
                 }
-                else{
-                   this.msgErro = this.formSubmit.msgErro;  
-                }   
-                
-            }); 
+                else {
+                    msgErro.item = 'Erro ao efetuar o cadastro!';
+                    msgErro.descricao = this.formSubmit.descricao;
+                    this.erros.push(msgErro);
+                }
+            },
+            err => {
+                msgErro.item = 'Erro ao efetuar o cadastro!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
     }
 
-    setMaskFone() {           
-        if(this.tipoTelefone.value == 2){
+    /** SETAR AÇÕES FORMULÁRIO */
+    setMaskFone() {
+        if (this.tipoTelefone.value == 2) {
             this.maskFone.mask = '00000-0000';
-            this.maskFone.placeholder = 'XXXXX-XXXX';  
+            this.maskFone.placeholder = 'XXXXX-XXXX';
         }
-        else{
+        else {
             this.maskFone.mask = '0000-0000';
-            this.maskFone.placeholder = 'XXXX-XXXX'; 
+            this.maskFone.placeholder = 'XXXX-XXXX';
         }
     }
 
     setTypePassword(type) {
-            this.passwordType = type;
+        this.passwordType = type;
     }
 
     setTypePasswordConfirm(type) {
         this.passwordConfirmType = type;
     }
-    
-    listaTiposTelefone() {           
-        this.tipoTelefoneService.listarTodos().subscribe(
-            tiposTelefone => {
-                this.tiposTelefone = tiposTelefone['tiposTelefone'];
-                console.log(tiposTelefone);          
-                error => this.msgErro;
-            });
 
+    public closeAlert(index) {
+        this.erros.splice(this.erros.indexOf(index), 1);
     }
 
-    confirmarTermoUso(){ 
-        if(this.confirmTermUso.status){
+    confirmarTermoUso() {
+        if (this.confirmTermUso.status) {
             this.confirmTermUso.status = false;
         }
-        else{
+        else {
             this.confirmTermUso.status = true;
         }
     }
 
-    public   ExibirTermoUso() {
-        this.termoUso =  this.termoUsoService.listarTermoUso();
+    /** LISTAR CONTEUDO */
+    listaTiposTelefone() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        this.tipoTelefoneService.listarTodos().subscribe(
+            tiposTelefone => {
+                this.tiposTelefone = tiposTelefone['tiposTelefone'];
+            },
+            err => {
+                msgErro.item = 'Erro ao buscar tipos de telefone!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+
     }
 
-    ngAfterViewInit() {
-        document.getElementById('preloader').classList.add('hide');
+    public listarTermoUso() {
+        this.termoUso = this.termoUsoService.listarTermoUso();
     }
 }
 

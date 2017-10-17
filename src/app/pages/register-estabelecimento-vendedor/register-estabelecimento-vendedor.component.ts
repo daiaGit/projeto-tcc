@@ -37,7 +37,7 @@ import { CepService } from './../../services/cep.service';
 export class RegisterEstabelecimentoVendedorComponent implements OnInit {
     public router: Router;
     public form: FormGroup;
-    public msgErro: any;
+    public erros: Array<any> = []; 
     public formSubmit: any;
 
     public tiposTelefone: Array<any> = [];
@@ -164,13 +164,17 @@ export class RegisterEstabelecimentoVendedorComponent implements OnInit {
         this.ExibirTermoUso();
     }
 
+    public ngAfterViewInit() {
+        document.getElementById('preloader').classList.add('hide');
+    }
+
+    /** Ações ao enviar Formulário */
     public onSubmit(values: Object): void {
-        console.log(values);
-        if (this.form.valid) {
+        if (this.form.valid && this.confirmTermUso.status) {           
             this.cadastrarEstabelecimento(values);
             this.router.navigate(['/sucesso-cadastro']);
         }
-        else {
+        else{
             this.cnpj.markAsTouched();
             this.confirmPassword.markAsTouched();
             this.ddd.markAsTouched();
@@ -198,81 +202,38 @@ export class RegisterEstabelecimentoVendedorComponent implements OnInit {
     }
 
     public cadastrarEstabelecimento(estabelecimento: any) {
+        var resp: any;
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
         this.estabelecimentoService.setEstabelecimentoVendedor(estabelecimento).subscribe(
-            resp => {
-                this.formSubmit = resp['Response'];
-                console.log(resp);
-                error => this.msgErro;
-            });
+            estabelecimento => {
+                resp = estabelecimento['response'];
+                this.formSubmit.status = resp['status'];
+                this.formSubmit.descricao = resp['descricao'];
+                if (this.formSubmit.status == 'true') {
+                    this.router.navigate(['/sucesso-cadastro']);
+                }
+                else {
+                    msgErro.item = 'Erro ao efetuar o cadastro!';
+                    msgErro.descricao = this.formSubmit.descricao;
+                    this.erros.push(msgErro);
+                }
+            },
+            err => {
+                msgErro.item = 'Erro ao cadastrar estabelecimento!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
     }
 
-    public listarTiposTelefone() {
-        this.tipoTelefoneService.listarTodos().subscribe(
-            tiposTelefone => {
-                this.tiposTelefone = tiposTelefone['tiposTelefone'];
-                error => this.msgErro;
-            });
-
-    }
-
-    public listarTiposEstabelecimento() {
-        this.tiposEstabelecimentoService.listarTodos().subscribe(
-            tiposEstabelecimento => {
-                this.tiposEstabelecimento = tiposEstabelecimento['tiposEstabelecimento'];
-                error => this.msgErro;
-            });
-
-    }
-
-    public listarCargos() {
-        this.cargoService.listarTodos().subscribe(
-            cargos => {
-                this.cargos = cargos['cargo'];
-                error => this.msgErro;
-            });
-
-    }
-
-    public listarEstados() {
-        this.estadoService.listarTodos().subscribe(
-            estados => {
-                console.log(estados);
-                this.estados = estados['estados'];
-                error => this.msgErro;
-            });
-
-    }
-
-    public selecionarEstadoSigla(estadoSigla) {
-        var estado: any;
-        this.estadoService.listarPorSigla(estadoSigla).subscribe(
-            estado => {                
-                estado = estado['estado'];
-                this.estado.setValue(estado['estado_id']);
-                this.listarCidades();            
-                error => this.msgErro;
-            });
-
-    }
-
-    public selecionarCidadeNome(estadoSigla, cidadeNome) {
-        var estado: any;
-        this.cidadeService.getCidadesPorDescricaoEstado(estadoSigla, cidadeNome).subscribe(
-            cidade => {                
-                cidade = cidade['cidade'];
-                this.cidade.setValue(cidade['cidade_id']);          
-                error => this.msgErro;
-            });
-
-    }
-
-    public listarCidades() {
-        this.cidade.setValue('');
-        this.cidadeService.listarTodos(this.estado.value).subscribe(
-            cidades => {
-                this.cidades = cidades['cidades'];
-                error => this.msgErro;
-            });
+    /** Ações Formulário */
+    public closeAlert(index) {
+        console.log(index);
+        this.erros.splice(this.erros.indexOf(index), 1);
     }
 
     setMaskFone() {           
@@ -294,8 +255,167 @@ export class RegisterEstabelecimentoVendedorComponent implements OnInit {
         this.passwordConfirmType = type;
     }
 
+    public ExibirTermoUso() {
+        this.termoUso = this.termoUsoService.listarTermoUso();
+    }
+
+    confirmarTermoUso(){ 
+        if(this.confirmTermUso.status){
+            this.confirmTermUso.status = false;
+        }
+        else{
+            this.confirmTermUso.status = true;
+        }
+    }
+
+    /** Listar Conteúdo */
+    public listarTiposTelefone() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        this.tipoTelefoneService.listarTodos().subscribe(
+            tiposTelefone => {
+                this.tiposTelefone = tiposTelefone['tiposTelefone'];
+            },
+            err => {
+                msgErro.item = 'Erro ao listar tipos de Telefone!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+
+    }
+
+    public listarTiposEstabelecimento() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        this.tiposEstabelecimentoService.listarTodos().subscribe(
+            tiposEstabelecimento => {
+                this.tiposEstabelecimento = tiposEstabelecimento['tiposEstabelecimento'];
+            },            
+            err => {
+                msgErro.item = 'Erro ao listar tipos de Estabelecimento!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+
+    }
+
+    public listarCargos() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        this.cargoService.listarTodos().subscribe(
+            cargos => {
+                this.cargos = cargos['cargo'];
+            },
+            err => {
+                msgErro.item = 'Erro ao listar Cargos!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+
+    }
+
+    public listarEstados() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        this.estadoService.listarTodos().subscribe(
+            estados => {
+                console.log(estados);
+                this.estados = estados['estados'];
+            },
+            err => {
+                msgErro.item = 'Erro ao listar Estados!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+
+    }
+
+    public selecionarEstadoSigla(estadoSigla) {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        var estado: any;
+        this.estadoService.listarPorSigla(estadoSigla).subscribe(
+            estado => {                
+                estado = estado['estado'];
+                this.estado.setValue(estado['estado_id']);
+                this.listarCidades();            
+            },
+            err => {
+                msgErro.item = 'Erro ao listar Estado pela Sigla!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+
+    }
+
+    public selecionarCidadeNome(estadoSigla, cidadeNome) {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        var estado: any;
+        this.cidadeService.getCidadesPorDescricaoEstado(estadoSigla, cidadeNome).subscribe(
+            cidade => {                
+                cidade = cidade['cidade'];
+                this.cidade.setValue(cidade['cidade_id']);          
+            },
+            err => {
+                msgErro.item = 'Erro ao listar Cidade pelo nome!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+
+    }
+
+    public listarCidades() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        this.cidade.setValue('');
+        this.cidadeService.listarTodos(this.estado.value).subscribe(
+            cidades => {
+                this.cidades = cidades['cidades'];
+            },
+            err => {
+                msgErro.item = 'Erro ao listar Cidades!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            });
+    }
+
+
+
 
     public buscarCep() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
         this.cepService.getEnderecoCep(this.cep.value).subscribe(
             endereco => {
                 if (endereco) {
@@ -312,17 +432,13 @@ export class RegisterEstabelecimentoVendedorComponent implements OnInit {
                         this.bairro.setValue('');
                     }
 
-                }
-                error => this.msgErro;
+                }                
+            },
+            err => {
+                msgErro.item = 'Erro ao buscar cep!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
             });
-    }
-
-    public ExibirTermoUso() {
-        this.termoUso = this.termoUsoService.listarTermoUso();
-    }
-
-    public ngAfterViewInit() {
-        document.getElementById('preloader').classList.add('hide');
     }
 
 }

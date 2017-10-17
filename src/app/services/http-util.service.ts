@@ -27,10 +27,9 @@ export class HttpUtilService {
   	}
  
   	processarErros(erro: any) {
-		let errMsg = (erro.message) ? erro.message :
+		let err = (erro.message) ? erro.message :
 		erro.status ? `${erro.status} - ${erro.statusText}` : 'Server error';
-		console.error(errMsg);
-		return Observable.throw(errMsg);
+		return Observable.throw(err);
 	}
 }
 

@@ -29,10 +29,10 @@
                             <label for="razaoSocial">Razão Social</label>
                             <input [formControl]="razaoSocial" class="form-control validation-field" name="razaoSocial" id="razaoSocial" type="text">
                             <small class="text-danger" *ngIf="form.get('razaoSocial').touched">
-                                                            <span *ngIf="form.get('razaoSocial').hasError('required')">Razão Social Obrigatória</span>
-                                                            <span *ngIf="form.get('razaoSocial').hasError('minlength')">Minimo 3  caracteres</span>  
-                                                            <span *ngIf="form.get('razaoSocial').hasError('maxlength')">Maximo 150 caracteres </span>                              
-                                                        </small>
+                                <span *ngIf="form.get('razaoSocial').hasError('required')">Razão Social Obrigatória</span>
+                                <span *ngIf="form.get('razaoSocial').hasError('minlength')">Minimo 3 caracteres</span>
+                                <span *ngIf="form.get('razaoSocial').hasError('maxlength')">Maximo 150 caracteres </span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -43,10 +43,10 @@
                             <label for="nomeFantasia">Nome Fantasia</label>
                             <input [formControl]="nomeFantasia" class="form-control validation-field" name="nomeFantasia" id="nomeFantasia" type="text">
                             <small class="text-danger" *ngIf="form.get('nomeFantasia').touched">
-                                                                <span *ngIf="form.get('nomeFantasia').hasError('required')">Nome Fantasia Obrigatório</span>
-                                                                <span *ngIf="form.get('nomeFantasia').hasError('minlength')">Minimo 3  caracteres</span>  
-                                                                <span *ngIf="form.get('nomeFantasia').hasError('maxlength')">Maximo 150 caracteres </span>                              
-                                                            </small>
+                                <span *ngIf="form.get('nomeFantasia').hasError('required')">Nome Fantasia Obrigatório</span>
+                                <span *ngIf="form.get('nomeFantasia').hasError('minlength')">Minimo 3 caracteres</span>
+                                <span *ngIf="form.get('nomeFantasia').hasError('maxlength')">Maximo 150 caracteres </span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -56,14 +56,13 @@
                         <div class="form-group">
                             <label for="tipoEstabelecimento">Tipo de Estabelecimento</label>
                             <select [formControl]="tipoEstabelecimento" name="tipoEstabelecimento" id="tipoEstabelecimento" class="form-control validation-field">
-                                            <option value="">Selecione</option>
-                                            <option *ngFor="let tipoEstabelecimento of tiposEstabelecimento" 
-                                            [value]="tipoEstabelecimento.tipo_estabelecimento_id">
-                                            {{tipoEstabelecimento.tipo_estabelecimento_descricao}}</option>
-                                    </select>
+                                <option value="">Selecione</option>
+                                <option *ngFor="let tipoEstabelecimento of tiposEstabelecimento" [value]="tipoEstabelecimento.tipo_estabelecimento_id">
+                                    {{tipoEstabelecimento.tipo_estabelecimento_descricao}}</option>
+                            </select>
                             <small class="text-danger" *ngIf="form.get('tipoEstabelecimento').touched">
-                                        <span *ngIf="form.get('tipoEstabelecimento').hasError('required')">Tipo de estabelecimento obrigatório</span>
-                                    </small>
+                                <span *ngIf="form.get('tipoEstabelecimento').hasError('required')">Tipo de estabelecimento obrigatório</span>
+                            </small>
                         </div>
                     </div>
 
@@ -73,9 +72,9 @@
                             <input [formControl]="cnpj" name="cnpj" id="cnpj" class="form-control validation-field" placeholder="XX.XXX.XXX/XXX-XX" type="text"
                                 specialCharacters="false" mask="00.000.000/0000-00">
                             <small class="text-danger" *ngIf="form.get('cnpj').touched">
-                                                    <span *ngIf="form.get('cnpj').hasError('required')">Cnpj obrigatório</span>
-                                                    <span *ngIf="form.get('cnpj').hasError('invalidCnpj')">Cnpj inválido</span>                            
-                                                </small>
+                                <span *ngIf="form.get('cnpj').hasError('required')">Cnpj obrigatório</span>
+                                <span *ngIf="form.get('cnpj').hasError('invalidCnpj')">Cnpj inválido</span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -85,14 +84,13 @@
                         <div class="form-group">
                             <label for="tipoTelefone">Tipo de Telefone</label>
                             <select [formControl]="tipoTelefone" class="form-control validation-field" name="tipoTelefone" id="tipoTelefone" (change)="setMaskFone()">
-                                                                <option value="">Selecione</option>
-                                                                <option *ngFor="let tipoTelefone of tiposTelefone" 
-                                                                [value]="tipoTelefone.tipo_telefone_id">
-                                                                {{tipoTelefone.tipo_telefone_descricao}}</option>
-                                                        </select>
+                                <option value="">Selecione</option>
+                                <option *ngFor="let tipoTelefone of tiposTelefone" [value]="tipoTelefone.tipo_telefone_id">
+                                    {{tipoTelefone.tipo_telefone_descricao}}</option>
+                            </select>
                             <small class="text-danger" *ngIf="form.get('tipoTelefone').touched">
-                                                            <span *ngIf="form.get('tipoTelefone').hasError('required')">Tipo de telefone obrigatório</span>
-                                                        </small>
+                                <span *ngIf="form.get('tipoTelefone').hasError('required')">Tipo de telefone obrigatório</span>
+                            </small>
                         </div>
                     </div>
 
@@ -102,9 +100,9 @@
                             <input [formControl]="ddd" name="ddd" id="ddd" class="form-control validation-field" placeholder="(XX)" type="text" specialCharacters="false"
                                 mask="(00)">
                             <small class="text-danger" *ngIf="form.get('ddd').touched">
-                                                        <span *ngIf="form.get('ddd').hasError('required')">ddd obrigatório</span>
-                                                        <span *ngIf="form.get('ddd').hasError('invalidDDD')">DDD inválido</span>
-                                                    </small>
+                                <span *ngIf="form.get('ddd').hasError('required')">ddd obrigatório</span>
+                                <span *ngIf="form.get('ddd').hasError('invalidDDD')">DDD inválido</span>
+                            </small>
                         </div>
                     </div>
 
@@ -115,9 +113,9 @@
                             <input [formControl]="telefone" class="form-control validation-field" name="telefone" id="telefone" [placeholder]="maskFone.placeholder"
                                 type="text" specialCharacters="false" [mask]="maskFone.mask">
                             <small class="text-danger" *ngIf="form.get('telefone').touched">
-                                                                <span *ngIf="form.get('telefone').hasError('required')">Telefone obrigatório</span>
-                                                                <span *ngIf="form.get('telefone').hasError('invalidTelefone')">Telefone inválido</span>
-                                                            </small>
+                                <span *ngIf="form.get('telefone').hasError('required')">Telefone obrigatório</span>
+                                <span *ngIf="form.get('telefone').hasError('invalidTelefone')">Telefone inválido</span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -129,9 +127,9 @@
                             <input [formControl]="funcionarioEmail" name="funcionarioEmail" id="funcionarioEmail" class="form-control validation-field"
                                 type="text">
                             <small class="text-danger" *ngIf="form.get('funcionarioEmail').touched">
-                                    <span *ngIf="form.get('funcionarioEmail').hasError('required')">Email obrigatório</span>
-                                    <span *ngIf="form.get('funcionarioEmail').hasError('invalidEmail')">Email inválido</span>
-                                </small>
+                                <span *ngIf="form.get('funcionarioEmail').hasError('required')">Email obrigatório</span>
+                                <span *ngIf="form.get('funcionarioEmail').hasError('invalidEmail')">Email inválido</span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -143,10 +141,10 @@
                             <input [formControl]="funcionarioNome" name="funcionarioNome" id="funcionarioNome" class="form-control validation-field"
                                 placeholder="Nome" type="text">
                             <small class="text-danger" *ngIf="form.get('funcionarioNome').touched">
-                                                    <span *ngIf="form.get('funcionarioNome').hasError('required')">Nome obrigatório</span>
-                                                    <span *ngIf="form.get('funcionarioNome').hasError('minlength')">Minimo 3 caracteres</span>                            
-                                                    <span *ngIf="form.get('funcionarioNome').hasError('maxlength')">Máximo 150 caracteres</span>
-                                                </small>
+                                <span *ngIf="form.get('funcionarioNome').hasError('required')">Nome obrigatório</span>
+                                <span *ngIf="form.get('funcionarioNome').hasError('minlength')">Minimo 3 caracteres</span>
+                                <span *ngIf="form.get('funcionarioNome').hasError('maxlength')">Máximo 150 caracteres</span>
+                            </small>
                         </div>
                     </div>
 
@@ -156,10 +154,10 @@
                             <input [formControl]="funcionarioSobrenome" name="funcionarioSobrenome" id="funcionarioSobrenome" class="form-control validation-field"
                                 placeholder="Sobrenome" type="text">
                             <small class="text-danger" *ngIf="form.get('funcionarioSobrenome').touched">
-                                                    <span *ngIf="form.get('funcionarioSobrenome').hasError('required')">Sobrenome obrigatório</span>
-                                                    <span *ngIf="form.get('funcionarioSobrenome').hasError('minlength')">Minimo 3 caracteres</span>                            
-                                                    <span *ngIf="form.get('funcionarioSobrenome').hasError('maxlength')">Máximo 150 caracteres</span>
-                                                </small>
+                                <span *ngIf="form.get('funcionarioSobrenome').hasError('required')">Sobrenome obrigatório</span>
+                                <span *ngIf="form.get('funcionarioSobrenome').hasError('minlength')">Minimo 3 caracteres</span>
+                                <span *ngIf="form.get('funcionarioSobrenome').hasError('maxlength')">Máximo 150 caracteres</span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -171,9 +169,9 @@
                             <input [formControl]="funcionarioCpf" name="funcionarioCpf" id="funcionarioCpf" class="form-control validation-field" placeholder="XXX.XXX.XXX-XX"
                                 type="text" specialCharacters="false" mask="000.000.000-00">
                             <small class="text-danger" *ngIf="form.get('funcionarioCpf').touched">
-                                                    <span *ngIf="form.get('funcionarioCpf').hasError('required')">Cpf obrigatório</span>
-                                                    <span *ngIf="form.get('funcionarioCpf').hasError('invalidCpf')">Cpf inválido</span>                            
-                                                </small>
+                                <span *ngIf="form.get('funcionarioCpf').hasError('required')">Cpf obrigatório</span>
+                                <span *ngIf="form.get('funcionarioCpf').hasError('invalidCpf')">Cpf inválido</span>
+                            </small>
                         </div>
                     </div>
 
@@ -181,14 +179,13 @@
                         <div class="form-group">
                             <label for="funcionarioCargo">Cargo</label>
                             <select [formControl]="funcionarioCargo" name="funcionarioCargo" id="funcionarioCargo" class="form-control validation-field">
-                                            <option value="">Cargo</option>
-                                            <option *ngFor="let cargo of cargos" 
-                                            [value]="cargo.cargo_id">
-                                            {{cargo.cargo_descricao}}</option>
-                                    </select>
+                                <option value="">Cargo</option>
+                                <option *ngFor="let cargo of cargos" [value]="cargo.cargo_id">
+                                    {{cargo.cargo_descricao}}</option>
+                            </select>
                             <small class="text-danger" *ngIf="form.get('funcionarioCargo').touched">
-                                        <span *ngIf="form.get('funcionarioCargo').hasError('required')">Cargo obrigatório</span>
-                                    </small>
+                                <span *ngIf="form.get('funcionarioCargo').hasError('required')">Cargo obrigatório</span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -201,10 +198,10 @@
                                 id="password">
                             <div id="senha" (mouseenter)="setTypePassword('text')" (mouseout)="setTypePassword('password')"></div>
                             <small class="text-danger" *ngIf="form.get('password').touched">
-                                                            <span *ngIf="form.get('password').hasError('required')">Senha obrigatória</span>
-                                                            <span *ngIf="form.get('password').hasError('minlength')">Mínimo 6 caracteres</span>
-                                                            <span *ngIf="form.get('password').hasError('minlength')">Máximo 20 caracteres</span>
-                                                        </small>
+                                <span *ngIf="form.get('password').hasError('required')">Senha obrigatória</span>
+                                <span *ngIf="form.get('password').hasError('minlength')">Mínimo 6 caracteres</span>
+                                <span *ngIf="form.get('password').hasError('minlength')">Máximo 20 caracteres</span>
+                            </small>
                         </div>
                     </div>
 
@@ -215,9 +212,9 @@
                                 id="confirmPassword">
                             <div id="senha" (mouseenter)="setTypePasswordConfirm('text')" (mouseout)="setTypePasswordConfirm('password')"></div>
                             <small class="text-danger" *ngIf="form.get('confirmPassword').touched">
-                                                            <span *ngIf="form.get('confirmPassword').hasError('required')">Confirmação de senha obrigatória</span>
-                                                            <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">As senhas não correspondem</span>
-                                                        </small>
+                                <span *ngIf="form.get('confirmPassword').hasError('required')">Confirmação de senha obrigatória</span>
+                                <span *ngIf="form.get('confirmPassword').hasError('mismatchedPasswords')">As senhas não correspondem</span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -225,15 +222,16 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                                <label class="custom-control custom-checkbox">
-                                        <input class="custom-control-input checkbox-primary" type="checkbox" (change)="confirmarTermoUso()">
-                                        <span class="custom-control-indicator"></span>
-                                        <span class="custom-control-description">Ao cadastrar-me, declaro que sou maior de idade e aceito as Políticas de privacidade e os <a href="javascript:void(0);"
-                                            class="transition terms" data-toggle="modal" data-target="#default-modal">Termos e condições do Smarket</a></span>
-                                    </label>
+                            <label class="custom-control custom-checkbox">
+                                <input class="custom-control-input checkbox-primary" type="checkbox" (change)="confirmarTermoUso()">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Ao cadastrar-me, declaro que sou maior de idade e aceito as Políticas de privacidade e os
+                                    <a href="javascript:void(0);" class="transition terms" data-toggle="modal" data-target="#default-modal">Termos e condições do Smarket</a>
+                                </span>
+                            </label>
                             <small class="text-danger" *ngIf="confirmTermUso.validate &&  !confirmTermUso.status">
-                                                            <span>Confirmação do termo de uso obrigatória!</span>
-                                                        </small>
+                                <span>Confirmação do termo de uso obrigatória!</span>
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -243,7 +241,9 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title" id="modal-label">TERMOS DE SERVIÇO</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
                             </div>
                             <div class="modal-body">
                                 <div [innerHTML]="termoUso">
@@ -258,6 +258,14 @@
                 </div>
 
             </form>
+
+            <div [hidden]="erros.length == 0" *ngFor = "let erro of erros; index as i" class="alert alert-danger" role="alert">
+                <button type="button" class="close" (click)="closeAlert(i)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>{{erro.item}}</strong> {{erro.descricao}}
+            </div>
+
         </div>
     </div>
 </div>
