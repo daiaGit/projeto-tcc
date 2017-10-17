@@ -15,11 +15,13 @@ import { HorizontalMenuComponent } from '../theme/components/menu/horizontal-men
 import { BreadcrumbComponent } from '../theme/components/breadcrumb/breadcrumb.component';
 import { BackTopComponent } from '../theme/components/back-top/back-top.component';
 import { UserMenuComponent } from '../theme/components/user-menu/user-menu.component';
+import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    TranslateModule.forRoot(),
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG)
   ],
   declarations: [
@@ -40,7 +42,8 @@ import { UserMenuComponent } from '../theme/components/user-menu/user-menu.compo
     HorizontalMenuComponent,
     BreadcrumbComponent,
     BackTopComponent,
-    UserMenuComponent
+    UserMenuComponent,
+    TranslateModule
   ]
 })
 export class SharedModule { }

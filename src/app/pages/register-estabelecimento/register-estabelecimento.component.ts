@@ -29,8 +29,11 @@ import { TermoUsoService } from './../../services/termo-uso.service';
 export class RegisterEstabelecimentoComponent implements OnInit{
     public router: Router;
     public form: FormGroup;
-    public msgErro: any;
-    public formSubmit: any;
+    public erros: Array<any> = []; 
+    public formSubmit: any = {
+        descricao: '',
+        status: false
+    };
 
     public tiposTelefone: Array<any> = [];
     public tiposEstabelecimento: Array<any> = [];
@@ -118,10 +121,15 @@ export class RegisterEstabelecimentoComponent implements OnInit{
         this.listarTiposTelefone();
         this.listarTiposEstabelecimento();
         this.listarCargos();
+        this.listarTermoUso();
     }
 
+    ngAfterViewInit() {
+        document.getElementById('preloader').classList.add('hide');
+    }
+
+    /** AÇÕES SO ENVIAR FORMULÁRIO */
     public onSubmit(values: Object): void {
-        console.log(values);
         if (this.form.valid && this.confirmTermUso.status) {           
             this.cadastrarEstabelecimento(values);
             this.router.navigate(['/sucesso-cadastro']);
@@ -146,39 +154,38 @@ export class RegisterEstabelecimentoComponent implements OnInit{
     }
 
     cadastrarEstabelecimento(estabelecimento: any) {
+        var resp: any;
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
         this.estabelecimentoService.setEstabelecimentoComprador(estabelecimento).subscribe(
-            resp => {
-                this.formSubmit = resp['Response'];
-                console.log(resp);
-                error => this.msgErro;
-            });
+            estabelecimento => {
+                resp = estabelecimento['response'];
+                this.formSubmit.status = resp['status'];
+                this.formSubmit.descricao = resp['descricao'];
+                if (this.formSubmit.status == 'true') {
+                    this.router.navigate(['/sucesso-cadastro']);
+                }
+                else {
+                    msgErro.item = 'Erro ao efetuar o cadastro!';
+                    msgErro.descricao = this.formSubmit.descricao;
+                    this.erros.push(msgErro);
+                }
+            },
+            err => {
+                msgErro.item = 'Erro ao cadastrar estabelecimento!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
     }
 
-    listarTiposTelefone() {
-        this.tipoTelefoneService.listarTodos().subscribe(
-            tiposTelefone => {
-                this.tiposTelefone = tiposTelefone['tiposTelefone'];
-                error => this.msgErro;
-            });
-
-    }
-
-    listarTiposEstabelecimento() {
-        this.tiposEstabelecimentoService.listarTodos().subscribe(
-            tiposEstabelecimento => {
-                this.tiposEstabelecimento = tiposEstabelecimento['tiposEstabelecimento'];
-                error => this.msgErro;
-            });
-
-    }
-
-    listarCargos() {
-        this.cargoService.listarTodos().subscribe(
-            cargos => {
-                this.cargos = cargos['cargo'];
-                error => this.msgErro;
-            });
-
+    /** AÇÕES FORMULÁRIO */
+    public closeAlert(index) {
+        console.log(index);
+        this.erros.splice(this.erros.indexOf(index), 1);
     }
 
     confirmarTermoUso(){ 
@@ -190,8 +197,8 @@ export class RegisterEstabelecimentoComponent implements OnInit{
         }
     }
 
-    public   ExibirTermoUso() {
-        this.termoUso =  this.termoUsoService.listarTermoUso();
+    public listarTermoUso() {
+        this.termoUso = this.termoUsoService.listarTermoUso();
     }
 
     setMaskFone() {           
@@ -212,11 +219,64 @@ export class RegisterEstabelecimentoComponent implements OnInit{
     setTypePasswordConfirm(type) {
         this.passwordConfirmType = type;
     }
-    
 
-    ngAfterViewInit() {
-        document.getElementById('preloader').classList.add('hide');
+    /** LISTAR CONTEÚDO */
+    listarTiposTelefone() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        this.tipoTelefoneService.listarTodos().subscribe(
+            tiposTelefone => {
+                this.tiposTelefone = tiposTelefone['tiposTelefone'];               
+            },
+            err => {
+                msgErro.item = 'Erro ao buscar tipos de telefone!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+
     }
+
+    listarTiposEstabelecimento() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        this.tiposEstabelecimentoService.listarTodos().subscribe(
+            tiposEstabelecimento => {
+                this.tiposEstabelecimento = tiposEstabelecimento['tiposEstabelecimento'];
+            },
+            err => {
+                msgErro.item = 'Erro ao buscar tipos de estabelecimentos!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+
+    }
+
+    listarCargos() {
+        var msgErro: any = {
+            item : '',
+            descricao: ''
+        };
+
+        this.cargoService.listarTodos().subscribe(
+            cargos => {
+                this.cargos = cargos['cargo'];
+            },
+            err => {
+                msgErro.item = 'Erro ao buscar cargos!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+    }
+
 }
 
 export function emailValidator(control: FormControl): { [key: string]: any } {

@@ -1,5 +1,5 @@
 .login-container-propaganda {
-    background-image: url(../../../assets/img/background/cadastro-consumidor-01.png);
+    background-image: url(../../../assets/img/background/cadastro-consumidor.png);
     background-repeat: no-repeat;
     height: 720px;
     width: 100%;
@@ -34,7 +34,7 @@ input.password{
  /* formatação do elemento */
  #senha{
     float:left;
-    margin:-25px 0px 0px 10px;
+    margin:-30px 0px 0px 10px;
     cursor:pointer
  }
  
@@ -44,3 +44,51 @@ input.password{
     font-size:14px;
     content:"\f06e"
  }
+
+ input{
+    border: solid 1px #fff !important;
+    height: 40px !important;
+    font-size: 1.3em !important;
+    color: #333 !important;
+    border-radius: .4rem;
+}
+
+input:focus, select:focus{
+    border: solid 1px #D19422 !important;
+}
+
+select{
+    border: solid 1px #fff !important;
+    height: 40px !important;
+    font-size: 1.3em !important;
+    color: #333 !important;
+}
+
+button.btn.btn-block {
+    color: #fff;
+    text-transform: uppercase;
+    padding: 20px;
+    background-color: #0F253B;
+    border: solid 1px #0F253B;
+    margin: 15px 0;
+    font-weight: 700;
+    font-size: 1.2em;
+    width: 100%;
+}
+
+.app.combined .wrapper, .app.combined .wrapper-inner {
+    background-color: #f7f7f7db;
+    color: #565656;
+}
+
+.modal-header {
+    background-color: #0F253B;
+    color: #fff;
+    text-transform: uppercase;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
