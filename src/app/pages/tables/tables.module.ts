@@ -8,7 +8,7 @@ import { BasicTablesComponent } from './basic-tables/basic-tables.component';
 export const routes = [
   { path: '', redirectTo: 'basic-tables', pathMatch: 'full'},
   { path: 'basic-tables', component: BasicTablesComponent, data: { breadcrumb: 'Basic Tables' } },
-  { path: 'dynamic-tables', loadChildren: 'app/pages/tables/dynamic-tables/dynamic-tables.module#DynamicTablesModule', data: { breadcrumb: 'Dynamic Tables' } }
+  { path: 'dynamic-tables', loadChildren: 'app/adm/tables/dynamic-tables/dynamic-tables.module#DynamicTablesModule', data: { breadcrumb: 'Dynamic Tables' } }
 ];
 
 @NgModule({
