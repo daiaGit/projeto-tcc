@@ -16,12 +16,14 @@ import { BackTopComponent } from '../theme/components/back-top/back-top.componen
 import { UserMenuComponent } from '../theme/components/user-menu/user-menu.component';
 import { HorizontalMenuComponent } from './../theme/components/menu/horizontal-menu/horizontal-menu.component';
 import { VerticalMenuComponent } from './../theme/components/menu/vertical-menu/vertical-menu.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
+    ToastrModule.forRoot(), 
     routing
   ],
   declarations: [
