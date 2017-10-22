@@ -7,8 +7,11 @@ export const routes: Routes = [
         path: '', 
         component: ShopComponent,
         children:[
-            { path:'', redirectTo:'estabelecimento-list', pathMatch:'full' },
-            { path: 'estabelecimento-list', loadChildren: 'app/shop/estabelecimento/estabelecimento-list.module#EstabelecimentoListModule', data: { breadcrumb: 'Estabelecimento List' }  },          
+            { path:'', redirectTo:'produtos-shop', pathMatch:'full' },
+            { path: 'produtos-shop', loadChildren: 'app/shop/produtos-shop/produtos-shop.module#ProdutosShopModule', data: { breadcrumb: 'Produtos Shop' }  },   
+            { path: 'pedidos-shop', loadChildren: 'app/shop/pedidos-shop/pedidos-shop.module#PedidosShopModule', data: { breadcrumb: 'Meus Pedidos' }  },   
+            { path: 'estabelecimentos-shop', loadChildren: 'app/shop/estabelecimentos-shop/estabelecimentos-shop.module#EstabelecimentosShopModule', data: { breadcrumb: 'Estabelecimentos Shop' }  },   
+            { path: 'favoritos-shop', loadChildren: 'app/shop/favoritos-shop/favoritos-shop.module#FavoritosShopModule', data: { breadcrumb: 'Favoritos Shop' }  }
        ]
     }
 ];

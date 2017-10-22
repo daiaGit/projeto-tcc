@@ -1,3 +1,5 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -24,6 +26,8 @@ import { VerticalMenuComponent } from './../theme/components/menu/vertical-menu/
     CommonModule,
     SharedModule,
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
+    ToastrModule.forRoot(),
+    NgbModule.forRoot(), 
     routing
   ],
   declarations: [

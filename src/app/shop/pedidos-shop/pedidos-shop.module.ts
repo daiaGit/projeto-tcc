@@ -1,11 +1,12 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { EstabelecimentoListComponent } from './estabelecimento-list.component';
+import { PedidosShopComponent } from './pedidos-shop.component';
 
 export const routes = [
-  { path: '', component: EstabelecimentoListComponent, pathMatch: 'full' }
+  { path: '', component: PedidosShopComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -15,8 +16,8 @@ export const routes = [
     PerfectScrollbarModule
   ],
   declarations: [
-    EstabelecimentoListComponent
+    PedidosShopComponent
   ]
 })
 
-export class EstabelecimentoListModule { }
+export class PedidosShopModule { }
