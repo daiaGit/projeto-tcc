@@ -24,24 +24,15 @@ export class FuncionarioService {
 	private path = 'funcionario/';
  
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
-	}
- 	
-	setFuncionario(funcionario: any): Observable<any> {
 		
-		var params = {
-			tipo_usuario_id : 		funcionario.tipoUsuario,
-			funcionario_nome : 		funcionario.nome,
-			funcionario_sobrenome: 	funcionario.sobrenome,
-			email_descricao: 		funcionario.email,
-			tipo_telefone_id: 		funcionario.tipoTelefone,
-			telefone_ddd: 			funcionario.ddd,
-			telefone_numero: 		funcionario.telefone,
-			usuario_senha: 			funcionario.senha
-		};
- 
-    	return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)
-      				.map(this.httpUtil.extrairDados)
-	                .catch(this.httpUtil.processarErros); 
 	}
-	
+ 
+	/** Lista Funcionarios por Estabelecimento */
+	getFuncionarioPorEstabeleciemento(idEstabelecimento): Observable<any[]> { 
+
+		return this.http.get(this.httpUtil.url(this.path) + "getFuncionarioPorEstabelecimento/" + idEstabelecimento)
+	                .map(this.httpUtil.extrairDados)
+	                .catch(this.httpUtil.processarErros);
+	}
+		
 }

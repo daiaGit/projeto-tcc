@@ -9,7 +9,6 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from '../../theme/pipes/pipes.module';
 import { FuncionariosAdmComponent } from './funcionarios-adm.component';
-import { FuncionariosAdmData } from './funcionarios-adm.data';
 
 export const routes = [
   { path: '', component: FuncionariosAdmComponent, pathMatch: 'full' }
@@ -19,7 +18,6 @@ export const routes = [
   imports: [
     CommonModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(FuncionariosAdmData, { delay: 0 }),
     RouterModule.forChild(routes),
     FormsModule,
     ReactiveFormsModule,
@@ -33,3 +31,5 @@ export const routes = [
   ]
 })
 export class FuncionariosAdmModule { }
+
+

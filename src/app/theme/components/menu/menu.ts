@@ -43,19 +43,19 @@ export const horizontalMenuShopItems = [
 ]
 
 export const verticalMenuEstabelecimentoItems = [ 
-    new Menu (1, 'Tables', null, null, 'table', null, true, 0),
-    new Menu (10, 'Basic Tables', '/adm/tables/basic-tables', null, 'th', null, false, 1), 
-    new Menu (11, 'Dynamic Tables', null, null, 'th-large', null, true, 1), 
-    new Menu (110, 'Smart DataTable', '/adm/tables/dynamic-tables/smart', null, 'caret-right', null, false, 11),
-    new Menu (111, 'NGX DataTable', '/adm/tables/dynamic-tables/ngx', null, 'caret-right', null, false, 11)   
+    new Menu (1, 'Meus Brindes', '/adm/brindes-adm', null, 'tachometer', null, false, 0),
+    new Menu (2, 'Meus Funcionários', '/adm/funcionarios-adm', null, 'tachometer', null, false, 0),
+    new Menu (3, 'Minhas Marcas', '/adm/marcas-adm', null, 'tachometer', null, false, 0),
+    new Menu (4, 'Meus produtos', '/adm/produtos-adm', null, 'tachometer', null, false, 0),
+    new Menu (5, 'Meus lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 0)
 ]
 
 export const horizontalMenuEstabelecimentoItems = [
-    new Menu (1, 'Tables', null, null, 'table', null, true, 0),
-    new Menu (10, 'Basic Tables', '/adm/tables/basic-tables', null, 'th', null, false, 1), 
-    new Menu (11, 'Dynamic Tables', null, null, 'th-large', null, true, 1), 
-    new Menu (110, 'Smart DataTable', '/adm/tables/dynamic-tables/smart', null, 'caret-right', null, false, 11),
-    new Menu (111, 'NGX DataTable', '/adm/tables/dynamic-tables/ngx', null, 'caret-right', null, false, 11)   
+    new Menu (1, 'Meus Brindes', '/adm/brindes-adm', null, 'tachometer', null, false, 0),
+    new Menu (2, 'Meus Funcionários', '/adm/funcionarios-adm', null, 'tachometer', null, false, 0),
+    new Menu (3, 'Minhas Marcas', '/adm/marcas-adm', null, 'tachometer', null, false, 0),
+    new Menu (4, 'Meus produtos', '/adm/produtos-adm', null, 'tachometer', null, false, 0),
+    new Menu (5, 'Meus lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 0)
 ]
 
 export const verticalMenuSmarketItems = [ 

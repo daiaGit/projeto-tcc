@@ -1,3 +1,4 @@
+import { FuncionarioService } from './../../services/funcionario.service';
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators } from '@angular/forms';
@@ -14,7 +15,8 @@ import { ConsumidorService } from './../../services/consumidor.service';
     providers: [
         TipoTelefoneService,
         ConsumidorService,
-        TermoUsoService
+        TermoUsoService,
+        FuncionarioService
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -55,7 +57,8 @@ export class RegisterConsumidorComponent implements OnInit{
         fb: FormBuilder,
         public tipoTelefoneService: TipoTelefoneService,
         public consumidorService: ConsumidorService,
-        public termoUsoService: TermoUsoService) {
+        public termoUsoService: TermoUsoService,
+        public funcionarioService: FuncionarioService) {
 
         this.router = router;
 
@@ -88,6 +91,7 @@ export class RegisterConsumidorComponent implements OnInit{
     public ngOnInit(){
         this.listaTiposTelefone();
         this.listarTermoUso();
+        this.getFuncionarios(1);
     }
 
     ngAfterViewInit() {
@@ -142,6 +146,28 @@ export class RegisterConsumidorComponent implements OnInit{
             }
         );
     }
+
+
+    public getFuncionarios(idEstabelecimento): void {
+        var resp: any;
+    
+        var msgErro: any = {
+          item: '',
+          descricao: ''
+        };
+    
+        this.funcionarioService.getFuncionarioPorEstabeleciemento(idEstabelecimento).subscribe(
+          funcionarios => {
+            console.log('teste');
+            resp = funcionarios['response'];
+          },
+          err => {
+            msgErro.item = 'Erro ao buscar funcionários!';
+            msgErro.descricao = err;
+            this.erros.push(msgErro);
+          }
+        );
+      }
 
     /** SETAR AÇÕES FORMULÁRIO */
     setMaskFone() {
