@@ -1,0 +1,88 @@
+
+
+.card-E {
+display: inline-block;
+box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);
+margin: 20px;
+position: relative;
+margin-bottom: 50px;
+transition: all .2s ease-in-out;
+}
+
+.card-E:hover {
+    /*box-shadow: 0 5px 22px 0 rgba(0,0,0,.25);*/
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    margin-bottom: 54px;
+}
+
+.help{
+        display: inline-block;
+        height: 100%;
+        vertical-align:middle;
+}
+.image {
+    margin-left: 20px;
+    padding: 10px;
+    height: 100px;
+    opacity: .7;
+    overflow: hidden;
+    transition: all .2s ease-in-out;
+}
+
+
+
+.text {
+background: #FFF;
+padding: 20px;
+min-height: 150px;
+}
+
+.text p {
+margin-bottom: 0px;
+}
+
+.star-fav{
+    position: absolute;
+    right: 0%;
+    margin-right: 20px;
+    color: rgb(250, 209, 27);
+}
+
+.fab-Location,
+.fab-Frete,
+.fab-Money {
+width: 35px;
+height: 35px;
+border-radius: 50%;
+position: absolute;
+margin-top: -40px;
+box-shadow: 0px 2px 6px rgba(0, 0, 0, .3);
+color: #fff;
+font-size: 20px;
+line-height: 30px;
+text-align: center;
+background: #0066A2;
+-webkit-transition: -webkit-transform .2s ease-in-out;
+transition: transform .2s ease-in-out;
+}
+
+.fab-Location{
+    right: 20px;    
+}
+.fab-Frete {
+    right: 60px;
+}
+
+.fab-Money {
+    right: 100px;
+}
+.fab-Location:hover,
+.fab-Frete:hover,
+.fab-Money:hover, {
+//background: #549D3C;
+opacity: .8;
+cursor: pointer;
+// -ms-transform: rotate(90deg);
+//   -webkit-transform: rotate(90deg);
+//   transform: rotate(90deg);
+}

@@ -8,7 +8,8 @@ import { SucessoCadastroComponent } from './pages/sucesso/sucesso-cadastro.compo
 import { AtivaCadastroComponent } from './pages/ativa-cadastro/ativa-cadastro.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
+  { path: '', redirectTo: 'landing-page', pathMatch: 'full' },
+  { path: 'landing-page', loadChildren: 'app/pages/landing-page/landing-page.module#LandingPageModule' },  
   { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
   { path: 'shop', loadChildren: 'app/shop/shop.module#ShopModule' },
   { path: 'adm', loadChildren: 'app/adm/adm.module#AdmModule' },
