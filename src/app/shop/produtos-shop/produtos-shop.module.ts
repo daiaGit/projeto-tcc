@@ -4,9 +4,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { ProdutosShopComponent } from './produtos-shop.component';
+import { DetalheProdutoShopComponent } from './detalhe-produto-shop/detalhe-produto-shop.component';
 
 export const routes = [
-  { path: '', component: ProdutosShopComponent, pathMatch: 'full' }
+  { path: '', component: ProdutosShopComponent, pathMatch: 'full' },
+  { path: 'detalhe-produto-shop', component: DetalheProdutoShopComponent, data: { breadcrumb: 'Detalhe Produto' } },
 ];
 
 @NgModule({
@@ -16,7 +18,8 @@ export const routes = [
     PerfectScrollbarModule
   ],
   declarations: [
-    ProdutosShopComponent
+    ProdutosShopComponent,
+    DetalheProdutoShopComponent
   ]
 })
 
