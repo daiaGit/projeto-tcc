@@ -12,4 +12,68 @@ export class EstabelecimentosShopComponent implements OnInit {
 
   ngOnInit() {  }
 
+  public openInfoPagamento(event){
+    console.log(event);
+  }
+
+  public closeInfoPagamento(event){
+    let parent = event.target.parentNode;
+    while (parent){
+      parent = parent.parentNode;
+      if(parent.classList.contains('content')){
+        parent.classList.remove('flipped');
+        parent.parentNode.parentNode.classList.remove('z-index-1');
+        break;
+      }
+    }
+  }
+
+  public openInfoEntrega(event){
+    let parent = event.target.parentNode;
+    while (parent){
+      parent = parent.parentNode;
+      if(parent.classList.contains('content')){
+        parent.classList.add('flipped');
+        parent.parentNode.parentNode.classList.add('z-index-1');
+        break;
+      }
+    }
+  }
+
+  public closeInfoEntrega(event){
+    let parent = event.target.parentNode;
+    while (parent){
+      parent = parent.parentNode;
+      if(parent.classList.contains('content')){
+        parent.classList.remove('flipped');
+        parent.parentNode.parentNode.classList.remove('z-index-1');
+        break;
+      }
+    }
+  }
+
+  public openInfoLocalizacao(event){
+    let parent = event.target.parentNode;
+    while (parent){
+      parent = parent.parentNode;
+      if(parent.classList.contains('content')){
+        parent.classList.add('flipped');
+        parent.parentNode.parentNode.classList.add('z-index-1');
+        break;
+      }
+    }
+  }
+
+  public closeInfoLocalizacao(event){
+    let parent = event.target.parentNode;
+    while (parent){
+      parent = parent.parentNode;
+      if(parent.classList.contains('content')){
+        parent.classList.remove('flipped');
+        parent.parentNode.parentNode.classList.remove('z-index-1');
+        break;
+      }
+    }
+  }
+
 }

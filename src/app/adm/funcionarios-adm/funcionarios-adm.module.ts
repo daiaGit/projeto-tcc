@@ -1,3 +1,4 @@
+import { NgxMaskModule } from 'ngx-mask';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule }    from '@angular/http';
@@ -8,10 +9,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from '../../theme/pipes/pipes.module';
+import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+
 import { FuncionariosAdmComponent } from './funcionarios-adm.component';
+import { FuncionariosCreateComponent } from './funcionarios-create/funcionarios-create.component';
+import { FuncionariosEditComponent } from './funcionarios-edit/funcionarios-edit.component';
 
 export const routes = [
-  { path: '', component: FuncionariosAdmComponent, pathMatch: 'full' }
+  { path: '', component: FuncionariosAdmComponent, pathMatch: 'full' },
+  { path: 'funcionarios-create', component: FuncionariosCreateComponent, data: { breadcrumb: 'Cadastrar' } },
+  { path: 'funcionarios-edit', component: FuncionariosEditComponent, data: { breadcrumb: 'Editar' } }
 ];
 
 @NgModule({
@@ -24,10 +31,14 @@ export const routes = [
     NgbModule,
     MultiselectDropdownModule,
     NgxPaginationModule,
-    PipesModule
+    PipesModule,
+    NgxMaskModule
   ],
   declarations: [
-    FuncionariosAdmComponent
+    FuncionariosAdmComponent,
+    FuncionariosCreateComponent,
+    FuncionariosEditComponent,
+    ImageCropperComponent
   ]
 })
 export class FuncionariosAdmModule { }
