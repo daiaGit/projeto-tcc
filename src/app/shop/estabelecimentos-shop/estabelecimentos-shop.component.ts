@@ -3,6 +3,8 @@ import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@an
 //Services
 import { EstadoService } from 'app/services/estado.service';
 import { CidadeService } from 'app/services/cidade.service';
+import { EstabelecimentoService } from 'app/services/estabelecimento.service';
+
 
 @Component({
   selector: 'estabelecimentos-blank',
@@ -10,7 +12,8 @@ import { CidadeService } from 'app/services/cidade.service';
   styleUrls: ['./estabelecimentos-shop.component.scss'],
   providers:[
     EstadoService,
-    CidadeService
+    CidadeService,
+    EstabelecimentoService
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -19,14 +22,21 @@ export class EstabelecimentosShopComponent implements OnInit {
   @ViewChild('openModal') openModal:ElementRef; 
   
   public estados:any = [];
-  public estado:any = '';
-  
   public cidades:any = [];
-  public cidade:any = '';
+  public estabelecimentos: any=[]
+  public latitude:any = '';
+  public longitude:any = '';
+
+  //ng-model
+  public estado:any = '';
+  public cidade:any = ''; 
+
+
   
   constructor(
     public estadoService: EstadoService,
-    public cidadeService: CidadeService
+    public cidadeService: CidadeService,
+    public estabelecimentoService: EstabelecimentoService
   ) { }
 
   ngOnInit() { 
@@ -53,11 +63,11 @@ export class EstabelecimentosShopComponent implements OnInit {
   }
 
 
-    public listarCidades() {
-                  var msgErro: any = {
+  public listarCidades() {
+      var msgErro: any = {
           item : '',
           descricao: ''
-};
+      };
 
       this.cidadeService.listarTodos(this.estado).subscribe(
           cidades => {
@@ -67,6 +77,44 @@ export class EstabelecimentosShopComponent implements OnInit {
               msgErro.item = 'Erro ao listar Cidades!';
               msgErro.descricao = err;
           });
+  }
+
+  public buscarCoordenadasPorCidade() {
+    var msgErro: any = {
+        item : '',
+        descricao: ''
+    };
+    var resp:any;
+
+    this.cidadeService.getCoordenadaPorCidade(this.cidade).subscribe(
+        coordenadas => {
+          resp = coordenadas['response'];
+          this.latitude = resp['objeto'][0].cidade_latitude;
+          this.longitude = resp['objeto'][0].cidade_longitude;
+        },
+        err => {
+            msgErro.item = 'Erro ao listar Cidades!';
+            msgErro.descricao = err;
+        });
+  }
+
+  public getEstabelecimentoByLocalidade(){
+    var msgErro: any = {
+      item : '',
+      descricao: ''
+    };
+    var resp:any;
+
+    this.estabelecimentoService.getEstabelecimentoByLocalidade(this.latitude,this.longitude).subscribe(
+      estabelecimentos => {
+        resp = estabelecimentos['response'];
+        this.estabelecimentos = resp;
+      },
+      err => {
+          msgErro.item = 'Erro ao listar Cidades!';
+          msgErro.descricao = err;
+      });
+
   }
 
 }

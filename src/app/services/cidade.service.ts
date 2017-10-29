@@ -43,6 +43,17 @@ export class CidadeService {
             .catch(this.httpUtil.processarErros);
             
     }
+
+    getCoordenadaPorCidade(nome_cidade): Observable<any[]> { 
+		var params = {
+			cidade_descricao:  nome_cidade
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + "getCidadeLocationByDescricao", params)
+			.map(this.httpUtil.extrairDados)
+            .catch(this.httpUtil.processarErros);
+            
+    }
 	
 }
 

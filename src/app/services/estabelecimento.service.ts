@@ -89,4 +89,12 @@ export class EstabelecimentoService {
 			.catch(this.httpUtil.processarErros);
 	}
 
+	getEstabelecimentoByLocalidade(latitude,longitude): Observable<any[]> { 
+		
+		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentosVendedoresLocalidade/"+latitude+"/"+longitude+"/30")
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+			
+	}
+
 }
