@@ -75,43 +75,42 @@
   </div>
 </div>
 
-<button type="button"  id="openModal" #openModal class="btn btn-secondary" data-toggle="modal" data-target="#default-modal" [hidden]="true" >Default</button>
+<button type="button" id="openModal" #openModal class="btn btn-secondary" data-toggle="modal" data-target="#default-modal"
+  [hidden]="true">Default</button>
 <div class="modal fade" id="default-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="modal-label">Selecione seu estado e cidade</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-label">Selecione seu estado e cidade</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
 
-              <div class="form-group">
-                  <label for="exampleSelect1">Estados</label>
-                  <select class="form-control" id="exampleSelect1">
-                    <option>Estado A</option>
-                    <option>Estado B</option>
-                    <option>Estado C</option>
-                    <option>Estado D</option>
-                    <option>Estado E</option>
+        <div class="form-group">
+          <label for="estados">Estados</label>
+          <select class="form-control" id="estados" [(ngModel)]="estado" (change)="listarCidades()">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let estado of estados" 
+                    [value]="estado.estado_id">
+                    {{estado.estado_descricao}}</option>
                   </select>
-              </div>
-
-              <div class="form-group">
-                  <label for="exampleSelect2">Cidades</label>
-                  <select class="form-control" id="exampleSelect2">
-                    <option>Cidade A</option>
-                    <option>Cidade B</option>
-                    <option>Cidade C</option>
-                    <option>Cidade D</option>
-                    <option>Cidade E</option>
-                  </select>
-              </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
         </div>
+
+        <div class="form-group">
+          <label for="cidades">Cidades</label>
+          <select class="form-control" id="cidades" [disabled]="estado == ''">
+                    <option value="">Selecione</option>
+                    <option *ngFor="let cidade of cidades" 
+                    [value]="cidade.cidade_id">
+                    {{cidade.cidade_descricao}}</option>
+                  </select>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>
