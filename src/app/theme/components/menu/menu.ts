@@ -40,12 +40,12 @@ export const verticalMenuShopItems = [
 
 export const horizontalMenuShopItems = [
     new Menu (1, 'Meus Favoritos', '/shop/estabelecimentos', null, 'tachometer', null, false, 0),
-    new Menu (2, 'Meus Produtos', '/shop/produtos-shop', null, 'tachometer', null, false, 0),
-    new Menu (3, 'Meus Pedidos', '/shop/pedidos-shop', null, 'tachometer', null, false, 0),
-    new Menu (4, 'Estabelecimento', '/shop/estabelecimentos-shop', null, 'tachometer', null, false, 0),
-    new Menu (5, 'Carrinho', '/shop/carrinho-shop', null, 'tachometer', null, false, 0),
-    new Menu (6, 'Favoritos', '/shop/favoritos-shop', null, 'tachometer', null, false, 0),
-    new Menu (7, 'Meu Perfil', '/shop/meu-perfil-pf', null, 'tachometer', null, false, 0),
+    new Menu (2, 'Meus Produtos', '/shop/produtos-shop', null, 'shopping-basket', null, false, 0),
+    new Menu (3, 'Meus Pedidos', '/shop/pedidos-shop', null, 'check-circle', null, false, 0),
+    new Menu (4, 'Estabelecimento', '/shop/estabelecimentos-shop', null, 'building', null, false, 0),
+    new Menu (5, 'Carrinho', '/shop/carrinho-shop', null, 'shopping-cart', null, false, 0),
+    new Menu (6, 'Favoritos', '/shop/favoritos-shop', null, 'star', null, false, 0),
+    new Menu (7, 'Meu Perfil', '/shop/meu-perfil-pf', null, 'user-circle', null, false, 0),
 ]
 
 export const verticalMenuEstabelecimentoItems = [ 
