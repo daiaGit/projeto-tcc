@@ -108,7 +108,8 @@ export class EstabelecimentosShopComponent implements OnInit {
     this.estabelecimentoService.getEstabelecimentoByLocalidade(this.latitude,this.longitude).subscribe(
       estabelecimentos => {
         resp = estabelecimentos['response'];
-        this.estabelecimentos = resp;
+        this.estabelecimentos = resp['objeto'];
+        console.log(this.estabelecimentos);
       },
       err => {
           msgErro.item = 'Erro ao listar Cidades!';

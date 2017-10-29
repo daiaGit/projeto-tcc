@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-4 col-sm-4 col-xs-12">
+    <div *ngFor="let estabelecimento of estabelecimentos" class="col-md-4 col-sm-4 col-xs-12">
       <div class="card-E">
 
         <div class="image">
           <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div>
           <span class="help"></span>
-          <img style="" src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png" height="70%">
+          <img src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png" height="70%">
         </div>
 
         <div class="text">
@@ -17,56 +17,8 @@
 
           <div class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
 
-          <h3>Nome do estabelecimento</h3>
-          <p>Tipo do estabelecimento</p>
-
-        </div>
-
-      </div>
-    </div>
-    <div class="col-md-4 col-sm-4 col-xs-12">
-      <div class="card-E">
-
-        <div class="image">
-          <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div>
-          <span class="help"></span>
-          <img style="" src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png" height="70%">
-        </div>
-
-        <div class="text">
-
-          <div class="fab-Money"><i class="fa fa-money" aria-hidden="true"></i></div>
-
-          <div class="fab-Frete"><i class="fa fa-truck" aria-hidden="true"></i></div>
-
-          <div class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
-
-          <h3>Nome do estabelecimento</h3>
-          <p>Tipo do estabelecimento</p>
-
-        </div>
-
-      </div>
-    </div>
-    <div class="col-md-4 col-sm-4 col-xs-12">
-      <div class="card-E">
-
-        <div class="image">
-          <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div>
-          <span class="help"></span>
-          <img style="" src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png" height="70%">
-        </div>
-
-        <div class="text">
-
-          <div class="fab-Money"><i class="fa fa-money" aria-hidden="true"></i></div>
-
-          <div class="fab-Frete"><i class="fa fa-truck" aria-hidden="true"></i></div>
-
-          <div class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
-
-          <h3>Nome do estabelecimento</h3>
-          <p>Tipo do estabelecimento</p>
+          <h5>{{estabelecimento.estabelecimento_nome_fantasia}}</h5>
+          <p>{{estabelecimento.endereco.cidade_descricao}}</p>
 
         </div>
 
@@ -108,7 +60,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="getEstabelecimentoByLocalidade(latitude,longitude)" >Ok</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="getEstabelecimentoByLocalidade(latitude,longitude)">Ok</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

@@ -86,3 +86,52 @@ cursor: pointer;
 //   -webkit-transform: rotate(90deg);
 //   transform: rotate(90deg);
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////
+.card-X {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 236px;
+    height: 330px;
+    margin: -118px;
+    margin-bottom: 200px;
+    float: left;
+    perspective: 400px;
+  }
+  
+  .content-X {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  
+    transition: transform 1s;
+    transform-style: preserve-3d;
+  }
+  
+  .card-X:hover .content-X {
+    transform: rotateY( 180deg ) ;
+    transition: transform 0.5s;
+  }
+  
+  .front-X,
+  .back-X {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: white;
+    line-height: 100px;
+    color: #03446A;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 5px;
+    backface-visibility: hidden;
+  }
+  
+  .back-X {
+    background: #03446A;
+    color: white;
+    transform: rotateY( 180deg );
+  }
+  ///////////////////////////////////////////////////////////////////////////////
