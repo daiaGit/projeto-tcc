@@ -25,7 +25,7 @@ export class ProdutoService {
  
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
- 	
+	
 	setProduto(produto: any): Observable<any> {
 		
 		var params = {
