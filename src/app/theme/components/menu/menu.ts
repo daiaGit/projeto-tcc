@@ -32,14 +32,20 @@ export const verticalMenuShopItems = [
     new Menu (1, 'Meus Favoritos', '/shop/estabelecimentos', null, 'tachometer', null, false, 0),
     new Menu (2, 'Minha Conta', '/shop/produtos-shop', null, 'tachometer', null, false, 0),
     new Menu (3, 'Meus Pedidos', '/shop/pedidos-shop', null, 'tachometer', null, false, 0),
-    new Menu (4, 'Estabelecimento', '/shop/estabelecimentos-shop', null, 'tachometer', null, false, 0)
+    new Menu (4, 'Estabelecimento', '/shop/estabelecimentos-shop', null, 'tachometer', null, false, 0),
+    new Menu (5, 'Carrinho', '/shop/carrinho-shop', null, 'tachometer', null, false, 0),
+    new Menu (6, 'Favoritos', '/shop/favoritos-shop', null, 'tachometer', null, false, 0),
+    new Menu (7, 'Meu Perfil', '/shop/meu-perfil', null, 'tachometer', null, false, 0),
 ]
 
 export const horizontalMenuShopItems = [
     new Menu (1, 'Meus Favoritos', '/shop/estabelecimentos', null, 'tachometer', null, false, 0),
-    new Menu (2, 'Minha Conta', '/shop/produtos-shop', null, 'tachometer', null, false, 0),
+    new Menu (2, 'Meus Produtos', '/shop/produtos-shop', null, 'tachometer', null, false, 0),
     new Menu (3, 'Meus Pedidos', '/shop/pedidos-shop', null, 'tachometer', null, false, 0),
-    new Menu (4, 'Estabelecimento', '/shop/estabelecimentos-shop', null, 'tachometer', null, false, 0)
+    new Menu (4, 'Estabelecimento', '/shop/estabelecimentos-shop', null, 'tachometer', null, false, 0),
+    new Menu (5, 'Carrinho', '/shop/carrinho-shop', null, 'tachometer', null, false, 0),
+    new Menu (6, 'Favoritos', '/shop/favoritos-shop', null, 'tachometer', null, false, 0),
+    new Menu (7, 'Meu Perfil', '/shop/meu-perfil-pf', null, 'tachometer', null, false, 0),
 ]
 
 export const verticalMenuEstabelecimentoItems = [ 
