@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'estabelecimentos-blank',
@@ -8,9 +8,15 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class EstabelecimentosShopComponent implements OnInit {
 
+  @ViewChild('openModal') openModal:ElementRef;  
+
   constructor() { }
 
-  ngOnInit() {  }
+  ngOnInit() { 
+    this.openModal.nativeElement.click();
+    
+
+   }
 
   public openInfoPagamento(event){
     console.log(event);

@@ -1,76 +1,117 @@
 <div class="container">
-    <div class="row">
-      <div class="col-md-4 col-sm-4 col-xs-12">
-        <div class="card-E">
+  <div class="row">
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="card-E">
 
-          <div class="image">
-                <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div> 
-              <span class="help"></span>
-            <img style="" src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png"  height="70%">
-          </div>
+        <div class="image">
+          <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div>
+          <span class="help"></span>
+          <img style="" src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png" height="70%">
+        </div>
 
-          <div class="text">
-            
-            <div class="fab-Money"><i class="fa fa-money" aria-hidden="true"></i></div>                        
+        <div class="text">
 
-            <div class="fab-Frete"><i class="fa fa-truck" aria-hidden="true"></i></div>            
+          <div class="fab-Money"><i class="fa fa-money" aria-hidden="true"></i></div>
 
-            <div class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
+          <div class="fab-Frete"><i class="fa fa-truck" aria-hidden="true"></i></div>
 
-            <h3>Nome do estabelecimento</h3>
-            <p>Tipo do estabelecimento</p>
+          <div class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
 
-          </div>
+          <h3>Nome do estabelecimento</h3>
+          <p>Tipo do estabelecimento</p>
 
         </div>
+
       </div>
-      <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="card-E">
-    
-              <div class="image">
-                    <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div> 
-                  <span class="help"></span>
-                <img style="" src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png"  height="70%">
-              </div>
-    
-              <div class="text">
-                
-                <div class="fab-Money"><i class="fa fa-money" aria-hidden="true"></i></div>                        
-    
-                <div class="fab-Frete"><i class="fa fa-truck" aria-hidden="true"></i></div>            
-    
-                <div class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
-    
-                <h3>Nome do estabelecimento</h3>
-                <p>Tipo do estabelecimento</p>
-    
-              </div>
-    
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="card-E">
-        
-                  <div class="image">
-                        <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div> 
-                      <span class="help"></span>
-                    <img style="" src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png"  height="70%">
-                  </div>
-        
-                  <div class="text">
-                    
-                    <div class="fab-Money"><i class="fa fa-money" aria-hidden="true"></i></div>                        
-        
-                    <div class="fab-Frete"><i class="fa fa-truck" aria-hidden="true"></i></div>            
-        
-                    <div class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
-        
-                    <h3>Nome do estabelecimento</h3>
-                    <p>Tipo do estabelecimento</p>
-        
-                  </div>
-        
-                </div>
-              </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="card-E">
+
+        <div class="image">
+          <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div>
+          <span class="help"></span>
+          <img style="" src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png" height="70%">
+        </div>
+
+        <div class="text">
+
+          <div class="fab-Money"><i class="fa fa-money" aria-hidden="true"></i></div>
+
+          <div class="fab-Frete"><i class="fa fa-truck" aria-hidden="true"></i></div>
+
+          <div class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
+
+          <h3>Nome do estabelecimento</h3>
+          <p>Tipo do estabelecimento</p>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="card-E">
+
+        <div class="image">
+          <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div>
+          <span class="help"></span>
+          <img style="" src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png" height="70%">
+        </div>
+
+        <div class="text">
+
+          <div class="fab-Money"><i class="fa fa-money" aria-hidden="true"></i></div>
+
+          <div class="fab-Frete"><i class="fa fa-truck" aria-hidden="true"></i></div>
+
+          <div class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
+
+          <h3>Nome do estabelecimento</h3>
+          <p>Tipo do estabelecimento</p>
+
+        </div>
+
+      </div>
     </div>
   </div>
+</div>
+
+<button type="button"  id="openModal" #openModal class="btn btn-secondary" data-toggle="modal" data-target="#default-modal" [hidden]="true" >Default</button>
+<div class="modal fade" id="default-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-label">Selecione seu estado e cidade</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+
+              <div class="form-group">
+                  <label for="exampleSelect1">Estados</label>
+                  <select class="form-control" id="exampleSelect1">
+                    <option>Estado A</option>
+                    <option>Estado B</option>
+                    <option>Estado C</option>
+                    <option>Estado D</option>
+                    <option>Estado E</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                  <label for="exampleSelect2">Cidades</label>
+                  <select class="form-control" id="exampleSelect2">
+                    <option>Cidade A</option>
+                    <option>Cidade B</option>
+                    <option>Cidade C</option>
+                    <option>Cidade D</option>
+                    <option>Cidade E</option>
+                  </select>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
