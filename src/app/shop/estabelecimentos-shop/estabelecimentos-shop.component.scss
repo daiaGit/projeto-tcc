@@ -81,12 +81,16 @@ transition: transform .2s ease-in-out;
 .fab-Location:hover,
 .fab-Frete:hover,
 .fab-Money:hover, {
-//background: #549D3C;
-opacity: .8;
-cursor: pointer;
-// -ms-transform: rotate(90deg);
-//   -webkit-transform: rotate(90deg);
-//   transform: rotate(90deg);
+    //background: #549D3C;
+    opacity: .8;
+    cursor: pointer;
+    // -ms-transform: rotate(90deg);
+    //   -webkit-transform: rotate(90deg);
+    //   transform: rotate(90deg);
+}
+
+.sem-valor{
+    font-size: 50px;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////

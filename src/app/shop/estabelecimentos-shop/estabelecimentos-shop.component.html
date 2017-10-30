@@ -7,18 +7,19 @@
         <div class="card-X">
           <div [class.rotate]="mouseClick" class="content-X ">
               <div class="front-X">
+
                 <div class="image">
+
                   <div class="star-fav"><i class="fa fa-star" aria-hidden="true"></i> 4.7</div>
                   <span class="help"></span>
                   <img src="http://deltasuper.com.br/img/interface/logo-delta-supermercados.png" height="70%">
+                
                 </div>
 
                 <div class="text">
 
                   <div (click)="mouseClick=true" class="fab-Money"><i class="fa fa-money" aria-hidden="true"></i></div>
-
                   <div (click)="mouseClick=true" class="fab-Frete"><i class="fa fa-truck" aria-hidden="true"></i></div>
-
                   <div (click)="mouseClick=true" class="fab-Location"><i class="fa fa-map-marker waves-effect" aria-hidden="true"></i></div>
 
                   <h5>{{estabelecimento.estabelecimento_nome_fantasia}}</h5>
@@ -36,8 +37,9 @@
         </div>
 
       </div>
-
     </div>
+    <!-- <div class="sem-valor col-md-6" *ngIf="!estabelecimentos"> Sem estabelecimentos</div> -->
+    
   </div>
 </div>
 
