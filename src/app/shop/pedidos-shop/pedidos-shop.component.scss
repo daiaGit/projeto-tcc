@@ -1,5 +1,5 @@
 .label-pedido{
-    color:#D19422;
+    color:#325475;
     font-weight: 600;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .btn-pedido{
-    border: solid 1px #55c4cc;
+    //border: solid 1px #F3A619;
     padding: 15px;
     text-transform: uppercase;
     color: #55c4cc;
@@ -50,6 +50,14 @@
     align-items: center;
 }
 
+.btn.detalhes{
+    background-color: #325475;
+    color: #fff;
+}
+.btn.detalhes:hover{
+    cursor: pointer;
+    background-color: #F3A619;
+}
 .card-pagamento-info {
     padding: 20px;
 }
