@@ -14,11 +14,15 @@ transition: all .2s ease-in-out;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     margin-bottom: 54px;
 }
+img{
+    float: left;
+    
+}
 
 .help{
-        display: inline-block;
-        height: 100%;
-        vertical-align:middle;
+    display: inline-block;
+    height: 100%;
+    vertical-align:middle;
 }
 .image {
     margin-left: 20px;
@@ -29,12 +33,10 @@ transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
 
-
-
 .text {
 background: #FFF;
 padding: 20px;
-min-height: 150px;
+max-height: 130px;
 }
 
 .text p {
@@ -89,15 +91,10 @@ cursor: pointer;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 .card-X {
-    position: relative;
-    top: 50%;
     left: 50%;
-    width: 236px;
-    height: 330px;
-    margin: -118px;
-    margin-bottom: 200px;
-    float: left;
-    perspective: 400px;
+    width: 350px;
+    height: 230px;
+    perspective: 600px;
   }
   
   .content-X {
@@ -110,13 +107,15 @@ cursor: pointer;
     transform-style: preserve-3d;
   }
   
-  .card-X:hover .content-X {
+  .card-X:hover .content-X.rotate {
     transform: rotateY( 180deg ) ;
     transition: transform 0.5s;
   }
   
   .front-X,
-  .back-X {
+  .back-X,
+  .back-Y,
+  .back-Z {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -131,6 +130,16 @@ cursor: pointer;
   
   .back-X {
     background: #03446A;
+    color: white;
+    transform: rotateY( 180deg );
+  }
+  .back-Y {
+    background: #CAAA18;
+    color: white;
+    transform: rotateY( 180deg );
+  }
+  .back-Z {
+    background: #EC3C10;
     color: white;
     transform: rotateY( 180deg );
   }

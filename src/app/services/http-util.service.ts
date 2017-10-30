@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class HttpUtilService {
  
-	private API_URL: string = 'http://www.mlprojetos.com/webservice/index.php/';
+	private API_URL: string = 'https://www.mlprojetos.com/webservice/index.php/';
  
 	url(path: string) {
 		return this.API_URL + path;

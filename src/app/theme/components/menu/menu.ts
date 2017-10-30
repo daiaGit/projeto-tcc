@@ -39,7 +39,7 @@ export const verticalMenuShopItems = [
 ]
 
 export const horizontalMenuShopItems = [
-    new Menu (1, 'Meus Favoritos', '/shop/estabelecimentos', null, 'tachometer', null, false, 0),
+    //new Menu (1, 'Meus Favoritos', '/shop/estabelecimentos', null, 'tachometer', null, false, 0),
     new Menu (2, 'Meus Produtos', '/shop/produtos-shop', null, 'shopping-basket', null, false, 0),
     new Menu (3, 'Meus Pedidos', '/shop/pedidos-shop', null, 'check-circle', null, false, 0),
     new Menu (4, 'Estabelecimento', '/shop/estabelecimentos-shop', null, 'building', null, false, 0),
