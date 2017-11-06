@@ -26,11 +26,11 @@ export class SubcategoriaService {
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
  	
-	setSubCategoria(subcategoria: any): Observable<any> {
+	setSubCategoria(subcategoria: any, categoria_id: any): Observable<any> {
 		
 		var params = {
-			sub_categoria_descricao:	subcategoria.descricao,
-			Categoria_id:				subcategoria.categoriaId
+			sub_categoria_descricao:	subcategoria,
+			categoria_id:				categoria_id
 		};
  
     	return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)

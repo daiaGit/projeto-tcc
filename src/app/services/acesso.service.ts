@@ -26,7 +26,20 @@ export class AcessoService {
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
 
+	//autentica usuario comprador
 	autenticar(login: any): Observable<any> {
+		var params = {
+			usuario_login: login.email,
+			usuario_senha: login.password
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + "autenticar", params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	//autentica login smarket
+	autenticarUsuarioSmarket(login: any): Observable<any> {
 		var params = {
 			usuario_login: login.email,
 			usuario_senha: login.password

@@ -1,89 +1,134 @@
+import { EstabelecimentoService } from 'app/services/estabelecimento.service';
+import { Router } from '@angular/router';
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Mail, AprovacaoService } from './aprovacao.service';
+
 
 @Component({
-  selector: 'app-aprovacao',
-  templateUrl: './aprovacao.component.html',
-  styleUrls: ['./aprovacao.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  providers:[ AprovacaoService ]
+    selector: 'app-aprovacao',
+    templateUrl: './aprovacao.component.html',
+    styleUrls: ['./aprovacao.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+        EstabelecimentoService
+    ]
 })
 export class AprovacaoComponent {
+    public erros: Array<any> = [];
+    public estabelecimentos: any = [];
+    public estabelecimento: any;
 
-  public mails: Array<any>;
-  public mail: any;
-  public newMail: boolean;
-  public type:string = 'all';
-  public searchText: string;
+    public searchText: string;
+    
+    public aprovacao: any = {
+        usuario_id: "",
+        tipo_usuario_id: "",
+        estabelecimento_id: "",
+        aprovacao_status: null,
+        aprovacao_observacao: ""    
+    };
 
-  constructor(private aprovacaoService: AprovacaoService) { }
+    constructor(
+        public router: Router,
+        public estabelecimentoService: EstabelecimentoService) {
 
-  ngOnInit() {
-      this.getMails();        
-  }
+    }
 
-  public getMails(){
-      switch (this.type) {
-          case 'all': 
-              this.mails = this.aprovacaoService.getAllMails();
-              break;
-          case 'starred':
-              this.mails =  this.aprovacaoService.getStarredMails();
-              break;
-          case 'sent':
-              this.mails =  this.aprovacaoService.getSentMails();
-              break;
-          case 'drafts':
-              this.mails =  this.aprovacaoService.getDraftMails();
-              break;
-          case 'trash':
-              this.mails =  this.aprovacaoService.getTrashMails();
-              break;
-          default:
-              this.mails =  this.aprovacaoService.getDraftMails();
-      }  
-  }
+    ngOnInit() {
+        this.listarEstabelecimentosParaAprovacao();
+    }
 
-  public viewDetail(mail){
-      this.mail = this.aprovacaoService.getMail(mail.id);    
-      this.mails.forEach(m => m.selected = false);
-      this.mail.selected = true;
-      this.mail.unread = false;
-      this.newMail = false;
-  }
+    public viewDetail(estabelecimento) {    
+       this.aprovacao = {
+            usuario_id: "",
+            tipo_usuario_id: "",
+            estabelecimento_id: "",
+            aprovacao_status: null,
+            aprovacao_observacao: ""    
+        };
+        this.estabelecimento = estabelecimento.conjunto;
+    }
 
-  public compose(){
-      this.mail = null;
-      this.newMail = true;
-  }
+    public setAprovacao(value){
+        this.aprovacao.aprovacao_status = value;
+    }
 
-  public setAsRead(){
-      this.mail.unread = false;
-  }
+    public aprovarCadastro(estabelecimento) {
 
-  public setAsUnRead(){
-      this.mail.unread = true;
-  }
+        if(this.aprovacao.aprovacao_status != null){ 
+            if(this.aprovacao.aprovacao_status == 1 || (this.aprovacao.aprovacao_status == 0 && this.aprovacao.aprovacao_observacao != '')){
+                this.aprovacao.usuario_id = estabelecimento.usuario.usuario_id;
+                this.aprovacao.tipo_usuario_id = 4;
+                this.aprovacao.estabelecimento_id = estabelecimento.estabelecimento.estabelecimento_id;                
+                this.enviarAprovacao();   
+            }            
+        }
 
-  public delete() {
-      this.mail.trash = true;
-      this.mail.sent = false;
-      this.mail.draft = false; 
-      this.mail.starred = false; 
-      this.getMails(); 
-      this.mail = null;
-  }
+    }
 
-  public changeStarStatus() {       
-      this.mail.starred = !this.mail.starred;
-      this.getMails(); 
-  }
+    /** Listar Conteúdo */
+    public listarEstabelecimentosParaAprovacao() {
+        var msgErro: any = {
+            item: '',
+            descricao: ''
+        };    
 
-  public restore(){
-      this.mail.trash = false;
-      this.type = 'all';
-      this.getMails();
-      this.mail = null; 
-  }
+        var resp: any;
+
+        this.estabelecimentoService.getEstabelecimentosPedentes().subscribe(
+            estabelecimento => {
+                resp = estabelecimento['response'];
+                if (resp.status == 'true') {
+                    this.estabelecimentos = resp.objeto;                   
+                }
+                else {
+                    msgErro.item = 'Lista Estabelecimentos Pendentes';
+                    msgErro.descricao = resp.descricao;
+                    this.erros.push(msgErro);
+                }
+            },
+            err => {
+                msgErro.item = 'Lista Estabelecimentos Pendentes';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+    }
+
+    /** Listar Conteúdo */
+    public enviarAprovacao() {
+        var msgErro: any = {
+            item: '',
+            descricao: ''
+        };
+
+        var resp: any;
+
+        console.log(this.aprovacao);
+
+        this.estabelecimentoService.setAprovacaoCadastroVendedor(this.aprovacao).subscribe(
+            aprovacao => {
+                resp = aprovacao['response'];
+                if (resp.status == 'true') {
+                    this.estabelecimentos = [];
+                    this.listarEstabelecimentosParaAprovacao();
+                }
+                else {
+                    msgErro.item = 'Aprovar Estabelecimentos Pendentes';
+                    msgErro.descricao = resp.descricao;
+                    this.erros.push(msgErro);
+                }
+            },
+            err => {
+                msgErro.item = 'Aprovar Estabelecimentos Pendentes';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+    }
 
 }
+
+
+
+
+

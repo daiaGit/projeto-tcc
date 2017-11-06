@@ -17,15 +17,15 @@
         </div>
 
         <div class="mail-list" perfect-scrollbar>
-            <div *ngFor="let mail of mails | MailSearch : searchText" class="mail-list-item pb-2 pt-2 pl-1 pr-2 transititon" (click)="viewDetail(mail)"
-                [ngClass]="{'unread': mail.unread, 'selected': mail.selected}">
+            <div *ngFor="let estabelecimento of estabelecimentos | EstabelecimentoSearchPipe : searchText" class="mail-list-item pb-2 pt-2 pl-1 pr-2 transititon"
+                (click)="viewDetail(estabelecimento)">
                 <div class="media">
                     <div class="media-body overflow-hidden">
                         <div class="d-flex justify-content-between">
-                            <h6 class="text-truncate mail-sender">Nome Solicitante</h6>
-                            <small class="mail-date">data cadastro</small>
+                            <h6 class="text-truncate mail-sender">{{estabelecimento.conjunto.estabelecimento.estabelecimento_razao_social}}</h6>
+                            <small class="mail-date">{{estabelecimento.conjunto.contrato.contrato_data_cadastro | date: 'dd/MM/yyyy' }}</small>
                         </div>
-                        <p class="mail-subject mb-0 text-truncate">Razao Social Estabelecimento</p>
+                        <p class="mail-subject mb-0 text-truncate">{{estabelecimento.conjunto.estabelecimento.estabelecimento_cnpj}}</p>
                     </div>
                 </div>
             </div>
@@ -40,138 +40,151 @@
 
         <div class="mail-view pr-2" perfect-scrollbar>
 
-            <div *ngIf="mail" class="mail-content">
+            <div *ngIf="estabelecimento" class="mail-content">
 
                 <!--Formulário aprovação-->
                 <form class="row form-inline ng-untouched ng-pristine ng-valid" novalidate="">
-                    <div class="form-group col-sm-6">
-                        <div class="custom-controls-stacked">
-                            <label class="custom-control custom-radio">
-                                            <input checked="" class="custom-control-input radio-success" name="stacked-radio" type="radio">
-                                            <span class="custom-control-indicator"></span>
-                                            <span class="custom-control-description">Aprovar</span>
-                                        </label>
-                        </div>
-                        <div class="custom-controls-stacked">
-                            <label class="custom-control custom-radio">
-                                                <input class="custom-control-input radio-danger" name="stacked-radio" type="radio">
-                                                <span class="custom-control-indicator"></span>
-                                                <span class="custom-control-description">Reprovar</span>
-                                            </label>
-                        </div>
+                    <div class="form-group col-sm-4">
+                        <label class="custom-control custom-radio">
+                            <input class="custom-control-input radio-success" name="aprovacao" type="radio" (click)="setAprovacao(1)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Aprovar</span>
+                        </label>
+                        <label class="custom-control custom-radio">
+                            <input class="custom-control-input radio-danger" name="aprovacao" type="radio" (click)="setAprovacao(0)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Reprovar</span>
+                        </label>
                     </div>
-                    <div class="form-group col-sm-6">
-                        <button class="btn btn-primary" type="submit">Sign in</button>
+
+                    <div class="form-group col-sm-4">
+                        <label for="input-1">Observação</label>
+                        <input class="form-control" name="observacao" type="text" [(ngModel)]="aprovacao.aprovacao_observacao">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <button class="btn btn-primary" type="button" (click)="aprovarCadastro(estabelecimento)">Enviar Aprovação</button>
                     </div>
                 </form>
                 <!--Fim Formulário aprovação-->
 
-
                 <hr/>
 
-
-
-
-
-                <div class="col-lg-12 col-12">
-
-                    <div aria-multiselectable="true" id="accordion-1" role="tablist">
-                        <div class="card">
-                            <div class="card-header" id="headingOne" role="tab">
-                                <h5 class="mb-0">
-                                    <i class="fa fa-building" aria-hidden="true"></i>
-                                    <a aria-controls="collapseOne" aria-expanded="true" data-parent="#accordion-1" data-toggle="collapse" href="#collapseOne">
-                                  Estabelecimento
-                                </a>
-                                </h5>
-                            </div>
-
-                            <div aria-labelledby="headingOne" class="collapse show" id="collapseOne" role="tabpanel">
-                                <div class="card-block">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <p><strong>Razão Social:</strong></p>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <p><strong>Nome Fantasia:</strong></p>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <p><strong>Tipo do Estabelecimento:</strong></p>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <p><strong>Cnpj:</strong></p>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <p><strong>Inscrição Estadual:</strong></p>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <p><strong>Inscrição Municipal:</strong></p>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <p><strong><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Endereço:</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingTwo" role="tab">
-                                <h5 class="mb-0">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <a aria-controls="collapseTwo" aria-expanded="false" class="collapsed" data-parent="#accordion-1" data-toggle="collapse"
-                                        href="#collapseTwo">
-                                  Representante
-                                </a>
-                                </h5>
-                            </div>
-                            <div aria-labelledby="headingTwo" class="collapse" id="collapseTwo" role="tabpanel">
-                                <div class="card-block">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <p><strong>Nome:</strong></p>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <p><strong>CPF:</strong></p>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <p><strong>Cargo:</strong></p>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <p><strong><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Contato:</strong></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingThree" role="tab">
-                                <h5 class="mb-0">
-                                    <a aria-controls="collapseThree" aria-expanded="false" class="collapsed" data-parent="#accordion-1" data-toggle="collapse"
-                                        href="#collapseThree">
-                                  Contrato
-                                </a>
-                                </h5>
-                            </div>
-                            <div aria-labelledby="headingThree" class="collapse" id="collapseThree" role="tabpanel">
-                                <div class="card-block">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                                    non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch
-                                    3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
-                                    shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                                    sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                                    farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                                    accusamus labore sustainable VHS.
-                                </div>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5>Estabelecimento</h5>
+                        <hr>
                     </div>
+                    <div class="col-sm-6">
+                        <p>
+                            <strong>Razão Social:</strong>&nbsp;{{estabelecimento.estabelecimento.estabelecimento_razao_social}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>
+                            <strong>Nome Fantasia:</strong>&nbsp;{{estabelecimento.estabelecimento.estabelecimento_nome_fantasia}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>
+                            <strong>Cnpj:</strong>&nbsp;{{estabelecimento.estabelecimento.estabelecimento_cnpj}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>
+                            <strong>Inscrição Estadual:</strong>&nbsp;{{estabelecimento.estabelecimento.estabelecimento_inscricao_estadual}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>
+                            <strong>Inscrição Municipal:</strong>&nbsp;{{estabelecimento.estabelecimento.estabelecimento_inscricao_estadual}}</p>
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5>
+                            Endereço
+                        </h5>
+                        <hr>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>
+                            <strong>Logradouro:</strong>&nbsp;{{estabelecimento.endereco.endereco_rua }}, {{estabelecimento.endereco.endereco_numero}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p>
+                            <strong>Complemento:</strong>&nbsp;{{estabelecimento.endereco.endereco_complemento}}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>
+                            <strong>Bairro:</strong>&nbsp;{{estabelecimento.endereco.endereco_bairro}}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>
+                            <strong>Cidade:</strong>&nbsp;{{estabelecimento.endereco.cidade_descricao}}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>
+                            <strong>Estado:</strong>&nbsp;{{estabelecimento.endereco.estado_sigla}}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p>
+                            <strong>Cep:</strong>&nbsp;{{estabelecimento.endereco.endereco_cep}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5>
+                            Contratante
+                        </h5>
+                        <hr>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>
+                            <strong>Nome:</strong>&nbsp;{{estabelecimento.funcionario.funcionario_nome}} {{estabelecimento.funcionario.funcionario_sobrenome}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>
+                            <strong>CPF:</strong>&nbsp;{{estabelecimento.funcionario.funcionario_cpf}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>
+                            <strong>Cargo:</strong>&nbsp;{{estabelecimento.funcionario.cargo_descricao}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5>
+                            Contato
+                        </h5>
+                        <hr>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>
+                            <strong>Telefone:</strong>&nbsp;({{estabelecimento.telefone.telefone_ddd}}) {{estabelecimento.telefone.telefone_numero}}</p>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>
+                            <strong>Email:</strong>&nbsp;{{estabelecimento.usuario_login}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5>
+                            Contrato
+                        </h5>
+                        <hr>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>
+                            <strong>Código:</strong>&nbsp;{{estabelecimento.contrato.contrato_id}}</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>
+                            <strong>Data criação:</strong>&nbsp;{{estabelecimento.contrato.contrato_data_cadastro | date: 'dd/MM/yyyy'
+                            }}
+                        </p>
+                    </div>
                 </div>
 
             </div>

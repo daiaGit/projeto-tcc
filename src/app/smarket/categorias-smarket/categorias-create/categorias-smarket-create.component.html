@@ -1,0 +1,114 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <!-- Div formulario -->
+        <div class="col-sm-10 login-container-formulario offset-sm-1 text-center">
+            <div class="card border-0 box-shadow" widget="">
+                <div class="card-header transparent border-0 text-muted">
+                    <h5 class="mb-0">Cadastrar Categoria</h5>
+                </div>
+                <div class="card-block pt-0 widget-body">
+
+                    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
+
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <div class="row pl-3">
+                                    <span class="result" *ngIf="data.image">
+                                        <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+                                    </span>
+                                </div>
+
+                                <div class="row mt-2 pl-3">
+                                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#default-modal" style="width: 100px;">Upload</button>
+                                    <div class="modal fade" id="default-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label" style="display: none;">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="modal-label">Carregar imagem</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="file-upload">
+                                                        <span class="text">upload</span>
+                                                        <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+                                                    </div>
+                                                    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+                                                    <br>
+                                                    <span class="result" *ngIf="data.image">
+                                                        <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-8">
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="categoria_descricao">Categoria</label>
+                                            <input [formControl]="categoria_descricao" class="form-control validation-field" type="text" name="nome" id="nome">
+                                            <small class="text-danger" *ngIf="form.get('categoria_descricao').touched">
+                                                <span *ngIf="form.get('categoria_descricao').hasError('required')">Categoria obrigatória</span>
+                                                <span *ngIf="form.get('categoria_descricao').hasError('minlength')">Minimo 3 caracteres</span>
+                                                <span *ngIf="form.get('categoria_descricao').hasError('maxlength')">Máximo 150 caracteres</span>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="categoria_descricao.value" class="row">
+                                    <div class="col-sm-11">
+                                        <div class="form-group">
+                                            <label for="subcategoria_descricao">Subcategoria</label>
+                                            <input [formControl]="subcategoria_descricao" class="form-control" type="text" name="subacategoria_descricao" id="subacategoria_descricao">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-1">
+                                        <div class="form-group">
+                                            <br/>
+                                            <button class="btn btn-default" type="button" (click)="adicionarSubcategoria()">+</button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="subcategorias.length > 0" class="col-sm-12">
+                                        <button *ngFor="let subcategoria of subcategorias; index as i" class="btn btn-primary m-3" type="button">
+                                            {{subcategoria}}
+                                            <span class="badge badge-pill badge-white text-primary ml-1">
+                                                <i class="fa fa-minus" (click)="removerSubcategoria(i)"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button class="btn btn-block" type="submit">Cadastrar</button>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
+                    <button type="button" class="close" (click)="closeAlert(i)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{erro.item}}</strong> {{erro.descricao}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

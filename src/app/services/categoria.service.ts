@@ -26,11 +26,15 @@ export class CategoriaService {
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
  	
-	setCategoria(categoria: any): Observable<any> {
-		
+	setCategoria(categoria: any, img: any): Observable<any> {
+		console.log(img);
 		var params = {
-			categoria_descricao:	categoria.descricao
+			categoria_descricao:	categoria.value,
+			categoria_img_b64: img
 		};
+
+
+		console.log( params );
  
     	return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)
       				.map(this.httpUtil.extrairDados)

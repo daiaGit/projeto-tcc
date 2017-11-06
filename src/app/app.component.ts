@@ -19,10 +19,10 @@ export class AppComponent {
         this.settings = this.appSettings.settings;
 
         translate.addLangs(['en', 'fr', 'pt-BR', 'es']);
-        translate.setDefaultLang('en');
+        translate.setDefaultLang('pt-BR');
  
         const browserLang: string = translate.getBrowserLang();
-        translate.use(browserLang.match(/en|pt-BR|es|fr/) ? browserLang : 'en');
+        translate.use(browserLang.match(/en|pt-BR|es|fr/) ? browserLang : 'pt-BR');
     }
 
 }

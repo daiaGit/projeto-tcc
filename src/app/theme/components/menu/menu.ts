@@ -66,10 +66,10 @@ export const horizontalMenuEstabelecimentoItems = [
 
 export const verticalMenuSmarketItems = [ 
     new Menu (1, 'Aprovacao', '/smarket/aprovacao', null, 'tachometer', null, false, 0),
-    new Menu (2, 'Categoria', '/smarket/categoria', null, 'tachometer', null, false, 0),
+    new Menu (2, 'Categorias', '/smarket/categorias-smarket', null, 'tachometer', null, false, 0),
 ]
 
 export const horizontalMenuSmarketItems = [
     new Menu (1, 'Aprovacao', '/smarket/aprovacao', null, 'tachometer', null, false, 0),
-    new Menu (2, 'Categoria', '/smarket/categoria', null, 'tachometer', null, false, 0),
+    new Menu (2, 'Categorias', '/smarket/categorias-smarket', null, 'tachometer', null, false, 0),
 ]

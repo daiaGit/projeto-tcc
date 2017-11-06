@@ -26,6 +26,7 @@ export class EstabelecimentoService {
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
 
+	//cadastra estabelecimento vendedor
 	setEstabelecimentoVendedor(estabelecimento: any): Observable<any> {
 
 		console.log(estabelecimento);
@@ -54,7 +55,6 @@ export class EstabelecimentoService {
 			cargo_id : estabelecimento.funcionarioCargo,
 			tipo_usuario : "4",
 			usuario_login : estabelecimento.usuarioLogin,
-			usuario_senha : estabelecimento.password,
 			usuario_email: estabelecimento.funcionarioEmail
 		};
 
@@ -96,5 +96,23 @@ export class EstabelecimentoService {
 			.catch(this.httpUtil.processarErros);
 			
 	}
+
+
+	//LISTA ESTABELECIMENTOS COM APROVAÇÃO DE CADASTRO PENDENTE
+	getEstabelecimentosPedentes(): Observable<any[]> { 		
+		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentosVendedoresPendentes")
+		.map(this.httpUtil.extrairDados)
+		.catch(this.httpUtil.processarErros);
+	}
+
+	setAprovacaoCadastroVendedor(aprovacao: any): Observable<any> {
+
+				console.log(aprovacao);
+
+				return this.http.post(this.httpUtil.url(this.path) + 'aprovarVendedor', aprovacao)
+					.map(this.httpUtil.extrairDados)
+					.catch(this.httpUtil.processarErros);
+			}
+	
 
 }

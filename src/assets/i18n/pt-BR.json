@@ -1,0 +1,14 @@
+{
+    "LOGIN": {
+        "LINKESQUECISENHA": "Esqueceu a senha?",
+        "LABELEMAIL": "Email",
+        "LABELSENHA": "Senha",
+        "CBMANTERCONECTADO": "Mantenhame-conectado",
+        "BTNENTRAR": "Entrar"
+    },
+    "LOGIN-VALIDATE": {
+        "EMAILREQUIRED": "Email obrigatório!",
+        "EMAILINVALID": "Email inválido!",
+        "SENHAREQUIRED": "Senha obrigatória!"
+    }
+}
