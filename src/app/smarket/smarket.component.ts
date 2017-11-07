@@ -36,21 +36,19 @@ export class SmarketComponent implements OnInit {
         }
         this.showMenu = this.settings.theme.showMenu;
         this.menuOption = this.settings.theme.menu;
-        this.menuTypeOption = this.settings.theme.menuType;           
+        this.menuTypeOption = this.settings.theme.menuType;
+        
+        this.chooseMenu('vertical');
+        this.chooseMenuType('compact');
     }
 
     public chooseMenu(menu){
-        this.settings.theme.menu = menu; 
-        this.router.navigate(['/']);      
+        console.log(menu);
+        this.settings.theme.menu = menu;    
     }
 
     public chooseMenuType(menuType){
         this.settings.theme.menuType = menuType;
-        if(menuType=='mini'){
-            jQuery('.menu-item-link').tooltip('enable');
-        }else{
-            jQuery('.menu-item-link').tooltip('disable');
-        }
     }
 
     public changeTheme(theme){
@@ -61,7 +59,6 @@ export class SmarketComponent implements OnInit {
     ngAfterViewInit(){
         document.getElementById('preloader').classList.add('hide');
     }
-
 
     @HostListener('window:resize')
     public onWindowResize():void {
@@ -80,5 +77,4 @@ export class SmarketComponent implements OnInit {
     private _showMenu():boolean {
         return window.innerWidth <= 768;
     }
-
 }

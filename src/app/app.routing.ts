@@ -9,14 +9,15 @@ import { AtivaCadastroComponent } from './pages/ativa-cadastro/ativa-cadastro.co
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing-page', pathMatch: 'full' },
+  { path: 'login-shop', loadChildren: 'app/shop/login-shop/login-shop.module#LoginShopModule' },
+  { path: 'login-adm', loadChildren: 'app/adm/login-adm/login-adm.module#LoginAdmModule' },
+  { path: 'login-smarket', loadChildren: 'app/smarket/login-smarket/login-smarket.module#LoginSmarketModule' },
   { path: 'landing-page', loadChildren: 'app/pages/landing-page/landing-page.module#LandingPageModule' },  
   { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
   { path: 'shop', loadChildren: 'app/shop/shop.module#ShopModule' },
   { path: 'adm', loadChildren: 'app/adm/adm.module#AdmModule' },
   { path: 'smarket', loadChildren: 'app/smarket/smarket.module#SmarketModule' },
   { path: 'esqueci-senha', loadChildren: 'app/pages/esqueci-senha/esqueci-senha.module#EsqueciSenhaModule' },
-  { path: 'login-estabelecimento', loadChildren: 'app/pages/login-estabelecimento/login-estabelecimento.module#LoginEstabelecimentoModule' },
-  { path: 'login-consumidor', loadChildren: 'app/pages/login-consumidor/login-consumidor.module#LoginConsumidorModule' },
   { path: 'register-estabelecimento', loadChildren: 'app/pages/register-estabelecimento/register-estabelecimento.module#RegisterEstabelecimentoModule' },
   { path: 'register-estabelecimento-vendedor', loadChildren: 'app/pages/register-estabelecimento-vendedor/register-estabelecimento-vendedor.module#RegisterEstabelecimentoVendedorModule' },
   { path: 'register-consumidor', loadChildren: 'app/pages/register-consumidor/register-consumidor.module#RegisterConsumidorModule' },

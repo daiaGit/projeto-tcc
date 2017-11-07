@@ -23,6 +23,7 @@ export class AdmComponent implements OnInit {
         this.settings = this.appSettings.settings;
         this.tipoPagina = "estabelecimento";
         localStorage.setItem('tipoPagina', this.tipoPagina); 
+        console.log(localStorage.getItem('tipoPagina'));
         if(sessionStorage["skin"]) {
             this.settings.theme.skin = sessionStorage["skin"];
         }     
@@ -35,21 +36,19 @@ export class AdmComponent implements OnInit {
         }
         this.showMenu = this.settings.theme.showMenu;
         this.menuOption = this.settings.theme.menu;
-        this.menuTypeOption = this.settings.theme.menuType;           
+        this.menuTypeOption = this.settings.theme.menuType;
+        
+        this.chooseMenu('vertical');
+        this.chooseMenuType('compact');
     }
 
     public chooseMenu(menu){
-        this.settings.theme.menu = menu; 
-        this.router.navigate(['/']);      
+        console.log(menu);
+        this.settings.theme.menu = menu;    
     }
 
     public chooseMenuType(menuType){
         this.settings.theme.menuType = menuType;
-        if(menuType=='mini'){
-            jQuery('.menu-item-link').tooltip('enable');
-        }else{
-            jQuery('.menu-item-link').tooltip('disable');
-        }
     }
 
     public changeTheme(theme){
@@ -60,7 +59,6 @@ export class AdmComponent implements OnInit {
     ngAfterViewInit(){
         document.getElementById('preloader').classList.add('hide');
     }
-
 
     @HostListener('window:resize')
     public onWindowResize():void {
@@ -79,5 +77,4 @@ export class AdmComponent implements OnInit {
     private _showMenu():boolean {
         return window.innerWidth <= 768;
     }
-
 }

@@ -23,11 +23,15 @@ export class AcessoService {
 
 	private path = 'acesso/';
 
+	private usuarioAdmAutenticado: boolean = false;
+
+	private usuarioSmarketAutenticado: boolean = false;
+
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
 
 	//autentica usuario comprador
-	autenticar(login: any): Observable<any> {
+	public autenticar(login: any): Observable<any> {
 		var params = {
 			usuario_login: login.email,
 			usuario_senha: login.password
@@ -39,7 +43,7 @@ export class AcessoService {
 	}
 
 	//autentica login smarket
-	autenticarUsuarioSmarket(login: any): Observable<any> {
+	public autenticarUsuarioSmarket(login: any): Observable<any> {
 		var params = {
 			usuario_login: login.email,
 			usuario_senha: login.password
@@ -50,7 +54,7 @@ export class AcessoService {
 			.catch(this.httpUtil.processarErros);
 	}
 
-	autenticarFacebook(login: any): Observable<any> {
+	public autenticarFacebook(login: any): Observable<any> {
 
 		console.log('Parametros de login', login);
 
@@ -64,6 +68,24 @@ export class AcessoService {
 		return this.http.post(this.httpUtil.url(this.path) + "autenticarFacebook", params)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
+	}
+
+	public usuarioAdmEstaAutenticado(){
+		return this.usuarioAdmAutenticado;
+	}
+
+	public usuarioSmarketEstaAutenticado(){
+		return this.usuarioSmarketAutenticado;
+	} 
+
+	public liberaAcessoAdm(usuario){
+		localStorage.setItem('usuario', usuario);
+		this.usuarioAdmAutenticado = true;
+	}
+
+	public liberaAcessoSmarket(usuario){
+		localStorage.setItem('usuario', usuario);
+		this.usuarioSmarketAutenticado = true;
 	}
 
 }
