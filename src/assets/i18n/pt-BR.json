@@ -1,14 +1,38 @@
 {
     "LOGIN": {
+        "TITULOLOGINSMARKET": "Acesso Restrito",
+        "TITULOLOGINADM": "Acesso do Vendedor",
         "LINKESQUECISENHA": "Esqueceu a senha?",
         "LABELEMAIL": "Email",
         "LABELSENHA": "Senha",
-        "CBMANTERCONECTADO": "Mantenhame-conectado",
         "BTNENTRAR": "Entrar"
     },
-    "LOGIN-VALIDATE": {
+    "LOGINVALIDATE": {
         "EMAILREQUIRED": "Email obrigatório!",
         "EMAILINVALID": "Email inválido!",
-        "SENHAREQUIRED": "Senha obrigatória!"
+        "SENHAREQUIRED": "Senha obrigatória!",
+        "SENHAMIN": "Minimo 6 caracteres",
+        "SENHAMAX": "Máximo 20 caracteres"
+    },
+    "ESQUECISENHA": {
+        "TITULOESQUECISENHA": "Esqueci Minha Senha",
+        "LABELEMAIL": "Email",
+        "BTNENVIAR": "Receber Email"
+    },
+    "ESQUECISENHAVALIDATE": {
+        "EMAILREQUIRED": "Email obrigatório!",
+        "EMAILINVALID": "Email inválido!"
+    },
+    "REDEFINIRSENHA": {
+        "TITULOREDEFINIRSENHA": "Redefinir Senha",
+        "LABELSENHAATUAL": "Senha Atual",
+        "LABELNOVASENHA": "Nova Senha",
+        "LABELCONFIRMASENHA": "Confirmar Senha",
+        "BTNENVIAR": "Receber Email"
+    },
+    "REDEFINIRSENHAVALIDATE": {
+        "SENHAREQUIRED": "Senha obrigatória!",
+        "SENHAMIN": "Minimo 6 caracteres",
+        "SENHAMAX": "Máximo 20 caracteres"
     }
 }

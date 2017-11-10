@@ -10,7 +10,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from '../../theme/pipes/pipes.module';
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
 
 import { CategoriasSmarketEditComponent } from './categorias-edit/categorias-smarket-edit.component';
 import { CategoriasSmarketCreateComponent } from 'app/smarket/categorias-smarket/categorias-create/categorias-smarket-create.component';
@@ -38,8 +37,7 @@ export const routes = [
   declarations: [
     CategoriasSmarketComponent,
     CategoriasSmarketCreateComponent,
-    CategoriasSmarketEditComponent,
-    ImageCropperComponent
+    CategoriasSmarketEditComponent
   ]
 })
 export class CategoriasSmarketModule { }

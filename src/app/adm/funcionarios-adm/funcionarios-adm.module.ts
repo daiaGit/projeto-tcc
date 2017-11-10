@@ -9,7 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from '../../theme/pipes/pipes.module';
-import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
+
 
 import { FuncionariosAdmComponent } from './funcionarios-adm.component';
 import { FuncionariosCreateComponent } from './funcionarios-create/funcionarios-create.component';
@@ -37,8 +37,7 @@ export const routes = [
   declarations: [
     FuncionariosAdmComponent,
     FuncionariosCreateComponent,
-    FuncionariosEditComponent,
-    ImageCropperComponent
+    FuncionariosEditComponent
   ]
 })
 export class FuncionariosAdmModule { }

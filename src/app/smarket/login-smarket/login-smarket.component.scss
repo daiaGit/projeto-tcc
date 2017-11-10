@@ -1,27 +1,63 @@
-.login-container-propaganda {
-    background-image: url(../../../assets/img/background/mercado.png);
-    height: 720px;
-    width: 100%;
+.div-login-smarket{
+    background-color: #0F253B; 
+    height: 200px;
 }
-.login-mascote {
-    margin-top: 5%;
-    width: 50%;
+
+.div-login-smarket div{
+    text-align: center;
 }
-.login-logotipo {
-    width: 50%;
-    margin-top:20px;
+
+.logotipo-login-smarket{
+    width: 20%;
+    padding-top: 10px;
 }
-.destaque-white {
-    margin-top: 30px;
-    color: #fff;
+
+.gif-login-smarket{
+    width: 15%;
+    padding-top: 3%;
+}
+
+h2.login {
+    font-family: 'grobold';
+    color: #F3A619;
+    margin-bottom: 0px;
+}
+
+.form-control{
+    border-radius: 0px;
+}
+
+.btn{
+    border-radius: 0px !important;
 }
 
 .btn-entrar{
     background-color: #0F253B;
-    border-color: #0F253B;
-    color: #fff;
+    color: white; 
 }
+
 .btn-entrar:hover{
-    background-color: #050d14;
-    border-color: #050d14;
+    background-color: rgb(27, 52, 77);
+    color: white; 
+    cursor: pointer;
 }
+
+/* campo do formulário */
+input.password{
+    padding:5px 20px 5px 30px
+ }
+ 
+ /* formatação do elemento */
+ #senha{
+    float:left;
+    margin:-25px 0px 0px 5px;
+    cursor:pointer
+ }
+ 
+ /* formatação do conteúdo  */
+ #senha:after{
+    font-family:FontAwesome;
+    font-size:14px;
+    content:"\f06e"
+ }
+ 

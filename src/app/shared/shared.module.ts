@@ -1,3 +1,5 @@
+import { HeaderAdmComponent } from './../theme/components/header-adm/header-adm.component';
+import { HeaderShopComponent } from './../theme/components/header-shop/header-shop.component';
 import { PipesModule } from './../theme/pipes/pipes.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -11,6 +13,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 import { HeaderComponent } from '../theme/components/header/header.component';
+import { HeaderSmarketComponent } from '../theme/components/header-smarket/header-smarket.component';
 import { FooterComponent } from '../theme/components/footer/footer.component';
 import { SidebarComponent } from '../theme/components/sidebar/sidebar.component';
 import { VerticalMenuComponent } from '../theme/components/menu/vertical-menu/vertical-menu.component';
@@ -19,9 +22,6 @@ import { BreadcrumbComponent } from '../theme/components/breadcrumb/breadcrumb.c
 import { BackTopComponent } from '../theme/components/back-top/back-top.component';
 import { UserMenuComponent } from '../theme/components/user-menu/user-menu.component';
 import { FullScreenComponent } from 'app/theme/components/fullscreen/fullscreen.component';
-import { FavoritesComponent } from './../theme/components/favorites/favorites.component';
-import { BlankComponent } from './../pages/blank/blank.component';
-import { SideChatComponent } from './../theme/components/side-chat/side-chat.component';
 import { FlagsMenuComponent } from './../theme/components/flags-menu/flags-menu.component';
 import { MessagesComponent } from './../theme/components/messages/messages.component';
 import { ApplicationsComponent } from './../theme/components/applications/applications.component';
@@ -37,6 +37,9 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
   ],
   declarations: [
     HeaderComponent,
+    HeaderSmarketComponent,
+    HeaderAdmComponent,
+    HeaderShopComponent,
     FooterComponent,
     SidebarComponent,
     VerticalMenuComponent,
@@ -51,6 +54,7 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
   ],
   exports: [
     HeaderComponent,
+    HeaderSmarketComponent,
     FooterComponent,
     SidebarComponent,
     VerticalMenuComponent,

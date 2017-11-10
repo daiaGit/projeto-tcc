@@ -23,7 +23,6 @@ export class ShopComponent implements OnInit {
         this.settings = this.appSettings.settings;
         this.tipoPagina = "shop";
         localStorage.setItem('tipoPagina', this.tipoPagina); 
-        console.log(localStorage.getItem('tipoPagina'));
         if(sessionStorage["skin"]) {
             this.settings.theme.skin = sessionStorage["skin"];
         }     

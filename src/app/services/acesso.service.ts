@@ -23,10 +23,6 @@ export class AcessoService {
 
 	private path = 'acesso/';
 
-	private usuarioAdmAutenticado: boolean = false;
-
-	private usuarioSmarketAutenticado: boolean = false;
-
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
 
@@ -49,7 +45,33 @@ export class AcessoService {
 			usuario_senha: login.password
 		};
 
-		return this.http.post(this.httpUtil.url(this.path) + "autenticar", params)
+		return this.http.post(this.httpUtil.url(this.path) + "autenticarAdm", params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	//recupera senha
+	public recuperarSenha(email: any): Observable<any> {
+		var params = {
+			email_descricao: email.email
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + "recuperarSenha", params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	//recupera senha
+	public redefinirSenha(usuario: any): Observable<any> {
+
+		var params = {
+			usuario_id: usuario.id,
+			tipo_usuario_id: usuario.tipo_usuario,
+			usuario_senha_consirma: usuario.senha_confirma,
+			usuario_senha: usuario.senha
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + "redefinirSenha", params)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
@@ -70,22 +92,57 @@ export class AcessoService {
 			.catch(this.httpUtil.processarErros);
 	}
 
-	public usuarioAdmEstaAutenticado(){
-		return this.usuarioAdmAutenticado;
+	public usuarioAdmEstaAutenticado() {
+		var autentica = localStorage.getItem('autenticaAdm');
+		if(autentica && autentica == 'Adm'){
+			return true;
+		}
+		return false;
 	}
 
-	public usuarioSmarketEstaAutenticado(){
-		return this.usuarioSmarketAutenticado;
-	} 
-
-	public liberaAcessoAdm(usuario){
-		localStorage.setItem('usuario', usuario);
-		this.usuarioAdmAutenticado = true;
+	public usuarioSmarketEstaAutenticado() {
+		var autentica = localStorage.getItem('autenticaSmarket');
+		if(autentica && autentica == 'Smarket'){
+			return true;
+		}
+		return false;
 	}
 
-	public liberaAcessoSmarket(usuario){
-		localStorage.setItem('usuario', usuario);
-		this.usuarioSmarketAutenticado = true;
+	public usuarioShopEstaAutenticado() {
+		var autentica = localStorage.getItem('autenticaShop');
+		if(autentica && autentica == 'Shop'){
+			return true;
+		}
+		return false;
 	}
 
+	public liberaAcessoAdm(usuario) {
+		localStorage.setItem('usuarioAdm', JSON.stringify(usuario));
+		localStorage.setItem('autenticaAdm', 'Adm');
+	}
+
+	public liberaAcessoSmarket(usuario) {
+		localStorage.setItem('usuarioSmarket', JSON.stringify(usuario));
+		localStorage.setItem('autenticaSmarket', 'Smarket');
+	}
+
+	public liberaAcessoShop(usuario) {
+		localStorage.setItem('usuarioShop', JSON.stringify(usuario));
+		localStorage.setItem('autenticaShop', 'Shop');
+	}
+
+	public logoutAreaSmarket() {
+		localStorage.removeItem('usuarioSmarket');
+		localStorage.removeItem('autenticaSmarket');
+	}
+
+	public logoutAreaAdm() {
+		localStorage.removeItem('usuarioAdm');
+		localStorage.removeItem('autenticaAdm');
+	}
+
+	public logoutAreaShop() {
+		localStorage.removeItem('usuarioShop');
+		localStorage.removeItem('autenticaShop');
+	}
 }

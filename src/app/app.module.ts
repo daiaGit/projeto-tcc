@@ -18,6 +18,7 @@ import { HttpUtilService } from './services/http-util.service';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { SucessoCadastroComponent } from './pages/sucesso/sucesso-cadastro.component';
 import { AtivaCadastroComponent } from './pages/ativa-cadastro/ativa-cadastro.component';
+import { SmarketAuthChildGuard } from 'app/guards/smarket-auth-child.guard';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, 'assets/i18n', '.json');
@@ -46,6 +47,7 @@ export function createTranslateLoader(http: Http) {
     AcessoService,
     AdmAuthGuard,
     SmarketAuthGuard,
+    SmarketAuthChildGuard,
     HttpUtilService
   ],
   bootstrap: [ 

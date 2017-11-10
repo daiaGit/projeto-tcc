@@ -8,36 +8,38 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 import { AcessoService } from './../../services/acesso.service';
 
 @Component({
-  selector: 'app-login-adm',
-  templateUrl: './login-adm.component.html',
-  styleUrls: ['./login-adm.component.scss'],
+  selector: 'app-esqueci-minha-senha',
+  templateUrl: './esqueci-minha-senha.component.html',
+  styleUrls: ['./esqueci-minha-senha.component.scss'],
   providers: [
     AcessoService
   ],
   encapsulation: ViewEncapsulation.None
 })
 
-export class LoginAdmComponent implements OnInit {
+export class EsqueciMinhaSenhaComponent implements OnInit {
   public erros: Array<any> = [];
   public router: Router;
   public form: FormGroup;
+  public formSubmit: any = {
+    status: false,
+    descricao: ''
+  };
+
 
   public email: AbstractControl;
-  public password: AbstractControl;
-  public passwordType: any = '';
 
-  constructor(router: Router, fb: FormBuilder,
+  constructor(router: Router,
+    fb: FormBuilder,
     private acessoService: AcessoService) {
     this.router = router;
 
     this.form = fb.group({
-      'email': ['', Validators.compose([Validators.required, emailValidator])],
-      'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+      'email': ['', Validators.compose([Validators.required, emailValidator])]
     });
 
+
     this.email = this.form.controls['email'];
-    this.password = this.form.controls['password'];
-    this.passwordType = 'password';
 
   }
 
@@ -57,38 +59,21 @@ export class LoginAdmComponent implements OnInit {
     };
 
     if (this.form.valid) {
-      this.acessoService.autenticar(values).subscribe(
-        login => {
-          resp = login['response'];
-
+      this.acessoService.recuperarSenha(values).subscribe(
+        recuperaSenha => {
+          resp = recuperaSenha['response'];
           if (resp.status == 'true') {
-            if (resp.objeto.tipo_usuario_id == 4 || resp.objeto.tipo_usuario_id == 5) {
-              if (resp.objeto.status_id != 3 && resp.objeto.status_id != 4 && resp.objeto.status_id != 6) {
-                this.acessoService.liberaAcessoAdm(resp.objeto);
-                if (this.acessoService.usuarioAdmEstaAutenticado()) {
-                  this.router.navigate(['/adm/dashboard-adm']);
-                }
-              }
-              else {
-                msgErro.item = 'Erro ao efetuar o login!';
-                msgErro.descricao = 'Sua conta esta' + resp.objeto.status_descricao + '';
-                this.erros.push(msgErro);
-              }
-            }
-            else {
-              msgErro.item = 'Erro ao efetuar o login!';
-              msgErro.descricao = 'Seu usuário nâo possui permissão para acessar o portal adm!';
-              this.erros.push(msgErro);
-            }
+
+            this.router.navigate(['/smarket/dashboard-smarket']);
           }
           else {
-            msgErro.item = 'Erro ao efetuar o login!';
+            msgErro.item = 'Erro ao recuperar senha!';
             msgErro.descricao = resp.descricao;
             this.erros.push(msgErro);
           }
         },
         err => {
-          msgErro.item = 'Erro ao efetuar login!';
+          msgErro.item = 'Erro ao recuperar senha!';
           msgErro.descricao = err;
           this.erros.push(msgErro);
         }
@@ -96,16 +81,11 @@ export class LoginAdmComponent implements OnInit {
     }
     else {
       this.email.markAsTouched();
-      this.password.markAsTouched();
     }
   }
 
   public closeAlert(index) {
-    this.erros.splice(index, 1);
-  }
-
-  setTypePassword(type) {
-    this.passwordType = type;
+    this.erros.splice(this.erros.indexOf(index), 1);
   }
 
   ngAfterViewInit() {

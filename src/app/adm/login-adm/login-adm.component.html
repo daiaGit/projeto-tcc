@@ -1,66 +1,58 @@
 <div class="container-fluid">
-
-    <div class="row">
-
-        <!-- Div propaganda -->
-        <div class="col-sm-7 text-center login-container-propaganda login-bg-primary">
-
-            <div>
-                <img class="login-logotipo" src="../../../assets/img/logo/logo-completo-branco.png">
+        
+            <div class="row div-login-smarket">
+                <div class="col-sm-12">
+                    <img class="logotipo-login-smarket" src="../../../assets/img/logo/logo-completo-branco.png">
+                </div>
             </div>
-
-            <h1 class="destaque-white">
-                SMARKET o mercado que faz toda diferença!
-            </h1>
-
-
-        </div>
-
-        <!-- Div Login -->
-        <div class="col-sm-5 text-center">
-
-            <img style="margin-top:20px; margin-bottom:20px;" src="../../../assets/img/texto/faca-seu-login.png">
-
-            <div class="row">
-                <div class="col-sm-10 offset-md-1">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
-                        <div class="form-group">
-                            <label for="email">{{ 'LOGIN.LABEL-EMAIL' | translate }}</label>
-                            <input [formControl]="email" class="form-control validation-field" type="text">
-                            <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">{{ 'LOGIN-VALIDATE.EMAIL-REQUIRED' | translate }}</small>
-                            <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('email')">{{ 'LOGIN-VALIDATE.EMAIL-INVALID' | translate }}</small>
+        
+        
+            <div class="row div-round">
+        
+                <div class="col-sm-12">
+                    <img class="gif-login-smarket" src="../../../assets/img/gif/gif-adm.gif">
+                    <h2 class="login">{{ 'LOGIN.TITULOLOGINADM"' | translate }}</h2>
+                </div>
+        
+                <div class="col-sm-12">
+        
+                    <div class="col-sm-8 offset-md-2">
+                        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left">
+                            <div class="form-group">
+                                <label for="email">{{ 'LOGIN.LABELEMAIL' | translate }}</label>
+                                <input [formControl]="email" class="form-control validation-field" type="text">
+                                <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('required')">{{ 'LOGINVALIDATE.EMAILREQUIRED' | translate }}</small>
+                                <small class="text-danger" *ngIf="form.get('email').touched && form.get('email').hasError('invalidEmail')">{{ 'LOGINVALIDATE.EMAILINVALID' | translate }}</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">{{ 'LOGIN.LABELSENHA' | translate }}</label>
+                                <input [formControl]="password" class="form-control validation-field password" type="password" [type]="passwordType" name="password"
+                                id="password">
+                                <div id="senha" (mouseenter)="setTypePassword('text')" (mouseout)="setTypePassword('password')"></div>
+                                <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">{{ 'LOGINVALIDATE.SENHAREQUIRED' | translate }}</small>
+                                <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">{{ 'LOGINVALIDATE.SENHAMIN' | translate }}</small>
+                                <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">{{ 'LOGINVALIDATE.SENHAMAX' | translate }}</small>
+                            </div>
+        
+                            <div class="form-group">
+                                <a class="transition pull-left" routerlink="/esqueci-minha-senha" href="/esqueci-minha-senha">{{ 'LOGIN.LINKESQUECISENHA' | translate }}</a>
+                                <br/>
+                            </div>
+        
+                            <div class="form-group col-sm-8 offset-md-2">                
+                                <button class="btn btn-entrar btn-lg btn-block" type="submit">{{ 'LOGIN.BTNENTRAR' | translate }}</button>
+                            </div>
+        
+                        </form>
+        
+                        <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
+                            <button type="button" class="close" (click)="closeAlert(i)">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>{{erro.item}}</strong> {{erro.descricao}}
                         </div>
-                        <div class="form-group">
-                            <label for="email-b-f">{{ 'LOGIN.LABEL-SENHA' | translate }}</label>
-                            <input [formControl]="password" class="form-control validation-field" type="password">
-                            <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('required')">{{ 'LOGIN-VALIDATE.SENHA-REQUIRED' | translate }}</small>
-                            <small class="text-danger" *ngIf="form.get('password').touched && form.get('password').hasError('minlength')">{{ 'LOGIN-VALIDATE.SENHA-MIN' | translate }}</small>
-                        </div>
-                        <div class="form-group">
-                            <label class="custom-control custom-checkbox">
-                                <input class="custom-control-input checkbox-main" type="checkbox">
-                                <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description align-middle">
-                                    {{ 'LOGIN.CB-MANTER-CONECTADO' | translate }}</span>
-                            </label>
-                            <a class="transition pull-right" routerlink="/esqueci-senha" href="/esqueci-senha">{{ 'LOGIN.LINK-ESQUECI-SENHA' | translate }}</a>
-                        </div>
-
-                        <div class="form-group col-sm-8 offset-md-2">
-                            <button class="btn btn-entrar btn-lg btn-block" type="submit">{{ 'LOGIN.BTN-ENTRAR' | translate }}</button>
-                        </div>
-
-                    </form>
-
-                    <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
-                        <button type="button" class="close" (click)="closeAlert(i)">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong>{{erro.item}}</strong> {{erro.descricao}}
+        
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-</div>

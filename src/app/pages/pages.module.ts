@@ -8,8 +8,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { routing } from './pages.routing';
 
-import { HeaderComponent } from '../theme/components/header/header.component';
-import { BlankComponent } from './blank/blank.component';
 import { SearchComponent } from './search/search.component';
 import { PagesComponent } from './pages.component';
 
@@ -23,7 +21,6 @@ import { PagesComponent } from './pages.component';
   ],
   declarations: [
     PagesComponent,
-    BlankComponent,
     SearchComponent
   ]
 })

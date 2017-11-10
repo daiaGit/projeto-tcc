@@ -24,7 +24,6 @@ export class PagesComponent implements OnInit {
         this.settings = this.appSettings.settings; 
         this.tipoPagina = "home";
         localStorage.setItem('tipoPagina', this.tipoPagina);
-        console.log(localStorage.getItem('tipoPagina'));
         if(sessionStorage["skin"]) {
             this.settings.theme.skin = sessionStorage["skin"];
         }     

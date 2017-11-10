@@ -1,12 +1,12 @@
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { CanActivate, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, RouterStateSnapshot, CanActivateChild } from '@angular/router';
 
 import { AcessoService } from './../services/acesso.service';
 
 @Injectable()
-export class SmarketAuthGuard implements CanActivate {
+export class SmarketAuthChildGuard implements CanActivateChild {
 
     constructor(
         private acessoService: AcessoService,
@@ -14,11 +14,10 @@ export class SmarketAuthGuard implements CanActivate {
     ) {
 
     }
-    
-    canActivate(route: ActivatedRouteSnapshot,
+
+    canActivateChild(route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot)
         : boolean | Observable<boolean> | Promise<boolean> {
-            console.log(this.acessoService.usuarioSmarketEstaAutenticado());
         if(this.acessoService.usuarioSmarketEstaAutenticado()){
             return true;
         }

@@ -9,7 +9,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { routing } from './shop.routing';
 import { ShopComponent } from './shop.component';
-import { HeaderComponent } from '../theme/components/header/header.component';
 import { FooterComponent } from '../theme/components/footer/footer.component';
 import { SidebarComponent } from '../theme/components/sidebar/sidebar.component';
 import { BreadcrumbComponent } from '../theme/components/breadcrumb/breadcrumb.component';
