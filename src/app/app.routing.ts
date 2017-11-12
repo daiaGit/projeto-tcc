@@ -80,9 +80,18 @@ export const routes: Routes = [
     loadChildren: 'app/shop/shop.module#ShopModule'
   },
   {
+    path: 'login-adm',
+    loadChildren: 'app/adm/login-adm/login-adm.module#LoginAdmModule'
+  },
+  {
+    path: 'adm',
+    loadChildren: 'app/adm/adm.module#AdmModule'
+  },
+  {
     path: 'teste',
     loadChildren: 'app/teste/teste.module#TesteModule'
   },
+  
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes, {
