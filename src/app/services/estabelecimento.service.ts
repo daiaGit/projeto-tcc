@@ -29,32 +29,30 @@ export class EstabelecimentoService {
 	//cadastra estabelecimento vendedor
 	setEstabelecimentoVendedor(estabelecimento: any): Observable<any> {
 
-		console.log(estabelecimento);
-
 		var params = {
-			estabelecimento_cnpj : estabelecimento.cnpj,
+			estabelecimento_cnpj: estabelecimento.cnpj,
 			estabelecimento_razao_social: estabelecimento.razaoSocial,
 			estabelecimento_nome_fantasia: estabelecimento.nomeFantasia,
-			estabelecimento_inscricao_estadual : estabelecimento.inscricaoEstadual,
-			estabelecimento_inscricao_municipal : estabelecimento.inscricaoMunicipal,
-			estabelecimento_vendedor : "1",
-			endereco_rua : estabelecimento.rua,
-			endereco_numero : estabelecimento.numero,
-			endereco_complemento : estabelecimento.complemento,
-			endereco_bairro : estabelecimento.bairro,
-			endereco_cep : estabelecimento.cep,
-			estado_id : estabelecimento.estado,
-			cidade_id : estabelecimento.cidade,
+			estabelecimento_inscricao_estadual: estabelecimento.inscricaoEstadual,
+			estabelecimento_inscricao_municipal: estabelecimento.inscricaoMunicipal,
+			estabelecimento_vendedor: "1",
+			endereco_rua: estabelecimento.rua,
+			endereco_numero: estabelecimento.numero,
+			endereco_complemento: estabelecimento.complemento,
+			endereco_bairro: estabelecimento.bairro,
+			endereco_cep: estabelecimento.cep,
+			estado_id: estabelecimento.estado,
+			cidade_id: estabelecimento.cidade,
 			tipo_estabelecimento_id: estabelecimento.tipoEstabelecimento,
-			telefone_ddd : estabelecimento.ddd,
-			telefone_numero : estabelecimento.telefone,
-			tipo_telefone_id : estabelecimento.tipoTelefone,
-			funcionario_nome : estabelecimento.funcionarioNome,
-			funcionario_sobrenome : estabelecimento.funcionarioSobrenome,
-			funcionario_cpf : estabelecimento.funcionarioCpf,
-			cargo_id : estabelecimento.funcionarioCargo,
-			tipo_usuario : "4",
-			usuario_login : estabelecimento.usuarioLogin,
+			telefone_ddd: estabelecimento.ddd,
+			telefone_numero: estabelecimento.telefone,
+			tipo_telefone_id: estabelecimento.tipoTelefone,
+			funcionario_nome: estabelecimento.funcionarioNome,
+			funcionario_sobrenome: estabelecimento.funcionarioSobrenome,
+			funcionario_cpf: estabelecimento.funcionarioCpf,
+			cargo_id: estabelecimento.funcionarioCargo,
+			tipo_usuario: "4",
+			usuario_login: estabelecimento.usuarioLogin,
 			usuario_email: estabelecimento.funcionarioEmail
 		};
 
@@ -72,7 +70,7 @@ export class EstabelecimentoService {
 			tipo_estabelecimento_id: estabelecimento.tipoEstabelecimento,
 			funcionario_nome: estabelecimento.funcionarioNome,
 			funcionario_sobrenome: estabelecimento.funcionarioSobrenome,
-			funcionario_cpf: estabelecimento.funcionarioCpf,	
+			funcionario_cpf: estabelecimento.funcionarioCpf,
 			cargo_id: estabelecimento.funcionarioCargo,
 			tipo_telefone_id: estabelecimento.tipoTelefone,
 			telefone_ddd: estabelecimento.ddd,
@@ -82,37 +80,41 @@ export class EstabelecimentoService {
 			tipo_usuario: "3"
 		};
 
-		console.log(params);
-
 		return this.http.post(this.httpUtil.url(this.path) + 'adicionarComprador', params)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
 
-	getEstabelecimentoByLocalidade(latitude,longitude): Observable<any[]> { 
-		
-		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentosVendedoresLocalidade/"+latitude+"/"+longitude+"/30")
+	getEstabelecimentoByLocalidade(latitude, longitude): Observable<any[]> {
+
+		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentosVendedoresLocalidade/" + latitude + "/" + longitude + "/30")
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
-			
+
 	}
 
 
 	//LISTA ESTABELECIMENTOS COM APROVAÇÃO DE CADASTRO PENDENTE
-	getEstabelecimentosPedentes(): Observable<any[]> { 		
+	getEstabelecimentosPedentes(): Observable<any[]> {
 		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentosVendedoresPendentes")
-		.map(this.httpUtil.extrairDados)
-		.catch(this.httpUtil.processarErros);
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
 	}
+
+	//LISTA ID DO ESTABELECIMENTO PELO ID DO FUNCIONARIO
+	getEstabelecimentoByFuncionario(usuario_id, tipo_usuario_id): Observable<any[]> {		
+		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentoByFuncionario/" + usuario_id + "/" + tipo_usuario_id)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
 
 	setAprovacaoCadastroVendedor(aprovacao: any): Observable<any> {
 
-				console.log(aprovacao);
+		return this.http.post(this.httpUtil.url(this.path) + 'aprovarVendedor', aprovacao)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
 
-				return this.http.post(this.httpUtil.url(this.path) + 'aprovarVendedor', aprovacao)
-					.map(this.httpUtil.extrairDados)
-					.catch(this.httpUtil.processarErros);
-			}
-	
 
 }

@@ -42,7 +42,6 @@ export class SmarketDoacaoComponent implements OnInit {
     }
 
     public chooseMenu(menu){
-        console.log(menu);
         this.settings.theme.menu = menu;    
     }
 

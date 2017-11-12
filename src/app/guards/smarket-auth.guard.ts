@@ -18,7 +18,6 @@ export class SmarketAuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot)
         : boolean | Observable<boolean> | Promise<boolean> {
-            console.log(this.acessoService.usuarioSmarketEstaAutenticado());
         if(this.acessoService.usuarioSmarketEstaAutenticado()){
             return true;
         }

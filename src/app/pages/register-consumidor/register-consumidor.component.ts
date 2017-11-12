@@ -158,7 +158,6 @@ export class RegisterConsumidorComponent implements OnInit{
     
         this.funcionarioService.getFuncionarioPorEstabeleciemento(idEstabelecimento).subscribe(
           funcionarios => {
-            console.log('teste');
             resp = funcionarios['response'];
           },
           err => {

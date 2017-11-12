@@ -184,7 +184,6 @@ export class RegisterEstabelecimentoComponent implements OnInit{
 
     /** AÇÕES FORMULÁRIO */
     public closeAlert(index) {
-        console.log(index);
         this.erros.splice(this.erros.indexOf(index), 1);
     }
 

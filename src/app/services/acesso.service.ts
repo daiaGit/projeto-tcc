@@ -78,8 +78,6 @@ export class AcessoService {
 
 	public autenticarFacebook(login: any): Observable<any> {
 
-		console.log('Parametros de login', login);
-
 		var params = {
 			usuario_login: login.email,
 			origin: 1,
@@ -132,7 +130,11 @@ export class AcessoService {
 		return false;
 	}
 
-	public liberaAcessoAdm(usuario) {
+	public liberaAcessoAdm(usuario, estabelecimento_id) {
+		
+		usuario.estabelecimento_id = estabelecimento_id;
+		console.log(estabelecimento_id);
+		console.log(usuario);
 		localStorage.setItem('usuarioAdm', JSON.stringify(usuario));
 		localStorage.setItem('autenticaAdm', 'Adm');
 	}

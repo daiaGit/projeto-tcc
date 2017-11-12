@@ -37,9 +37,6 @@ export class FuncionarioService {
 
 	setFuncionarios(funcionario: any): Observable<any> {
 
-		console.log(funcionario);
-		console.log(JSON.parse(localStorage.getItem('usuarioAdm')));
-
 		var params = {
 			tipo_usuario_id: 5,
 			funcionario_nome: funcionario.funcionario_nome,

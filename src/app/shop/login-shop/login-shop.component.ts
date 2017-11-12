@@ -75,8 +75,8 @@ export class LoginShopComponent implements OnInit {
           if (resp.status == 'true') {
             if(resp.objeto.tipo_usuario_id == 2 || resp.objeto.tipo_usuario_id == 3){
               if(resp.objeto.status_id != 3 && resp.objeto.status_id != 4 && resp.objeto.status_id != 6){
-                this.acessoService.liberaAcessoAdm(resp.objeto);
-                if(this.acessoService.usuarioAdmEstaAutenticado()){
+                this.acessoService.liberaAcessoShop(resp.objeto);
+                if(this.acessoService.usuarioShopEstaAutenticado()){
                   this.router.navigate(['/adm/dashboard-adm']);
                 }                
               }
@@ -127,7 +127,6 @@ export class LoginShopComponent implements OnInit {
     this.fs.login(loginOptions)
       .then((res: LoginResponse) => {
           if(res.status == "connected"){
-            console.log('Logando com Facebook:', res);
             this.getProfileFacebook();
           }
       })
@@ -162,7 +161,7 @@ export class LoginShopComponent implements OnInit {
 
         if (resp.status == 'true') {
             if(resp.objeto.status_id != 3 && resp.objeto.status_id != 4 && resp.objeto.status_id != 6){
-              this.acessoService.liberaAcessoAdm(resp.objeto);
+              this.acessoService.liberaAcessoShop(resp.objeto);
               if(this.acessoService.usuarioAdmEstaAutenticado()){
                 this.router.navigate(['/adm/dashboard-adm']);
               }                

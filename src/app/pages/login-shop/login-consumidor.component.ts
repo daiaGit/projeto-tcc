@@ -103,7 +103,6 @@ export class LoginConsumidorComponent implements OnInit {
     this.fs.login(loginOptions)
       .then((res: LoginResponse) => {
           if(res.status == "connected"){
-            console.log('Logando com Facebook:', res);
             this.getProfileFacebook();
           }
       })

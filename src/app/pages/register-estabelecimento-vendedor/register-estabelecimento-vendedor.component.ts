@@ -232,7 +232,6 @@ export class RegisterEstabelecimentoVendedorComponent implements OnInit {
 
     /** Ações Formulário */
     public closeAlert(index) {
-        console.log(index);
         this.erros.splice(this.erros.indexOf(index), 1);
     }
 
@@ -334,7 +333,6 @@ export class RegisterEstabelecimentoVendedorComponent implements OnInit {
 
         this.estadoService.listarTodos().subscribe(
             estados => {
-                console.log(estados);
                 this.estados = estados['estados'];
             },
             err => {

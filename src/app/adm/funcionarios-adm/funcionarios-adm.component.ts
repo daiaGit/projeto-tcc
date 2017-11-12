@@ -66,10 +66,8 @@ export class FuncionariosAdmComponent implements OnInit {
     this.funcionarioService.getFuncionarioPorEstabeleciemento(idEstabelecimento).subscribe(
       funcionarios => {
         resp = funcionarios['response'];
-        console.log(resp['status']);
         if (resp['status'] == 'true') {
           this.funcionarios = resp['objeto'];
-          console.log(this.funcionarios);
         }
         else {
           msgErro.item = 'Erro ao buscar funcionários!';

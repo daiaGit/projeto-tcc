@@ -27,7 +27,6 @@ export class RedefinirSenhaComponent {
 
      public onSubmit(values:Object):void {
         if (this.form.valid) {
-            console.log(values);
             this.router.navigate(['/login-consumidor']);
         }
     }

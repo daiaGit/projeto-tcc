@@ -26,7 +26,7 @@ import { MenuService } from '../../theme/components/menu/menu.service';
 export class ProdutosAdmComponent implements OnInit {
   public erros: Array<any> = [];
   public funcionarios: any[];
-  public p:any;
+  public p: any;
 
   public menuItems: Array<any>;
 
@@ -66,10 +66,8 @@ export class ProdutosAdmComponent implements OnInit {
     this.funcionarioService.getFuncionarioPorEstabeleciemento(idEstabelecimento).subscribe(
       funcionarios => {
         resp = funcionarios['response'];
-        console.log(resp['status']);
         if (resp['status'] == 'true') {
           this.funcionarios = resp['objeto'];
-          console.log(this.funcionarios);
         }
         else {
           msgErro.item = 'Erro ao buscar funcionários!';
@@ -82,15 +80,15 @@ export class ProdutosAdmComponent implements OnInit {
         msgErro.descricao = err;
         this.erros.push(msgErro);
       }
-    );    
+    );
   }
 
-  public editarFuncionario(funcionario){   
-      localStorage.setItem('funcionario', JSON.stringify(funcionario));
-      this.router.navigate(['adm/funcionarios-adm/funcionarios-edit']);
+  public editarFuncionario(funcionario) {
+    localStorage.setItem('funcionario', JSON.stringify(funcionario));
+    this.router.navigate(['adm/funcionarios-adm/funcionarios-edit']);
   }
 
-  public cadastrarFuncionario(){
+  public cadastrarFuncionario() {
     this.router.navigate(['adm/funcionarios-adm/funcionarios-create']);
   }
 

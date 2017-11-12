@@ -27,8 +27,6 @@ export class ConsumidorService {
 	}
  	
 	setConsumidor(consumidor: any): Observable<any> {
-		
-		console.log(consumidor);
 
 		var params = {
 			tipo_usuario_id : 1,

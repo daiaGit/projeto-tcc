@@ -103,8 +103,6 @@ export class AprovacaoComponent {
 
         var resp: any;
 
-        console.log(this.aprovacao);
-
         this.estabelecimentoService.setAprovacaoCadastroVendedor(this.aprovacao).subscribe(
             aprovacao => {
                 resp = aprovacao['response'];
