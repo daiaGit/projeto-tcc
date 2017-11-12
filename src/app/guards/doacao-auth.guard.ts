@@ -22,7 +22,7 @@ export class DoacaoAuthGuard implements CanActivate {
             return true;
         }
         else{
-            this.router.navigate(['/login-adm']);
+            this.router.navigate(['/login-doacao']);
         }        
     }
 }

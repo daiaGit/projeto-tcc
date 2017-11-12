@@ -10,23 +10,13 @@ export const routes: Routes = [
         children:[
             { 
                 path:'', 
-                redirectTo:'dashboard-smarket',
+                redirectTo:'dashboard-smarket-zero',
                 pathMatch:'full', 
             },
             { 
-                path: 'dashboard-smarket', 
-                loadChildren: 'app/smarket/dashboard-smarket/dashboard-smarket.module#DashboardSmarketModule',
+                path: 'dashboard-smarket-zero', 
+                loadChildren: 'app/smarket-zero/dashboard-smarket-zero/dashboard-smarket-zero.module#DashboardSmarketZeroModule',
                 data: { breadcrumb: 'Dashboard' }  
-            },          
-            { 
-                path: 'aprovacao', 
-                loadChildren: 'app/smarket/aprovacao/aprovacao.module#AprovacaoModule',
-                data: { breadcrumb: 'Aprovação' }  
-            },
-            { 
-                path: 'categorias-smarket', 
-                loadChildren: 'app/smarket/categorias-smarket/categorias-smarket.module#CategoriasSmarketModule', 
-                data: { breadcrumb: 'Categorias' }  
             }
         ]
     }

@@ -1,4 +1,3 @@
-import { HeaderAdmComponent } from './../theme/components/header-adm/header-adm.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './../shared/shared.module';
@@ -11,8 +10,12 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-import { routing } from './adm.routing';
+/** Componentes */
+import { HeaderAdmComponent } from './../theme/components/header-adm/header-adm.component';
 import { AdmComponent } from './adm.component';
+
+/** Rotas */
+import { routing } from './adm.routing';
 
 @NgModule({
   imports: [

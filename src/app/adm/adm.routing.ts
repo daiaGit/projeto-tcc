@@ -26,7 +26,7 @@ export const routes: Routes = [
                 path: 'lotes-adm', 
                 loadChildren: 'app/adm/lotes-adm/lotes-adm.module#LotesAdmModule',
                 data: { breadcrumb: 'Meus Lotes' }  
-            }  
+            } 
 
        ]
     }
