@@ -1,3 +1,4 @@
+import { HeaderComponent } from './../theme/components/header/header.component';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,10 +17,11 @@ import { PagesComponent } from './pages.component';
   imports: [
     CommonModule,
     SharedModule,
-    PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
+    PerfectScrollbarModule,
     routing
   ],
   declarations: [
+    HeaderComponent,
     PagesComponent,
     SearchComponent
   ]

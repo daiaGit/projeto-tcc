@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="nome">{{ '#NOME' | translate }}</label>
+                                <label for="nome">Nome</label>
                                 <input [formControl]="nome" class="form-control validation-field" type="text" name="nome" id="nome">
                                 <small class="text-danger" *ngIf="form.get('nome').touched">
                                                                     <span *ngIf="form.get('nome').hasError('required')">Nome obrigatório</span>

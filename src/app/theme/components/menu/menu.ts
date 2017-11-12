@@ -73,3 +73,19 @@ export const horizontalMenuSmarketItems = [
     new Menu (1, 'Aprovacao', '/smarket/aprovacao', null, 'tachometer', null, false, 0),
     new Menu (2, 'Categorias', '/smarket/categorias-smarket', null, 'tachometer', null, false, 0),
 ]
+
+export const verticalMenuSmarketDoacaoItems = [ 
+
+]
+
+export const horizontalMenuSmarketDoacaoItems = [
+
+]
+
+export const verticalMenuSmarketZeroItems = [ 
+
+]
+
+export const horizontalMenuSmarketZeroItems = [
+
+]

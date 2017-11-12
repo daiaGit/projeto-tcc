@@ -22,6 +22,7 @@ export class AppComponent {
         translate.setDefaultLang('pt-BR');
  
         const browserLang: string = translate.getBrowserLang();
+    
         translate.use(browserLang.match(/en|pt-BR|es|fr/) ? browserLang : 'pt-BR');
     }
 

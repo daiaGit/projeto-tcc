@@ -1,7 +1,7 @@
 <div class="wrapper-inner" [ngClass]="{ 'vertical-menu-tooltip-place': (settings.theme.menuType == 'mini' && settings.theme.menu == 'vertical'),
 'horizontal-menu-tooltip-place': (settings.theme.menuType == 'mini' && settings.theme.menu == 'horizontal') }">
 
-<app-header-smarket></app-header-smarket>
+<app-header-shop></app-header-shop>
 
 <div class="d-flex h-100" [ngClass]="{'flex-row': settings.theme.menu == 'vertical', 'flex-column': settings.theme.menu != 'vertical'}">
 <app-sidebar *ngIf="settings.theme.menu == 'vertical'"></app-sidebar> 

@@ -1,5 +1,3 @@
-import { SmarketAuthGuard } from './guards/smarket-auth.guard';
-import { AdmAuthGuard } from './guards/adm-auth.guard';
 import { Http } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,14 +9,22 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
 import { FacebookModule } from 'ngx-facebook';
 
 
+/** Services */
 import { AcessoService } from './services/acesso.service';
 import { HttpUtilService } from './services/http-util.service';
+
+/** Guards */
+import { DoacaoAuthGuard } from './guards/doacao-auth.guard';
+import { ZeroAuthGuard } from './guards/zero-auth.guard';
+import { SmarketAuthGuard } from './guards/smarket-auth.guard';
+import { AdmAuthGuard } from './guards/adm-auth.guard';
+import { ShopAuthGuard } from './guards/shop-auth.guard';
 
 /** App Componentes */
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { SucessoCadastroComponent } from './pages/sucesso/sucesso-cadastro.component';
 import { AtivaCadastroComponent } from './pages/ativa-cadastro/ativa-cadastro.component';
-import { SmarketAuthChildGuard } from 'app/guards/smarket-auth-child.guard';
+
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, 'assets/i18n', '.json');
@@ -47,7 +53,9 @@ export function createTranslateLoader(http: Http) {
     AcessoService,
     AdmAuthGuard,
     SmarketAuthGuard,
-    SmarketAuthChildGuard,
+    ZeroAuthGuard,
+    DoacaoAuthGuard,
+    ShopAuthGuard,
     HttpUtilService
   ],
   bootstrap: [ 

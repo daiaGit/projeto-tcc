@@ -25,23 +25,10 @@ export class HeaderComponent implements OnInit {
   public showInfoContent: boolean = false;
   public settings: Settings;
   public menuItems: Array<any>;
-  public tipoPagina: any;
 
   constructor(public appSettings: AppSettings, public menuService: MenuService) {
     this.settings = this.appSettings.settings;
-    this.tipoPagina = localStorage.getItem('tipoPagina');
-    if (this.tipoPagina == 'home') {
-      this.menuItems = this.menuService.getHorizontalMenuItems();
-    }
-    else if (this.tipoPagina == 'shop') {
-      this.menuItems = this.menuService.getHorizontalMenuShopItems();
-    }
-    else if (this.tipoPagina == 'estabelecimento') {
-      this.menuItems = this.menuService.getHorizontalMenuEstabelecimentoItems();
-    }
-    else if (this.tipoPagina == 'smarket') {
-      this.menuItems = this.menuService.getHorizontalMenuSmarketItems();
-    }
+    this.menuItems = this.menuService.getHorizontalMenuItems();    
   }
 
   ngOnInit() {

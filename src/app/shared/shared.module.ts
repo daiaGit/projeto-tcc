@@ -1,7 +1,6 @@
-import { HeaderAdmComponent } from './../theme/components/header-adm/header-adm.component';
-import { HeaderShopComponent } from './../theme/components/header-shop/header-shop.component';
+import { HeaderSmarketZeroComponent } from './../theme/components/header-smarket-zero/header-smarket-zero.component';
 import { PipesModule } from './../theme/pipes/pipes.module';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -12,8 +11,6 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-import { HeaderComponent } from '../theme/components/header/header.component';
-import { HeaderSmarketComponent } from '../theme/components/header-smarket/header-smarket.component';
 import { FooterComponent } from '../theme/components/footer/footer.component';
 import { SidebarComponent } from '../theme/components/sidebar/sidebar.component';
 import { VerticalMenuComponent } from '../theme/components/menu/vertical-menu/vertical-menu.component';
@@ -31,15 +28,10 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
   imports: [
     CommonModule,
     RouterModule,
-    PipesModule,
-    TranslateModule.forRoot(),
-    PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG)
+    PipesModule
   ],
   declarations: [
-    HeaderComponent,
-    HeaderSmarketComponent,
-    HeaderAdmComponent,
-    HeaderShopComponent,
+    HeaderSmarketZeroComponent,
     FooterComponent,
     SidebarComponent,
     VerticalMenuComponent,
@@ -53,8 +45,7 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
     FlagsMenuComponent
   ],
   exports: [
-    HeaderComponent,
-    HeaderSmarketComponent,
+    HeaderSmarketZeroComponent,
     FooterComponent,
     SidebarComponent,
     VerticalMenuComponent,
@@ -65,8 +56,7 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
     FullScreenComponent,
     ApplicationsComponent,
     MessagesComponent,
-    FlagsMenuComponent,
-    TranslateModule
+    FlagsMenuComponent
   ]
 })
 export class SharedModule { }

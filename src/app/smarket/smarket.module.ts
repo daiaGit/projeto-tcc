@@ -1,3 +1,4 @@
+import { HeaderSmarketComponent } from './../theme/components/header-smarket/header-smarket.component';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
@@ -23,7 +24,8 @@ import { SmarketComponent } from './smarket.component';
     TranslateModule
   ],
   declarations: [
-    SmarketComponent
+    SmarketComponent,
+    HeaderSmarketComponent
   ]
 })
 export class SmarketModule { }

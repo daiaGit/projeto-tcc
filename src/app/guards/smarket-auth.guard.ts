@@ -23,7 +23,7 @@ export class SmarketAuthGuard implements CanActivate {
             return true;
         }
         else{
-            this.router.navigate(['/login-smarket']);
+            this.router.navigate(['/login-zero']);
         }        
     }
 }

@@ -53,6 +53,22 @@ export class MenuService {
     return horizontalMenuSmarketItems;
   }
 
+  public getVerticalMenuSmarketDoacaoItems():Array<Menu> {
+    return verticalMenuSmarketItems;
+  }
+
+  public getHorizontalMenuSmarketDoacaoItems():Array<Menu> {
+    return horizontalMenuSmarketItems;
+  }
+
+  public getVerticalMenuSmarketZeroItems():Array<Menu> {
+    return verticalMenuSmarketItems;
+  }
+
+  public getHorizontalMenuSmarketZeroItems():Array<Menu> {
+    return horizontalMenuSmarketItems;
+  }
+
   public createMenu(menu:Array<Menu>, nativeElement, type){    
      if(type=='vertical'){
        this.createVerticalMenu(menu, nativeElement);

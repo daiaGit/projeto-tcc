@@ -18,7 +18,7 @@ export class ShopAuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot)
         : boolean | Observable<boolean> | Promise<boolean> {
-        if(this.acessoService.usuarioAdmEstaAutenticado()){
+        if(this.acessoService.usuarioShopEstaAutenticado()){
             return true;
         }
         else{

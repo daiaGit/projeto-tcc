@@ -8,6 +8,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class FavoritosShopComponent implements OnInit {
 
+  public mouseOvered: any;
+
   constructor() { }
 
   ngOnInit() {  }

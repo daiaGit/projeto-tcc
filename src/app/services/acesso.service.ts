@@ -116,6 +116,22 @@ export class AcessoService {
 		return false;
 	}
 
+	public usuarioDoacaoEstaAutenticado() {
+		var autentica = localStorage.getItem('autenticaDoacao');
+		if(autentica && autentica == 'Doacao'){
+			return true;
+		}
+		return false;
+	}
+
+	public usuarioZeroEstaAutenticado() {
+		var autentica = localStorage.getItem('autenticaZero');
+		if(autentica && autentica == 'Zero'){
+			return true;
+		}
+		return false;
+	}
+
 	public liberaAcessoAdm(usuario) {
 		localStorage.setItem('usuarioAdm', JSON.stringify(usuario));
 		localStorage.setItem('autenticaAdm', 'Adm');
@@ -131,6 +147,16 @@ export class AcessoService {
 		localStorage.setItem('autenticaShop', 'Shop');
 	}
 
+	public liberaAcessoZero(usuario) {
+		localStorage.setItem('usuarioZero', JSON.stringify(usuario));
+		localStorage.setItem('autenticaZero', 'Zero');
+	}
+
+	public liberaAcessoDoacao(usuario) {
+		localStorage.setItem('usuarioDoacao', JSON.stringify(usuario));
+		localStorage.setItem('autenticaDoacao', 'Doacao');
+	}
+
 	public logoutAreaSmarket() {
 		localStorage.removeItem('usuarioSmarket');
 		localStorage.removeItem('autenticaSmarket');
@@ -144,5 +170,15 @@ export class AcessoService {
 	public logoutAreaShop() {
 		localStorage.removeItem('usuarioShop');
 		localStorage.removeItem('autenticaShop');
+	}
+
+	public logoutAreaZero() {
+		localStorage.removeItem('usuarioDoacao');
+		localStorage.removeItem('autenticaDoacao');
+	}
+
+	public logoutAreaDoacao() {
+		localStorage.removeItem('usuarioZero');
+		localStorage.removeItem('autenticaZero');
 	}
 }

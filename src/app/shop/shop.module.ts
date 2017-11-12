@@ -1,3 +1,5 @@
+import { TranslateModule } from 'ng2-translate/ng2-translate';
+import { HeaderShopComponent } from './../theme/components/header-shop/header-shop.component';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -25,9 +27,11 @@ import { ToastrModule } from 'ngx-toastr';
     PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
     ToastrModule.forRoot(),
     NgbModule.forRoot(), 
-    routing
+    routing,
+    TranslateModule
   ],
   declarations: [
+    HeaderShopComponent,
     ShopComponent
   ]
 })
