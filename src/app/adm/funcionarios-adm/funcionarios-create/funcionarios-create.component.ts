@@ -1,10 +1,11 @@
-import { CargoService } from './../../../services/cargo.service';
-import { TipoTelefoneService } from './../../../services/tipos-telefone.service';
 import { FormGroup, AbstractControl, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-//import {ImageCropperComponent, CropperSettings} from 'ng2-img-cropper';
- 
+
+/** Services */
+import { FuncionarioService } from './../../../services/funcionario.service';
+import { CargoService } from './../../../services/cargo.service';
+import { TipoTelefoneService } from './../../../services/tipos-telefone.service';
 
 @Component({
   selector: 'app-funcionarios-create',
@@ -12,7 +13,8 @@ import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
   styleUrls: ['./funcionarios-create.component.scss'],
   providers: [
     TipoTelefoneService,
-    CargoService
+    CargoService,
+    FuncionarioService
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -20,21 +22,13 @@ export class FuncionariosCreateComponent implements OnInit {
   public router: Router;
   public form: FormGroup;
   public erros: Array<any> = [];
-  public formSubmit: any = {
-    descricao: '',
-    status: false
-  };
-
-  data:any;
-  
- //@ViewChild('cropper', undefined)
- //cropper:ImageCropperComponent;
- //cropperSettings: CropperSettings;
 
   public maskFone: any = {
     mask: '',
     placeholder: ''
   };
+
+  public image:any;
 
   public tiposTelefone: Array<any> = [];
   public cargos: Array<any> = [];
@@ -48,16 +42,14 @@ export class FuncionariosCreateComponent implements OnInit {
   public telefone_numero: AbstractControl;
   public tipo_telefone_id: AbstractControl;
 
-  constructor(router: Router,
-    fb: FormBuilder,
-    public tipoTelefoneService: TipoTelefoneService,
-    public cargoService: CargoService
+  constructor(  router: Router,
+                fb: FormBuilder,
+                public tipoTelefoneService: TipoTelefoneService,
+                public funcionarioService: FuncionarioService,
+                public cargoService: CargoService,
+                
   ) {
-
-    //this.cropperSettings = new CropperSettings();
-    //this.cropperSettings.noFileInput = true;
-    this.data = {};
-
+    
     this.router = router;
  
     this.form = fb.group({
@@ -90,8 +82,48 @@ export class FuncionariosCreateComponent implements OnInit {
   }
 
   public onSubmit(values: Object): void {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
 
+    if (this.form.valid) {
+      this.funcionarioService.setFuncionarios(values).subscribe(
+        funcionario => {
+          resp = funcionario['response'];
+          if (resp.status == 'true') {
+          
+          }
+          else {
+            msgErro.item = 'Erro ao efetuar o cadastro de funcionário!';
+            msgErro.descricao = resp.descricao;
+            this.erros.push(msgErro);
+          }
+        },
+        err => {
+          msgErro.item = 'Erro ao efetuar o cadastro de funcionário!';
+          msgErro.descricao = err;
+          this.erros.push(msgErro);
+        }
+      );
+    }
+    else {
+      this.cargo_id.markAsTouched();
+      this.email_descricao.markAsTouched();
+      this.funcionario_cpf.markAsTouched();
+      this.funcionario_nome.markAsTouched();
+      this.funcionario_sobrenome.markAsTouched();
+      this.telefone_ddd.markAsTouched();
+      this.telefone_numero.markAsTouched();
+      this.tipo_telefone_id.markAsTouched();
+    }
   }
+
+  public closeAlert(index) {
+    this.erros.splice(index, 1);
+  }
+
   fileChangeListener($event) {
     var image:any = new Image();
     var file:File = $event.target.files[0];
@@ -99,8 +131,7 @@ export class FuncionariosCreateComponent implements OnInit {
     var that = this;
     myReader.onloadend = function (loadEvent:any) {
         image.src = loadEvent.target.result;
-        //that.cropper.setImage(image);
- 
+        //that.cropper.setImage(image); 
     };
  
     myReader.readAsDataURL(file);
@@ -117,10 +148,6 @@ export class FuncionariosCreateComponent implements OnInit {
       this.maskFone.placeholder = 'XXXX-XXXX';
     }
   }
-
-  public closeAlert(index) {
-    this.erros.splice(this.erros.indexOf(index), 1);
-}
 
   /** LISTAR CONTEÚDO */
   listarTiposTelefone() {
@@ -159,7 +186,21 @@ export class FuncionariosCreateComponent implements OnInit {
       }
     );
   }
+  
+    fileChange(input){
+        const reader = new FileReader();
+        if (input.files.length) {
+            const file = input.files[0];
+            reader.onload = () => {
+                this.image = reader.result;
+            }
+            reader.readAsDataURL(file);           
+        }
+    }
 
+    removeImage():void{
+        this.image = '';
+    }
 
 }
 

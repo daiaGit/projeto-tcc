@@ -76,10 +76,8 @@ export class FuncionariosEditComponent implements OnInit {
 
   ngOnInit() {
 
-    this.funcionario = JSON.parse(localStorage.getItem('funcionario'));
     this.listarTiposTelefone();
     this.listarCargos();
-
 
     this.form.controls['cargo_id'].setValue(this.funcionario.cargo_id);
     this.form.controls['email_descricao'].setValue(this.funcionario.email_descricao);

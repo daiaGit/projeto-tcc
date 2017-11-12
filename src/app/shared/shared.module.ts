@@ -23,7 +23,6 @@ import { FlagsMenuComponent } from './../theme/components/flags-menu/flags-menu.
 import { MessagesComponent } from './../theme/components/messages/messages.component';
 import { ApplicationsComponent } from './../theme/components/applications/applications.component';
 
-
 @NgModule({
   imports: [
     CommonModule,

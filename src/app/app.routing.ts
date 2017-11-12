@@ -60,10 +60,6 @@ export const routes: Routes = [
     component: AtivaCadastroComponent
   },
   {
-    path: '**',
-    component: NotFoundComponent
-  },
-  {
     path: 'login-smarket',
     loadChildren: 'app/smarket/login-smarket/login-smarket.module#LoginSmarketModule'
   },
@@ -112,7 +108,10 @@ export const routes: Routes = [
     path: 'teste',
     loadChildren: 'app/teste/teste.module#TesteModule'
   },
-  
+  {
+    path: '**',
+    component: NotFoundComponent
+  }
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(routes, {

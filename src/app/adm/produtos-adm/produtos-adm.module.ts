@@ -1,0 +1,44 @@
+import { NgxMaskModule } from 'ngx-mask';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpModule }    from '@angular/http';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { PipesModule } from '../../theme/pipes/pipes.module';
+
+import { ProdutosAdmEditComponent } from './produtos-adm-edit/produtos-adm-edit.component';
+import { ProdutosAdmCreateComponent } from './produtos-adm-create/produtos-adm-create.component';
+import { ProdutosAdmComponent } from './produtos-adm.component';
+
+export const routes = [
+  { path: '', component: ProdutosAdmComponent, pathMatch: 'full' },
+  { path: 'funcionarios-create', component: ProdutosAdmCreateComponent, data: { breadcrumb: 'Cadastrar' } },
+  { path: 'funcionarios-edit', component: ProdutosAdmEditComponent, data: { breadcrumb: 'Editar' } }
+];
+
+@NgModule({
+  imports: [
+    CommonModule,
+    HttpModule,
+    RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+    MultiselectDropdownModule,
+    NgxPaginationModule,
+    PipesModule,
+    NgxMaskModule
+  ],
+  declarations: [
+    ProdutosAdmComponent,
+    ProdutosAdmCreateComponent,
+    ProdutosAdmEditComponent
+  ]
+})
+export class ProdutosAdmModule { }
+
+
