@@ -1,4 +1,4 @@
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules, CanActivate } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 /** App Componentes */
@@ -69,7 +69,8 @@ export const routes: Routes = [
   },
   {
     path: 'smarket',
-    loadChildren: 'app/smarket/smarket.module#SmarketModule'
+    loadChildren: 'app/smarket/smarket.module#SmarketModule',
+    canActivate: [SmarketAuthGuard]
   },
   {
     path: 'login-shop',
@@ -77,7 +78,8 @@ export const routes: Routes = [
   },
   {
     path: 'shop',
-    loadChildren: 'app/shop/shop.module#ShopModule'
+    loadChildren: 'app/shop/shop.module#ShopModule',
+    canActivate: [ShopAuthGuard]
   },
   {
     path: 'login-adm',
@@ -85,7 +87,8 @@ export const routes: Routes = [
   },
   {
     path: 'adm',
-    loadChildren: 'app/adm/adm.module#AdmModule'
+    loadChildren: 'app/adm/adm.module#AdmModule',
+    canActivate: [AdmAuthGuard]
   },
   {
     path: 'teste',
