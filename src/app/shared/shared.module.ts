@@ -31,7 +31,6 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
     PipesModule
   ],
   declarations: [
-    HeaderSmarketZeroComponent,
     FooterComponent,
     SidebarComponent,
     VerticalMenuComponent,
@@ -45,7 +44,6 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
     FlagsMenuComponent
   ],
   exports: [
-    HeaderSmarketZeroComponent,
     FooterComponent,
     SidebarComponent,
     VerticalMenuComponent,

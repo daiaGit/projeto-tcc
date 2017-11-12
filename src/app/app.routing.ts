@@ -91,6 +91,24 @@ export const routes: Routes = [
     canActivate: [AdmAuthGuard]
   },
   {
+    path: 'login-smarket-doacao',
+    loadChildren: 'app/smarket-doacao/login-smarket-doacao/login-smarket-doacao.module#LoginSmarketDoacaoModule'
+  },
+  {
+    path: 'doacao',    
+    loadChildren: 'app/smarket-doacao/smarket-doacao.module#SmarketDoacaoModule',
+    canActivate: [DoacaoAuthGuard]
+  },
+  {
+    path: 'login-smarket-zero',
+    loadChildren: 'app/smarket-zero/login-smarket-zero/login-smarket-zero.module#LoginSmarketZeroModule'
+  },
+  {
+    path: 'zero',    
+    loadChildren: 'app/smarket-zero/smarket-zero.module#SmarketZeroModule',
+    canActivate: [ZeroAuthGuard]
+  },
+  {
     path: 'teste',
     loadChildren: 'app/teste/teste.module#TesteModule'
   },
