@@ -25,6 +25,12 @@ export class SubcategoriaService {
  
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
+
+	getSubcategoriaPorCategoria(categoria_id): Observable<any>{
+		return this.http.get(this.httpUtil.url(this.path) + "getSubcategoriaPorCategoria/" + categoria_id)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
  	
 	setSubCategoria(subcategoria: any, categoria_id: any): Observable<any> {
 		

@@ -17,48 +17,75 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
- 
+
 @Injectable()
 export class ProdutoService {
- 
+
 	private path = 'produto/';
- 
+
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
 	}
-	
-	setProduto(produto: any): Observable<any> {
-		
-		var params = {
-			estabelecimento_id:		produto.estabelecimentoId,
-			produto_descricao:		produto.produtoDescricao,
-			produto_path_foto:		produto.pathFoto,	
-			marca_id:				produto.marcaId,	
-			categoria_id:			produto.categoriaId,
-			unidade_medida_id:		produto.unidadeMedidaId,
-			sub_categoria_id:		produto.subCategoriaId
-		};
- 
-    	return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)
-      				.map(this.httpUtil.extrairDados)
-	                .catch(this.httpUtil.processarErros); 
-	}
 
-	setLote(lote: any): Observable<any>{
+	getProdutosByEstabelecimento(): Observable<any> {
 
-		var params = {
-			produto_id:				lote.produtoId,
-			estabelecimento_id:		lote.estabelecimentoId,
-			lote_data_fabricacao:	lote.dataFabricacao,
-			lote_data_vencimento:	lote.dataVencimento,
-			lote_preco:				lote.preco,
-			lote_obs:				lote.observacao,
-			lote_quantidade:		lote.quantidade,
-			unidade_medida_id:		lote.unidadeMedidaId
-		};
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
 
-		return this.http.post(this.httpUtil.url(this.path) + "adicionarLote",params)
+		return this.http.get(this.httpUtil.url(this.path) + "getProdutosByEstabelecimento/" + usuario.estabelecimento_id)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
-	
+
+	getUnidadesMedida(): Observable<any> {
+
+		return this.http.get(this.httpUtil.url(this.path) + "getUnidadesMedida")
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	setProduto(produto: any): Observable<any> {
+
+		var params = {
+			estabelecimento_id: produto.estabelecimentoId,
+			produto_descricao: produto.produtoDescricao,
+			produto_path_foto: produto.pathFoto,
+			marca_id: produto.marcaId,
+			categoria_id: produto.categoriaId,
+			unidade_medida_id: produto.unidadeMedidaId,
+			sub_categoria_id: produto.subCategoriaId
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	setLote(lote: any): Observable<any> {
+
+		var params = {
+			produto_id: lote.produtoId,
+			estabelecimento_id: lote.estabelecimentoId,
+			lote_data_fabricacao: lote.dataFabricacao,
+			lote_data_vencimento: lote.dataVencimento,
+			lote_preco: lote.preco,
+			lote_obs: lote.observacao,
+			lote_quantidade: lote.quantidade,
+			unidade_medida_id: lote.unidadeMedidaId
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + "adicionarLote", params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	doUploadProduto(planilhaProduto: any): Observable<any> {
+
+		var params = {
+			file: planilhaProduto
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + "do_upload/", params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
 }

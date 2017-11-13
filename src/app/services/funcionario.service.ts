@@ -28,14 +28,19 @@ export class FuncionarioService {
 	}
 
 	/** Lista Funcionarios por Estabelecimento */
-	getFuncionarioPorEstabeleciemento(idEstabelecimento): Observable<any[]> {
+	getFuncionarioPorEstabeleciemento(): Observable<any[]> {
 
-		return this.http.get(this.httpUtil.url(this.path) + "getFuncionarioPorEstabelecimento/" + idEstabelecimento)
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+		return this.http.get(this.httpUtil.url(this.path) + "getFuncionarioPorEstabelecimento/" + usuario.estabelecimento_id)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
 
+	/** Adicionar Funcionario */
 	setFuncionarios(funcionario: any): Observable<any> {
+		
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
 
 		var params = {
 			tipo_usuario_id: 5,
@@ -47,10 +52,32 @@ export class FuncionarioService {
 			tipo_telefone_id: funcionario.tipo_telefone_id,
 			telefone_ddd: funcionario.telefone_ddd,
 			telefone_numero: funcionario.telefone_numero,
-			estabelecimento_id: 1
+			estabelecimento_id: usuario.estabelecimento_id
 		}
 
 		return this.http.post(this.httpUtil.url(this.path) + 'adicionar', params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	/** Alterar dados do funcionário */
+	alterarDadosFuncionario(funcionario: any): Observable<any> {
+
+		console.log(funcionario);
+
+		var params = {
+			usuario_id: funcionario.usuario_id,
+			tipo_usuario_id: funcionario.tipo_usuario_id,
+			funcionario_nome: funcionario.funcionario_nome,
+			funcionario_sobrenome: funcionario.funcionario_sobrenome,
+			cargo_id: funcionario.cargo_id,
+			email_descricao: funcionario.email_descricao,
+			tipo_telefone_id: funcionario.tipo_telefone_id,
+			telefone_ddd: funcionario.telefone_ddd,
+			telefone_numero: funcionario.telefone_numero
+		}
+
+		return this.http.post(this.httpUtil.url(this.path) + 'alterarDadosFuncionario', params)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}

@@ -16,8 +16,8 @@ import { ProdutosAdmComponent } from './produtos-adm.component';
 
 export const routes = [
   { path: '', component: ProdutosAdmComponent, pathMatch: 'full' },
-  { path: 'funcionarios-create', component: ProdutosAdmCreateComponent, data: { breadcrumb: 'Cadastrar' } },
-  { path: 'funcionarios-edit', component: ProdutosAdmEditComponent, data: { breadcrumb: 'Editar' } }
+  { path: 'produtos-create', component: ProdutosAdmCreateComponent, data: { breadcrumb: 'Cadastrar' } },
+  { path: 'produtos-edit', component: ProdutosAdmEditComponent, data: { breadcrumb: 'Editar' } }
 ];
 
 @NgModule({

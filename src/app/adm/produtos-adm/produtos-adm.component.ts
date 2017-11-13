@@ -1,4 +1,3 @@
-
 /** Angular */
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
@@ -8,9 +7,10 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 
 /** Services */
-import { FuncionarioService } from './../../services/funcionario.service';
+
 import { ToastrService } from 'ngx-toastr';
 import { MenuService } from '../../theme/components/menu/menu.service';
+import { ProdutoService } from './../../services/produto.service';
 
 @Component({
   selector: 'app-produtos-adm',
@@ -19,14 +19,15 @@ import { MenuService } from '../../theme/components/menu/menu.service';
   encapsulation: ViewEncapsulation.None,
   providers: [
     MenuService,
-    FuncionarioService
+    ProdutoService
   ]
 })
 
 export class ProdutosAdmComponent implements OnInit {
   public erros: Array<any> = [];
-  public funcionarios: any[];
+  public produtos: any[];
   public p: any;
+  public file: any;
 
   public menuItems: Array<any>;
 
@@ -35,7 +36,7 @@ export class ProdutosAdmComponent implements OnInit {
   constructor(public fb: FormBuilder,
     public router: Router,
     public toastrService: ToastrService,
-    public funcionarioService: FuncionarioService,
+    public produtosService: ProdutoService,
     public menuService: MenuService,
     public modalService: NgbModal) {
 
@@ -51,11 +52,11 @@ export class ProdutosAdmComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getFuncionarios(1);
+    this.getProdutos();
 
   }
 
-  public getFuncionarios(idEstabelecimento): void {
+  public getProdutos(): void {
     var resp: any;
 
     var msgErro: any = {
@@ -63,11 +64,12 @@ export class ProdutosAdmComponent implements OnInit {
       descricao: ''
     };
 
-    this.funcionarioService.getFuncionarioPorEstabeleciemento(idEstabelecimento).subscribe(
-      funcionarios => {
-        resp = funcionarios['response'];
+    this.produtosService.getProdutosByEstabelecimento().subscribe(
+      produtos => {
+        resp = produtos['response'];
         if (resp['status'] == 'true') {
-          this.funcionarios = resp['objeto'];
+          this.produtos = resp.objeto;
+          console.log(this.produtos);
         }
         else {
           msgErro.item = 'Erro ao buscar funcionários!';
@@ -83,13 +85,61 @@ export class ProdutosAdmComponent implements OnInit {
     );
   }
 
-  public editarFuncionario(funcionario) {
-    localStorage.setItem('funcionario', JSON.stringify(funcionario));
-    this.router.navigate(['adm/funcionarios-adm/funcionarios-edit']);
+  public editarProduto(produto) {
+    localStorage.setItem('produto', JSON.stringify(produto));
+    this.router.navigate(['adm/produtos-adm/produtos-edit']);
   }
 
-  public cadastrarFuncionario() {
-    this.router.navigate(['adm/funcionarios-adm/funcionarios-create']);
+  public cadastrarProdutos() {
+    this.router.navigate(['adm/produtos-adm/produtos-create']);
+  }
+
+  public importarPlanilhaProdutos() {
+
+  }
+
+  fileChange(input) {
+    const reader = new FileReader();
+    if (input.files.length) {
+      const file = input.files[0];
+      reader.onload = () => {
+        this.file = reader.result;
+      }
+      reader.readAsDataURL(file);
+      
+    }
+  }
+
+  enviarArquivo(){
+    var resp: any;
+    
+        var msgErro: any = {
+          item: '',
+          descricao: ''
+        };
+    
+        this.produtosService.doUploadProduto(this.file).subscribe(
+          produtosUpload => {
+            resp = produtosUpload['response'];
+            if (resp['status'] == 'true') {
+              console.log(resp);
+            }
+            else {
+              msgErro.item = 'Erro ao importar Planilha Produtos!';
+              msgErro.descricao = resp.descricao;
+              this.erros.push(msgErro);
+            }
+          },
+          err => {
+            msgErro.item = 'Erro ao importar Planilha Produtos!';
+            msgErro.descricao = err;
+            this.erros.push(msgErro);
+          }
+        );
+  }
+
+  removeFile(): void {
+    this.file = '';
   }
 
 }

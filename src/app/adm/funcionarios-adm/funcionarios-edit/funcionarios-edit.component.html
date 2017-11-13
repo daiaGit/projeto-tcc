@@ -26,7 +26,7 @@
                                     <input [formControl]="funcionario_sobrenome" class="form-control validation-field" type="text" name="funcionario_sobrenome"
                                         id="funcionario_sobrenome">
                                     <small class="text-danger" *ngIf="form.get('funcionario_sobrenome').touched">
-                                        <span *ngIf="form.get('funcionario_sobrenomee').hasError('required')">Sobrenome obrigatório</span>
+                                        <span *ngIf="form.get('funcionario_sobrenome').hasError('required')">Sobrenome obrigatório</span>
                                         <span *ngIf="form.get('funcionario_sobrenome').hasError('minlength')">Minimo 3 caracteres</span>
                                         <span *ngIf="form.get('funcionario_sobrenome').hasError('maxlength')">Máximo 150 caracteres</span>
                                     </small>

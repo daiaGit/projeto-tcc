@@ -8,73 +8,92 @@
                 </div>
                 <input type="text" [(ngModel)]="searchText" placeholder="Search user by name..." class="form-control border-0">
                 <div class="input-group-addon border-top-0 border-right-0 border-bottom-0">
-                        <a (click)="cadastrarFuncionario()" href="javascript:void(0);">
-                            <i class="fa fa-user-plus"></i>
-                            </a>>
+                    <a (click)="cadastrarProdutos()" href="javascript:void(0);">
+                        <i class="fa fa-user-plus"></i>
+                    </a>
                 </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="row">
-    <div *ngFor="let funcionario of funcionarios | FuncionarioSearchPipe : searchText | paginate: { itemsPerPage: 9, currentPage: p }; let i = index;"
-        class="col-xl-4 col-lg-6 mb-4">
-        <div class="flip">
-            <div class="content">
-                <div class="front">
-                    <div class="card border-0 box-shadow rounded-0">
-                        <div class="card-header border-0 rounded-0 text-muted h50">
-                            <div class="widget-controls">
-                                <ul class="card-action-buttons">
-                                    <li>
-                                        <a (click)="editarFuncionario(funcionario)" href="javascript:void(0);" class="btn-floating waves-effect waves-light cyan">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);" class="btn-floating waves-effect waves-light cyan">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                        <div class="card-block pt-3">
-
-                            <div class="media">
-                                <div class="d-flex flex-column justify-content-center">
-                                    <img class="rounded-circle img-funcionario" src="../../../assets/img/users/default-user.jpg" width="60">
+                <div class="col-sm-2">
+                    <br/>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#primary-modal">
+                        <i class="fa fa-camera"></i>&nbsp;Carregar Foto
+                    </button>
+                    <div class="modal fade" id="primary-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header state modal-primary">
+                                    <h4 class="modal-title" id="modal-primary-label">
+                                        <i class="fa fa-camera"></i>Carregar Foto</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
                                 </div>
-                                <div class="media-body">
-
-                                    <h5 class="card-title activator grey-text text-darken-4 mt-4">
-                                        {{funcionario.funcionario_nome}}&nbsp;{{funcionario.funcionario_sobrenome}}
-                                    </h5>
-                                    <p class="mt-0 mb-0">
-                                        <strong>CFP:</strong>&nbsp;{{funcionario.funcionario_cpf}}
-                                    </p>
-                                    <p class="mt-0 mb-0">
-                                        <strong>CARGO:</strong>&nbsp;{{funcionario.cargo_descricao}}
-                                    </p>
-                                    <p class="mt-0 mb-0">
-                                        <strong>TELEFONE:</strong>&nbsp;({{funcionario.telefone_ddd}})&nbsp;{{funcionario.telefone_numero}}
-                                    </p>
-                                    <p class="mt-0 mb-0">
-                                        <strong>EMAIL:</strong>&nbsp;{{funcionario.email_descricao}}
-                                    </p>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <div class="input-group file-upload">
+                                            <input type="file" (change)="fileChange(input)" #input class="file-upload-btn"/>                                            
+                                            <input type="text" class="form-control" placeholder="Choose a file..." value="{{file}}">
+                                            <i class="fa fa-times delete-file" (click)="removeFile()" *ngIf="file"></i>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button"><i class="fa fa-upload"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="enviarArquivo()">Ok</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive bg-white box-shadow">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Produto</th>
+                        <th>Marca</th>
+                        <th>Categoria</th>
+                        <th>Quantidade</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let produto of produtos | ProdutoSearchPipe : searchText | paginate: { itemsPerPage: 10, currentPage: p }">
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="assets/img/users/default-user.jpg" width="40">
+                        </td>
+                        <td class="align-middle text-truncate">{{produto.produto_descricao}}</td>
+                        <td class="align-middle text-truncate">{{produto.marca_descricao}}</td>
+                        <td class="align-middle text-truncate">{{produto.categoria_descricao}}</td>
+                        <td class="align-middle text-truncate">{{produto.quantidade}}{{produto.unidade_medida_sigla}}</td>
+                        <td class="align-middle">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-secondary btn-sm">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-secondary btn-sm">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-12">

@@ -1,3 +1,4 @@
+import { ProdutoSearchPipe } from './search/produto-search.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -18,6 +19,7 @@ import { MailSearchPipe } from './search/mail-search.pipe';
         ChatPersonSearchPipe,
         UserSearchPipe,
         FuncionarioSearchPipe,
+        ProdutoSearchPipe,
         EstabelecimentoSearchPipe,
         TruncatePipe,
         MailSearchPipe
@@ -27,6 +29,7 @@ import { MailSearchPipe } from './search/mail-search.pipe';
         ChatPersonSearchPipe,
         UserSearchPipe,
         FuncionarioSearchPipe,
+        ProdutoSearchPipe,
         EstabelecimentoSearchPipe,
         TruncatePipe,
         MailSearchPipe

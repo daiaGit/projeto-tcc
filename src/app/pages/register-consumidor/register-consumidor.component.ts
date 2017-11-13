@@ -91,7 +91,6 @@ export class RegisterConsumidorComponent implements OnInit{
     public ngOnInit(){
         this.listaTiposTelefone();
         this.listarTermoUso();
-        this.getFuncionarios(1);
     }
 
     ngAfterViewInit() {
@@ -147,26 +146,6 @@ export class RegisterConsumidorComponent implements OnInit{
         );
     }
 
-
-    public getFuncionarios(idEstabelecimento): void {
-        var resp: any;
-    
-        var msgErro: any = {
-          item: '',
-          descricao: ''
-        };
-    
-        this.funcionarioService.getFuncionarioPorEstabeleciemento(idEstabelecimento).subscribe(
-          funcionarios => {
-            resp = funcionarios['response'];
-          },
-          err => {
-            msgErro.item = 'Erro ao buscar funcionários!';
-            msgErro.descricao = err;
-            this.erros.push(msgErro);
-          }
-        );
-      }
 
     /** SETAR AÇÕES FORMULÁRIO */
     setMaskFone() {

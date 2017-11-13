@@ -51,11 +51,11 @@ export class FuncionariosAdmComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getFuncionarios(1);
+    this.getFuncionarios();
 
   }
 
-  public getFuncionarios(idEstabelecimento): void {
+  public getFuncionarios(): void {
     var resp: any;
 
     var msgErro: any = {
@@ -63,7 +63,7 @@ export class FuncionariosAdmComponent implements OnInit {
       descricao: ''
     };
 
-    this.funcionarioService.getFuncionarioPorEstabeleciemento(idEstabelecimento).subscribe(
+    this.funcionarioService.getFuncionarioPorEstabeleciemento().subscribe(
       funcionarios => {
         resp = funcionarios['response'];
         if (resp['status'] == 'true') {
