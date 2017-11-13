@@ -1,203 +1,150 @@
-import { Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+/** Angular */
+import { Router } from '@angular/router';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpModule } from '@angular/http';
+
+/** Services */
+
 import { ToastrService } from 'ngx-toastr';
-import { User, UserProfile, UserWork, UserContacts, UserSocial, UserSettings } from './lotes-adm.model';
-import { LotesAdmService } from './lotes-adm.service';
 import { MenuService } from '../../theme/components/menu/menu.service';
- 
+import { ProdutoService } from './../../services/produto.service';
+
 @Component({
   selector: 'app-lotes-adm',
   templateUrl: './lotes-adm.component.html',
   styleUrls: ['./lotes-adm.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  providers: [ LotesAdmService, MenuService ]
+  providers: [
+    MenuService,
+    ProdutoService
+  ]
 })
-export class LotesAdmComponent implements OnInit {
 
-  public menuItems:Array<any>;  
-  public users: User[];
-  public user: User;
+export class LotesAdmComponent implements OnInit {
+  public erros: Array<any> = [];
+  public produtos: any[];
+  public p: any;
+  public file: any;
+
+  public menuItems: Array<any>;
+
   public searchText: string;
-  public p:any;
-  public type:string = 'grid';
-  public modalRef: NgbModalRef;
-  public form:FormGroup;
-  public genders = ['male', 'female'];
-  public genderOption:string;
- 
-  public menuSelectSettings: IMultiSelectSettings = {
-      enableSearch: true,
-      checkedStyle: 'fontawesome',
-      buttonClasses: 'btn btn-secondary btn-block',
-      dynamicTitleMaxItems: 0,
-      displayAllSelectedText: true,
-      showCheckAll: true,
-      showUncheckAll: true
-  };
-  public menuSelectTexts: IMultiSelectTexts = {
-      checkAll: 'Select all',
-      uncheckAll: 'Unselect all',
-      checked: 'menu item selected',
-      checkedPlural: 'menu items selected',
-      searchPlaceholder: 'Find menu item...',
-      defaultTitle: 'Select menu items for user',
-      allSelected: 'All selected',
-  };
-  public menuSelectOptions: IMultiSelectOption[] = [];
-  
-  constructor(public fb:FormBuilder, 
-              public toastrService: ToastrService,
-              public funcionariosAdmService:LotesAdmService,
-              public menuService:MenuService, 
-              public modalService: NgbModal) {
+
+  constructor(public fb: FormBuilder,
+    public router: Router,
+    public toastrService: ToastrService,
+    public produtosService: ProdutoService,
+    public menuService: MenuService,
+    public modalService: NgbModal) {
 
     this.menuItems = this.menuService.getVerticalMenuItems();
-    this.menuItems.forEach(item=>{
-      let menu = { 
-        id: item.id, 
+    this.menuItems.forEach(item => {
+      let menu = {
+        id: item.id,
         name: item.title
       }
-      this.menuSelectOptions.push(menu);
     })
+
   }
 
   ngOnInit() {
-    this.getUsers(); 
-    this.form = this.fb.group({
-        id: null,
-        username: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
-        password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],       
-        profile: this.fb.group({
-          name: null,
-          surname: null,  
-          birthday: null,
-          gender: null,
-          image: null
-        }),
-        work: this.fb.group({
-          company: null,
-          position: null,
-          salary: null
-        }),
-        contacts: this.fb.group({
-          email: null,
-          phone: null,
-          address: null          
-        }),
-        social: this.fb.group({
-          facebook: null,
-          twitter: null,
-          google: null
-        }),
-        settings: this.fb.group({
-          isActive: null,
-          isDeleted: null,
-          registrationDate: null,
-          joinedDate: null
-        }),
-        menuIds: null
-    });
+
+    this.getProdutos();
+
   }
 
-  public getUsers(): void {
-    this.funcionariosAdmService.getUsers().subscribe( users => 
-      this.users = users
-    );    
-  }
+  public getProdutos(): void {
+    var resp: any;
 
-  public addUser(user:User){
-    this.funcionariosAdmService.addUser(user).subscribe(user => {
-      this.getUsers();      
-    });
-  }
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
 
-  public updateUser(user:User){
-    this.funcionariosAdmService.updateUser(user).subscribe(user => {
-      this.getUsers();      
-    });
-  }
-
-  public deleteUser(user:User){
-    this.funcionariosAdmService.deleteUser(user.id).subscribe(result => 
-      this.getUsers()
+    this.produtosService.getProdutosByEstabelecimento().subscribe(
+      produtos => {
+        resp = produtos['response'];
+        if (resp['status'] == 'true') {
+          this.produtos = resp.objeto;
+          console.log(this.produtos);
+        }
+        else {
+          msgErro.item = 'Erro ao buscar funcionários!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
+      },
+      err => {
+        msgErro.item = 'Erro ao buscar funcionários!';
+        msgErro.descricao = err;
+        this.erros.push(msgErro);
+      }
     );
   }
 
-  public toggle(type){
-    this.type = type;
+  public editarProduto(produto) {
+    localStorage.setItem('produto', JSON.stringify(produto));
+    this.router.navigate(['adm/produtos-adm/produtos-edit']);
   }
 
-  public openMenuAssign(event){
-    let parent = event.target.parentNode;
-    while (parent){
-      parent = parent.parentNode;
-      if(parent.classList.contains('content')){
-        parent.classList.add('flipped');
-        parent.parentNode.parentNode.classList.add('z-index-1');
-        break;
+  public cadastrarProdutos() {
+    this.router.navigate(['adm/produtos-adm/produtos-create']);
+  }
+
+  public importarPlanilhaProdutos() {
+
+  }
+
+  fileChange(input) {
+    const reader = new FileReader();
+    if (input.files.length) {
+      const file = input.files[0];
+      reader.onload = () => {
+        this.file = reader.result;
       }
+      reader.readAsDataURL(file);
+      
     }
   }
 
-  public closeMenuAssign(event){
-    let parent = event.target.parentNode;
-    while (parent){
-      parent = parent.parentNode;
-      if(parent.classList.contains('content')){
-        parent.classList.remove('flipped');
-        parent.parentNode.parentNode.classList.remove('z-index-1');
-        break;
-      }
-    }
-  }
-
-  public assignMenuItemsToUser(user){  
-    this.updateUser(user);
-    sessionStorage.setItem('userMenuItems', JSON.stringify(user.menuIds));
-    this.toastrService.success('Please, logout and login to see result.', 'Successfully assigned !');
-  }
-
-  public openModal(modalContent, user) {
-    if(user){
-      this.user = user;
-      this.form.setValue(user);
-      this.genderOption = user.profile.gender; 
-    } 
-    else{
-      this.user = new User();
-      this.user.profile = new UserProfile();
-      this.user.work = new UserWork();
-      this.user.contacts = new UserContacts();
-      this.user.social = new UserSocial();
-      this.user.settings = new UserSettings();
-    }   
-    this.modalRef = this.modalService.open(modalContent, { container: '.app' });
+  enviarArquivo(){
+    var resp: any;
     
-    this.modalRef.result.then((result) => {
-      this.form.reset();
-      this.genderOption = null;
-    }, (reason) => {
-      this.form.reset();
-      this.genderOption = null;
-    });
+        var msgErro: any = {
+          item: '',
+          descricao: ''
+        };
+    
+        this.produtosService.doUploadProduto(this.file).subscribe(
+          produtosUpload => {
+            resp = produtosUpload['response'];
+            if (resp['status'] == 'true') {
+              console.log(resp);
+            }
+            else {
+              msgErro.item = 'Erro ao importar Planilha Produtos!';
+              msgErro.descricao = resp.descricao;
+              this.erros.push(msgErro);
+            }
+          },
+          err => {
+            msgErro.item = 'Erro ao importar Planilha Produtos!';
+            msgErro.descricao = err;
+            this.erros.push(msgErro);
+          }
+        );
   }
 
-  public closeModal(){
-    this.modalRef.close();
+  removeFile(): void {
+    this.file = '';
   }
-
-  public onSubmit(user:User):void {
-    if (this.form.valid) {
-      if(user.id){
-        this.updateUser(user);
-      }
-      else{
-        this.addUser(user);
-      }      
-      this.modalRef.close();    
-    }
-  } 
 
 }
+
+
+
+
+

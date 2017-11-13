@@ -1,0 +1,194 @@
+<div class="container-fluid">
+
+    <h2>Cadastrar Funcionários</h2>
+    <p class="text-muted">Precisa de uma ajudinha prara gerenciar sua loja? Cadastre aqui seus funcionários aqui eles podem ajudar você.</p>
+
+    <div class="row">
+        <!-- Div formulario -->
+        <div class="col-sm-12 login-container-formulario">
+            <div class="card border-0 box-shadow" widget="">
+                <div class="card-header transparent border-0 text-muted">
+                    <h4 class="mt-3 mb-3">
+                        <i class="fa fa-lock"></i> Dados do Funcionário</h4>
+                    <div class="widget-controls">
+                        <a class="transition" data-widgster="expand" href="#" style="display: none;">
+                            <i class="fa fa-chevron-down"></i>
+                        </a>
+                        <a class="transition" data-widgster="collapse" href="#">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="transition" data-widgster="fullscreen" href="#">
+                            <i class="fa fa-expand"></i>
+                        </a>
+                        <a class="transition" data-widgster="restore" href="#" style="display: none;">
+                            <i class="fa fa-compress"></i>
+                        </a>
+                        <a class="transition" data-widgster="close" href="#">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-block pt-0 widget-body">
+
+                    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
+
+                        <div class="row">
+
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="produto_descricao">Produto</label>
+                                            <input [formControl]="produto_descricao" class="form-control validation-field" type="text" name="nome" id="nome">
+                                            <small class="text-danger" *ngIf="form.get('produto_descricao').touched">
+                                                <span *ngIf="form.get('produto_descricao').hasError('required')">Descrição do Produto Obrigatória</span>
+                                                <span *ngIf="form.get('produto_descricao').hasError('minlength')">Minimo 3 caracteres</span>
+                                                <span *ngIf="form.get('produto_descricao').hasError('maxlength')">Máximo 150 caracteres</span>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="marca_id">Marca</label>
+                                            <select [formControl]="marca_id" name="marca_id" id="marca_id" class="form-control validation-field">
+                                                <option value="">Selecione</option>
+                                                <option *ngFor="let marca of marcas" [value]="marca.marca_id">
+                                                    {{marca.marca_descricao}}</option>
+                                            </select>
+                                            <small class="text-danger" *ngIf="form.get('marca_id').touched">
+                                                <span *ngIf="form.get('marca_id').hasError('required')">Marca obrigatória</span>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="categoria_id">Categoria</label>
+                                            <select [formControl]="categoria_id" name="categoria_id" id="categoria_id" class="form-control validation-field">
+                                                <option value="">Selecione</option>
+                                                <option *ngFor="let categoria of categorias" [value]="categoria.categoria_id">
+                                                    {{categoria.categoria_descricao}}</option>
+                                            </select>
+                                            <small class="text-danger" *ngIf="form.get('categoria_id').touched">
+                                                <span *ngIf="form.get('categoria_id').hasError('required')">Categoria obrigatória</span>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="sub_categoria_id">Subcategoria</label>
+                                            <select [formControl]="sub_categoria_id" name="sub_categoria_id" id="sub_categoria_id" class="form-control validation-field" (click)="listarSubcategorias()">
+                                                <option value="">Selecione</option>
+                                                <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.sub_categoria_id">
+                                                    {{subcategoria.sub_categoria_descricao}}</option>
+                                            </select>
+                                            <small class="text-danger" *ngIf="form.get('sub_categoria_id').touched">
+                                                <span *ngIf="form.get('sub_categoria_id').hasError('required')">SubCategoria obrigatória</span>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label for="quantidade">Quantidade</label>
+                                            <input [formControl]="quantidade" class="form-control validation-field" placeholder="XXXXXX" type="text" specialCharacters="false"
+                                                name="quantidade" id="quantidade" mask="00000">
+                                            <small class="text-danger" *ngIf="form.get('quantidade').touched">
+                                                <span *ngIf="form.get('quantidade').hasError('required')">Quantidade obrigatória</span>
+                                                <span *ngIf="form.get('quantidade').hasError('')">Quantidade inválida</span>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="unidade_medida_id">Unidade Medida</label>
+                                            <select [formControl]="unidade_medida_id" name="unidade_medida_id" id="unidade_medida_id" class="form-control validation-field">
+                                                <option value="">Selecione</option>
+                                                <option *ngFor="let unidadeMedida of unidadesMedida" [value]="unidadeMedida.unidade_medida_id">
+                                                    {{unidadeMedida.unidade_medida_descricao}}</option>
+                                            </select>
+                                            <small class="text-danger" *ngIf="form.get('unidade_medida_id').touched">
+                                                <span *ngIf="form.get('unidade_medida_id').hasError('required')">Unidade Medida Obrigatória</span>
+                                            </small>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-2">
+                                        <br/>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#primary-modal">
+                                            <i class="fa fa-camera"></i>&nbsp;Carregar Foto
+                                        </button>
+                                        <div class="modal fade" id="primary-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header state modal-primary">
+                                                        <h4 class="modal-title" id="modal-primary-label">
+                                                            <i class="fa fa-camera"></i>Carregar Foto</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="file" (change)="fileChange(input)" #input class="img-upload-btn" />
+
+                                                        <button class="btn btn-info btn-block rounded-0" type="button">
+                                                            <span *ngIf="!image">
+                                                                <i class="fa fa-upload"></i> Select Image... </span>
+                                                            <span *ngIf="image">
+                                                                <i class="fa fa-refresh"></i> Change Image... </span>
+                                                        </button>
+
+                                                        <div class="image-wrapper">
+                                                            <i *ngIf="image" class="fa fa-times delete-img" (click)="removeImage()"></i>
+                                                            <img [attr.src]="image" *ngIf="image" width="100%">
+                                                            <img src="assets/img/app/no-image.png" *ngIf="!image" width="100%">
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
+                    <button type="button" class="close" (click)="closeAlert(i)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{erro.item}}</strong> {{erro.descricao}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
