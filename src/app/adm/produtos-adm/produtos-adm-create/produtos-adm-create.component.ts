@@ -82,20 +82,20 @@ export class ProdutosAdmCreateComponent implements OnInit {
     };
 
     if (this.form.valid) {
-      this.produtoService.setProduto(values).subscribe(
+      this.produtoService.setProduto(values, this.image).subscribe(
         funcionario => {
           resp = funcionario['response'];
           if (resp.status == 'true') {
 
           }
           else {
-            msgErro.item = 'Erro ao efetuar o cadastro de funcionário!';
+            msgErro.item = 'Erro ao efetuar o cadastro de produtos!';
             msgErro.descricao = resp.descricao;
             this.erros.push(msgErro);
           }
         },
         err => {
-          msgErro.item = 'Erro ao efetuar o cadastro de funcionário!';
+          msgErro.item = 'Erro ao efetuar o cadastro de produtos!';
           msgErro.descricao = err;
           this.erros.push(msgErro);
         }
@@ -167,7 +167,7 @@ export class ProdutosAdmCreateComponent implements OnInit {
       descricao: ''
     };
 
-    this.produtoService.getUnidadesMedida().subscribe(
+    this.produtoService.getUnidadesMedidas().subscribe(
       unidadesMedida => {
         resp = unidadesMedida['response'];
         if (resp.status == 'true') {
@@ -189,14 +189,14 @@ export class ProdutosAdmCreateComponent implements OnInit {
 
   }
 
-  listarSubcategoriasMedida(idCategoria) {
+  listarSubcategorias() {
     var resp: any;
     var msgErro: any = {
       item: '',
       descricao: ''
     };
 
-    this.subcategoriaService.getSubcategoriaPorCategoria(idCategoria).subscribe(
+    this.subcategoriaService.getSubcategoriaPorCategoria(this.categoria_id.value).subscribe(
       unidadesMedida => {
         resp = unidadesMedida['response'];
         if (resp.status == 'true') {

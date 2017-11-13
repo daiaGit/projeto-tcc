@@ -83,7 +83,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="sub_categoria_id">Subcategoria</label>
-                                            <select [formControl]="sub_categoria_id" name="sub_categoria_id" id="sub_categoria_id" class="form-control validation-field">
+                                            <select [formControl]="sub_categoria_id" name="sub_categoria_id" id="sub_categoria_id" class="form-control validation-field" (click)="listarSubcategorias()">
                                                 <option value="">Selecione</option>
                                                 <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.sub_categoria_id">
                                                     {{subcategoria.sub_categoria_descricao}}</option>

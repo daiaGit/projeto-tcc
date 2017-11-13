@@ -35,26 +35,31 @@ export class ProdutoService {
 			.catch(this.httpUtil.processarErros);
 	}
 
-	getUnidadesMedida(): Observable<any> {
+	getUnidadesMedidas(): Observable<any> {
 
-		return this.http.get(this.httpUtil.url(this.path) + "getUnidadesMedida")
+		return this.http.get(this.httpUtil.url(this.path) + "getUnidadesMedidas")
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
 
-	setProduto(produto: any): Observable<any> {
+	setProduto(produto: any, image: any): Observable<any> {
+
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
 
 		var params = {
-			estabelecimento_id: produto.estabelecimentoId,
-			produto_descricao: produto.produtoDescricao,
-			produto_path_foto: produto.pathFoto,
-			marca_id: produto.marcaId,
-			categoria_id: produto.categoriaId,
-			unidade_medida_id: produto.unidadeMedidaId,
-			sub_categoria_id: produto.subCategoriaId
+			estabelecimento_id: usuario.estabelecimento_id,
+			produto_descricao: produto.produto_descricao,
+			produto_img_b64: image,
+			marca_id: produto.marca_id,
+			categoria_id: produto.categoria_id,
+			unidade_medida_id: produto.unidade_medida_id,
+			sub_categoria_id: produto.sub_categoria_id,
+			quantidade: produto.quantidade
 		};
 
-		return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)
+		console.log(params);
+ 
+		return this.http.post(this.httpUtil.url(this.path) + "adicionarProduto", params)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
