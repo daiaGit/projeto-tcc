@@ -8,7 +8,7 @@
                 </div>
                 <input type="text" [(ngModel)]="searchText" placeholder="Search user by name..." class="form-control border-0">
                 <div class="input-group-addon border-top-0 border-right-0 border-bottom-0">
-                    <a (click)="cadastrarProdutos()" href="javascript:void(0);">
+                    <a (click)="cadastrarLotes()" href="javascript:void(0);">
                         <i class="fa fa-user-plus"></i>
                     </a>
                 </div>
@@ -30,14 +30,16 @@
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <div class="input-group file-upload">
-                                            <input type="file" (change)="fileChange(input)" #input class="file-upload-btn"/>                                            
+                                            <input type="file" (change)="fileChange(input)" #input class="file-upload-btn" />
                                             <input type="text" class="form-control" placeholder="Choose a file..." value="{{file}}">
                                             <i class="fa fa-times delete-file" (click)="removeFile()" *ngIf="file"></i>
                                             <span class="input-group-btn">
-                                                <button class="btn btn-primary" type="button"><i class="fa fa-upload"></i></button>
+                                                <button class="btn btn-primary" type="button">
+                                                    <i class="fa fa-upload"></i>
+                                                </button>
                                             </span>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="enviarArquivo()">Ok</button>
@@ -53,7 +55,6 @@
 
 </div>
 
-
 <div class="row">
     <div class="col-12">
         <div class="table-responsive bg-white box-shadow">
@@ -61,22 +62,25 @@
                 <thead>
                     <tr>
                         <th></th>
+                        <th>Código Lote</th>
                         <th>Produto</th>
-                        <th>Marca</th>
                         <th>Categoria</th>
+                        <th>Data Validade</th>
                         <th>Quantidade</th>
-                        <th>Status</th>
+                        <th>Preco</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let produto of produtos | ProdutoSearchPipe : searchText | paginate: { itemsPerPage: 10, currentPage: p }">
+                    <tr *ngFor="let lote of lotes | LoteSearchPipe : searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                         <td class="align-middle">
                             <img class="rounded-circle" src="assets/img/users/default-user.jpg" width="40">
                         </td>
-                        <td class="align-middle text-truncate">{{produto.produto_descricao}}</td>
-                        <td class="align-middle text-truncate">{{produto.marca_descricao}}</td>
-                        <td class="align-middle text-truncate">{{produto.categoria_descricao}}</td>
-                        <td class="align-middle text-truncate">{{produto.quantidade}}{{produto.unidade_medida_sigla}}</td>
+                        <td class="align-middle text-truncate">{{lote.lote_id}}</td>
+                        <td class="align-middle text-truncate">{{lote.produto_descricao}}</td>
+                        <td class="align-middle text-truncate">{{lote.categoria_descricao}}</td>
+                        <td class="align-middle text-truncate">{{lote.lote_data_fabricao}} {{lote.lote_data_vencimento}}</td>
+                        <td class="align-middle text-truncate">{{lote.lote_quantidade}} {{lote.lote_quantidade}}</td>
+                        <td class="align-middle text-truncate">{{lote.lote_preco}}</td>
                         <td class="align-middle">
                             <div class="btn-group" role="group">
                                 <button class="btn btn-secondary btn-sm">
@@ -93,7 +97,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="row">
     <div class="col-12">

@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuService } from '../../theme/components/menu/menu.service';
 import { ProdutoService } from './../../services/produto.service';
 
+
 @Component({
   selector: 'app-lotes-adm',
   templateUrl: './lotes-adm.component.html',
@@ -25,7 +26,7 @@ import { ProdutoService } from './../../services/produto.service';
 
 export class LotesAdmComponent implements OnInit {
   public erros: Array<any> = [];
-  public produtos: any[];
+  public lotes: any[];
   public p: any;
   public file: any;
 
@@ -36,7 +37,7 @@ export class LotesAdmComponent implements OnInit {
   constructor(public fb: FormBuilder,
     public router: Router,
     public toastrService: ToastrService,
-    public produtosService: ProdutoService,
+    public produtoService: ProdutoService,
     public menuService: MenuService,
     public modalService: NgbModal) {
 
@@ -52,11 +53,11 @@ export class LotesAdmComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getProdutos();
+    this.getLotes();
 
   }
 
-  public getProdutos(): void {
+  public getLotes(): void {
     var resp: any;
 
     var msgErro: any = {
@@ -64,12 +65,12 @@ export class LotesAdmComponent implements OnInit {
       descricao: ''
     };
 
-    this.produtosService.getProdutosByEstabelecimento().subscribe(
-      produtos => {
-        resp = produtos['response'];
+    this.produtoService.getLotesByEstabelecimento().subscribe(
+      lotes => {
+        resp = lotes['response'];
         if (resp['status'] == 'true') {
-          this.produtos = resp.objeto;
-          console.log(this.produtos);
+          this.lotes = resp.objeto;
+          console.log(this.lotes);
         }
         else {
           msgErro.item = 'Erro ao buscar funcionários!';
@@ -87,14 +88,14 @@ export class LotesAdmComponent implements OnInit {
 
   public editarProduto(produto) {
     localStorage.setItem('produto', JSON.stringify(produto));
-    this.router.navigate(['adm/produtos-adm/produtos-edit']);
+    this.router.navigate(['adm/lotes-adm/lotes-adm-edit']);
   }
 
-  public cadastrarProdutos() {
-    this.router.navigate(['adm/produtos-adm/produtos-create']);
+  public cadastrarLotes() {
+    this.router.navigate(['adm/lotes-adm/lotes-adm-create']);
   }
 
-  public importarPlanilhaProdutos() {
+  public importarPlanilhalotes() {
 
   }
 
@@ -118,20 +119,20 @@ export class LotesAdmComponent implements OnInit {
           descricao: ''
         };
     
-        this.produtosService.doUploadProduto(this.file).subscribe(
-          produtosUpload => {
-            resp = produtosUpload['response'];
+        this.produtoService.doUploadProduto(this.file).subscribe(
+          lotesUpload => {
+            resp = lotesUpload['response'];
             if (resp['status'] == 'true') {
               console.log(resp);
             }
             else {
-              msgErro.item = 'Erro ao importar Planilha Produtos!';
+              msgErro.item = 'Erro ao importar Planilha lotes!';
               msgErro.descricao = resp.descricao;
               this.erros.push(msgErro);
             }
           },
           err => {
-            msgErro.item = 'Erro ao importar Planilha Produtos!';
+            msgErro.item = 'Erro ao importar Planilha lotes!';
             msgErro.descricao = err;
             this.erros.push(msgErro);
           }

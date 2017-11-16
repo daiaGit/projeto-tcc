@@ -32,6 +32,16 @@ export const routes: Routes = [
                 path: 'produtos-adm',
                 loadChildren: 'app/adm/produtos-adm/produtos-adm.module#ProdutosAdmModule',
                 data: { breadcrumb: 'Meus Produtos' }
+            },
+            {
+                path: 'formas-entrega',
+                loadChildren: 'app/adm/formas-entrega/formas-entrega.module#FormasEntregaModule',
+                data: { breadcrumb: 'Formas de Pagamento' }
+            },
+            {
+                path: 'formas-pagamento',
+                loadChildren: 'app/adm/formas-pagamento/formas-pagamento.module#FormasPagamentoModule',
+                data: { breadcrumb: 'Formas de Entrega' }
             }
 
         ]

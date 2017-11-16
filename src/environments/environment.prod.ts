@@ -1,3 +1,7 @@
 export const environment = {
-  production: true
+ 
+    name: 'prod',
+    api: 'https://www.mlprojetos.com/',
+    production: true
+
 };

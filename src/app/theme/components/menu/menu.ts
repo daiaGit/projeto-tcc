@@ -53,7 +53,9 @@ export const verticalMenuEstabelecimentoItems = [
     new Menu (2, 'Meus Funcionários', '/adm/funcionarios-adm', null, 'tachometer', null, false, 0),
     new Menu (3, 'Minhas Marcas', '/adm/marcas-adm', null, 'tachometer', null, false, 0),
     new Menu (4, 'Meus produtos', '/adm/produtos-adm', null, 'tachometer', null, false, 0),
-    new Menu (5, 'Meus lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 0)
+    new Menu (5, 'Meus lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 0),
+    new Menu (6, 'Formas Pagamento', '/adm/formas-pagamento', null, 'tachometer', null, false, 0),
+    new Menu (7, 'Formas Entrega', '/adm/formas-entrega', null, 'tachometer', null, false, 0),
 ]
 
 export const horizontalMenuEstabelecimentoItems = [
@@ -61,7 +63,9 @@ export const horizontalMenuEstabelecimentoItems = [
     new Menu (2, 'Meus Funcionários', '/adm/funcionarios-adm', null, 'tachometer', null, false, 0),
     new Menu (3, 'Minhas Marcas', '/adm/marcas-adm', null, 'tachometer', null, false, 0),
     new Menu (4, 'Meus produtos', '/adm/produtos-adm', null, 'tachometer', null, false, 0),
-    new Menu (5, 'Meus lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 0)
+    new Menu (5, 'Meus lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 0),
+    new Menu (6, 'Formas Entrega', '/adm/formas-pagamento', null, 'tachometer', null, false, 0),
+    new Menu (7, 'Formas Pagamento', '/adm/formas-entrega', null, 'tachometer', null, false, 0),
 ]
 
 export const verticalMenuSmarketItems = [ 

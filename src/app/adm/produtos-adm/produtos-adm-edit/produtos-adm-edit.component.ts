@@ -1,225 +1,317 @@
-import { CargoService } from './../../../services/cargo.service';
-import { TipoTelefoneService } from './../../../services/tipos-telefone.service';
 import { FormGroup, AbstractControl, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgxMaskModule } from 'ngx-mask';
+
+/** Services */
+import { MarcaService } from './../../../services/marca.service';
+import { ProdutoService } from './../../../services/produto.service';
+import { SubcategoriaService } from './../../../services/subcategoria.service';
+import { CategoriaService } from './../../../services/categoria.service';
+import { CargoService } from './../../../services/cargo.service';
+import { TipoTelefoneService } from './../../../services/tipos-telefone.service';
 
 @Component({
   selector: 'app-produtos-adm-edit',
   templateUrl: './produtos-adm-edit.component.html',
   styleUrls: ['./produtos-adm-edit.component.scss'],
   providers: [
-    TipoTelefoneService,
-    CargoService
+    CategoriaService,
+    SubcategoriaService,
+    ProdutoService,
+    MarcaService
   ],
   encapsulation: ViewEncapsulation.None
 })
 export class ProdutosAdmEditComponent implements OnInit {
   public router: Router;
   public form: FormGroup;
+  public sucessos: Array<any> = [];
   public erros: Array<any> = [];
-  public formSubmit: any = {
-    descricao: '',
-    status: false
-  };
 
-  public maskFone: any = {
-    mask: '',
-    placeholder: ''
-  };
+  public image: any;
 
-  public tiposTelefone: Array<any> = [];
-  public cargos: Array<any> = [];
-  public funcionario: any = null;
+  public marcas: Array<any> = [];
+  public categorias: Array<any> = [];
+  public subcategorias: Array<any> = [];
+  public unidadesMedida: Array<any> = [];
 
-  public cargo_id: AbstractControl;
-  public email_descricao: AbstractControl;
-  public funcionario_cpf: AbstractControl;
-  public funcionario_nome: AbstractControl;
-  public funcionario_sobrenome: AbstractControl;
-  public telefone_ddd: AbstractControl;
-  public telefone_numero: AbstractControl;
-  public tipo_telefone_id: AbstractControl;
+  public produto_descricao: AbstractControl;
+  public marca_id: AbstractControl;
+  public marca_descricao: AbstractControl;
+  public categoria_id: AbstractControl;
+  public quantidade: AbstractControl;
+  public unidade_medida_id: AbstractControl;
+  public sub_categoria_id: AbstractControl;
 
   constructor(router: Router,
     fb: FormBuilder,
-    public tipoTelefoneService: TipoTelefoneService,
-    public cargoService: CargoService
+    public categoriaService: CategoriaService,
+    public subcategoriaService: SubcategoriaService,
+    public produtoService: ProdutoService,
+    public marcaService: MarcaService
   ) {
 
     this.router = router;
 
     this.form = fb.group({
-      cargo_id: ['', Validators.compose([Validators.required])],
-      email_descricao: ['', Validators.compose([Validators.required, emailValidator])],
-      funcionario_cpf: ['', Validators.compose([Validators.required, cpfValidator])],
-      funcionario_nome: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(150)])],
-      funcionario_sobrenome: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(150)])],
-      telefone_ddd: ['', Validators.compose([Validators.required, dddValidator])],
-      telefone_numero: ['', Validators.compose([Validators.required, foneValidator])],
-      tipo_telefone_id: ['', Validators.required]
+      produto_descricao: ['', Validators.compose([Validators.required])],
+      marca_descricao: ['', Validators.compose([Validators.required])],
+      marca_id: ['', Validators.compose([Validators.required])],
+      categoria_id: ['', Validators.compose([Validators.required])],
+      quantidade: ['', Validators.compose([Validators.required])],
+      unidade_medida_id: ['', Validators.compose([Validators.required])],
+      sub_categoria_id: ['', Validators.compose([Validators.required])],
     });
 
-    this.cargo_id = this.form.controls['cargo_id'];
-    this.email_descricao = this.form.controls['email_descricao'];
-    this.funcionario_cpf = this.form.controls['funcionario_cpf'];
-    this.funcionario_nome = this.form.controls['funcionario_nome'];
-    this.funcionario_sobrenome = this.form.controls['funcionario_sobrenome'];
-    this.telefone_ddd = this.form.controls['telefone_ddd'];
-    this.telefone_numero = this.form.controls['telefone_numero'];
-    this.tipo_telefone_id = this.form.controls['tipo_telefone_id'];
+    this.produto_descricao = this.form.controls['produto_descricao'];
+    this.marca_descricao = this.form.controls['marca_descricao'];
+    this.marca_id = this.form.controls['marca_id'];
+    this.categoria_id = this.form.controls['categoria_id'];
+    this.quantidade = this.form.controls['quantidade'];
+    this.unidade_medida_id = this.form.controls['unidade_medida_id'];
+    this.sub_categoria_id = this.form.controls['sub_categoria_id'];
 
-    this.maskFone.mask = '0000-0000';
-    this.maskFone.placeholder = 'XXXX-XXXX';
   }
 
   ngOnInit() {
-
-    this.listarTiposTelefone();
-    this.listarCargos();
-
-    this.form.controls['cargo_id'].setValue(this.funcionario.cargo_id);
-    this.form.controls['email_descricao'].setValue(this.funcionario.email_descricao);
-    this.form.controls['funcionario_cpf'].setValue(this.funcionario.funcionario_cpf);
-    this.form.controls['funcionario_nome'].setValue(this.funcionario.funcionario_nome);
-    this.form.controls['funcionario_sobrenome'].setValue(this.funcionario.funcionario_sobrenome);
-    this.form.controls['telefone_ddd'].setValue(this.funcionario.telefone_ddd);
-    this.form.controls['telefone_numero'].setValue(this.funcionario.telefone_numero);
-    this.form.controls['tipo_telefone_id'].setValue(this.funcionario.tipo_telefone_id);
+    this.listarCategorias();
+    this.listarMarcas();
+    this.listarUnidadesMedida();
   }
 
   public onSubmit(values: Object): void {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
 
-  }
-
-  setMaskFone() {
-    if (this.tipo_telefone_id.value == 2) {
-      this.maskFone.mask = '00000-0000';
-      this.maskFone.placeholder = 'XXXXX-XXXX';
+    if (this.form.valid) {
+      this.produtoService.setProduto(values, this.image).subscribe(
+        produto => {
+          resp = produto['response'];
+          if (resp.status == 'true') {
+            localStorage.setItem('msgSucessoProdutoCreate', 'Produto Cadastrado com Sucesso.');
+            this.router.navigate(['/adm/funcionarios-adm']);
+          }
+          else {
+            msgErro.item = 'Erro ao efetuar o cadastro de produtos!';
+            msgErro.descricao = resp.descricao;
+            this.erros.push(msgErro);
+          }
+        },
+        err => {
+          msgErro.item = 'Erro ao efetuar o cadastro de produtos!';
+          msgErro.descricao = err;
+          this.erros.push(msgErro);
+        }
+      );
     }
     else {
-      this.maskFone.mask = '0000-0000';
-      this.maskFone.placeholder = 'XXXX-XXXX';
+      this.produto_descricao.markAsTouched();
+      this.marca_id.markAsTouched();
+      this.categoria_id.markAsTouched();
+      this.quantidade.markAsTouched();
+      this.unidade_medida_id.markAsTouched();
+      this.sub_categoria_id.markAsTouched();
+    }
+  }
+
+  public cadastrarMarca(): void {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    var msgSucesso: any = {
+      item: '',
+      descricao: ''
+    };
+
+    if (this.marca_descricao.value && this.marca_descricao.value != '') {
+      console.log(this.marca_descricao.value);
+      this.marcaService.setMarca(this.marca_descricao.value).subscribe(
+        marca => {
+          resp = marca['response'];
+          if (resp.status == 'true') {
+            this.listarMarcas();
+            msgSucesso = {
+              item: 'Parabéns!',
+              descricao: 'Marca Adicionada com sucesso'
+            }
+            this.sucessos.push(msgSucesso);
+          }
+          else {
+            msgErro.item = 'Erro ao efetuar o cadastro de marcas!';
+            msgErro.descricao = resp.descricao;
+            this.erros.push(msgErro);
+          }
+        },
+        err => {
+          msgErro.item = 'Erro ao efetuar o cadastro de marcas!';
+          msgErro.descricao = err;
+          this.erros.push(msgErro);
+        }
+      );
+    }
+    else {
+      this.marca_descricao.markAsTouched();
     }
   }
 
   public closeAlert(index) {
-    this.erros.splice(this.erros.indexOf(index), 1);
-}
+    this.erros.splice(index, 1);
+  }
+
+  public closeAlertSucesso(index) {
+    this.sucessos.splice(index, 1);
+  }
+
+  fileChangeListener($event) {
+    var image: any = new Image();
+    var file: File = $event.target.files[0];
+    var myReader: FileReader = new FileReader();
+    var that = this;
+    myReader.onloadend = function (loadEvent: any) {
+      image.src = loadEvent.target.result;
+      //that.cropper.setImage(image); 
+    };
+
+    myReader.readAsDataURL(file);
+  }
+
 
   /** LISTAR CONTEÚDO */
-  listarTiposTelefone() {
+  listarCategorias() {
+    var resp: any;
     var msgErro: any = {
       item: '',
       descricao: ''
     };
 
-    this.tipoTelefoneService.listarTodos().subscribe(
-      tiposTelefone => {
-        this.tiposTelefone = tiposTelefone['tiposTelefone'];
+    this.categoriaService.getCategorias().subscribe(
+      categorias => {
+        resp = categorias['response'];
+        if (resp.status == 'true') {
+          this.categorias = resp.objeto;
+        }
+        else {
+          msgErro.item = 'Erro ao carregar as categorias!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
       },
       err => {
-        msgErro.item = 'Erro ao buscar tipos de telefone!';
+        msgErro.item = 'Erro ao carregar as categorias!';
         msgErro.descricao = err;
         this.erros.push(msgErro);
       }
     );
 
+
   }
 
-  public listarCargos() {
+  listarUnidadesMedida() {
+    var resp: any;
     var msgErro: any = {
       item: '',
       descricao: ''
     };
 
-    this.cargoService.listarTodos().subscribe(
-      cargos => {
-        this.cargos = cargos['cargo'];
+    this.produtoService.getUnidadesMedidas().subscribe(
+      unidadesMedida => {
+        resp = unidadesMedida['response'];
+        if (resp.status == 'true') {
+          this.unidadesMedida = resp.objeto;
+        }
+        else {
+          msgErro.item = 'Erro ao carregar as unidades de medida!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
       },
       err => {
-        msgErro.item = 'Erro ao buscar cargos!';
+        msgErro.item = 'Erro ao carregar as unidades de medida!';
         msgErro.descricao = err;
         this.erros.push(msgErro);
       }
     );
   }
 
+  listarSubcategorias() {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    this.subcategoriaService.getSubcategoriaPorCategoria(this.categoria_id.value).subscribe(
+      unidadesMedida => {
+        resp = unidadesMedida['response'];
+        if (resp.status == 'true') {
+          this.subcategorias = resp.objeto;
+        }
+        else {
+          msgErro.item = 'Erro ao carregar as subcategoria!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
+      },
+      err => {
+        msgErro.item = 'Erro ao carregar as subcategoria!';
+        msgErro.descricao = err;
+        this.erros.push(msgErro);
+      }
+    );
+
+
+  }
+
+  listarMarcas() {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    this.marcaService.getMarcas().subscribe(
+      marcas => {
+        resp = marcas['response'];
+        if (resp.status == 'true') {
+          this.marcas = resp.objeto;
+        }
+        else {
+          msgErro.item = 'Erro ao carregar as marcas!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
+      },
+      err => {
+        msgErro.item = 'Erro ao carregar as marcas!';
+        msgErro.descricao = err;
+        this.erros.push(msgErro);
+      }
+    );
+
+
+  }
+
+  fileChange(input) {
+    const reader = new FileReader();
+    if (input.files.length) {
+      const file = input.files[0];
+      reader.onload = () => {
+        this.image = reader.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  removeImage(): void {
+    this.image = '';
+  }
 
 }
 
-export function cpfValidator(control: FormControl): { [key: string]: any } {
-  var cpf = control.value;
-  var resp = true
-  var add = 0;
-
-  if (cpf.length != 11 ||
-    cpf == "00000000000" ||
-    cpf == "11111111111" ||
-    cpf == "22222222222" ||
-    cpf == "33333333333" ||
-    cpf == "44444444444" ||
-    cpf == "55555555555" ||
-    cpf == "66666666666" ||
-    cpf == "77777777777" ||
-    cpf == "88888888888" ||
-    cpf == "99999999999"
-  ) {
-    resp = false;
-  }
-
-
-  for (var i = 0; i < 9; i++) {
-    add += parseInt(cpf.charAt(i)) * (10 - i);
-  }
-
-  var rev = 11 - (add % 11);
-  if (rev == 10 || rev == 11) {
-    rev = 0;
-  }
-
-  if (rev != parseInt(cpf.charAt(9))) {
-    resp = false;
-  }
-
-  add = 0;
-  for (i = 0; i < 10; i++) {
-    add += parseInt(cpf.charAt(i)) * (11 - i);
-  }
-
-  rev = 11 - (add % 11);
-  if (rev == 10 || rev == 11) {
-    rev = 0;
-  }
-
-  if (rev != parseInt(cpf.charAt(10))) {
-    resp = false;
-  }
-
-  if (!resp) {
-    return { invalidCpf: true };
-  }
-
-}
-
-export function foneValidator(control: FormControl): { [key: string]: any } {
-  var foneRegexp = /[0-9]{8,9}$/;
-  if (control.value && !foneRegexp.test(control.value)) {
-    return { invalidTelefone: true };
-  }
-}
-
-export function dddValidator(control: FormControl): { [key: string]: any } {
-  var dddRegexp = /[0-9]{2,2}$/;
-  if (control.value && !dddRegexp.test(control.value)) {
-    return { invalidDDD: true };
-  }
-}
-
-export function emailValidator(control: FormControl): { [key: string]: any } {
-  var emailRegexp = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
-  if (control.value && !emailRegexp.test(control.value)) {
-    return { invalidEmail: true };
-  }
-}

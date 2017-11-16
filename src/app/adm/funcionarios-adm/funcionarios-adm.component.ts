@@ -25,8 +25,9 @@ import { MenuService } from '../../theme/components/menu/menu.service';
 
 export class FuncionariosAdmComponent implements OnInit {
   public erros: Array<any> = [];
+  public sucessos: Array<any> = [];
   public funcionarios: any[];
-  public p:any;
+  public p: any;
 
   public menuItems: Array<any>;
 
@@ -52,6 +53,24 @@ export class FuncionariosAdmComponent implements OnInit {
   ngOnInit() {
 
     this.getFuncionarios();
+
+    if (localStorage.getItem('msgSucessoCreateFuncionario')) {
+      var msgSucesso: any = {
+        item: 'Parabéns!',
+        descricao: localStorage.getItem('msgSucessoCreateFuncionario')
+      };
+      this.sucessos.push(msgSucesso);
+      localStorage.removeItem('msgSucessoCreateFuncionario')
+    }
+
+    if (localStorage.getItem('msgSucessoEditFuncionario')) {
+      var msgSucesso: any = {
+        item: 'Parabéns!',
+        descricao: localStorage.getItem('msgSucessoEditFuncionario')
+      };
+      this.sucessos.push(msgSucesso);
+      localStorage.removeItem('msgSucessoEditFuncionario')
+    }
 
   }
 
@@ -80,16 +99,20 @@ export class FuncionariosAdmComponent implements OnInit {
         msgErro.descricao = err;
         this.erros.push(msgErro);
       }
-    );    
+    );
   }
 
-  public editarFuncionario(funcionario){   
-      localStorage.setItem('funcionario', JSON.stringify(funcionario));
-      this.router.navigate(['adm/funcionarios-adm/funcionarios-edit']);
+  public editarFuncionario(funcionario) {
+    localStorage.setItem('funcionario', JSON.stringify(funcionario));
+    this.router.navigate(['adm/funcionarios-adm/funcionarios-edit']);
   }
 
-  public cadastrarFuncionario(){
+  public cadastrarFuncionario() {
     this.router.navigate(['adm/funcionarios-adm/funcionarios-create']);
+  }
+
+  public closeAlert(index) {
+    this.erros.splice(this.erros.indexOf(index), 1);
   }
 
 }

@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from '../../theme/pipes/pipes.module';
+import { Ng2CompleterModule } from "ng2-completer";
 
 /** Componentes */
 import { LotesAdmEditComponent } from './lotes-adm-edit/lotes-adm-edit.component';
@@ -17,8 +18,8 @@ import { LotesAdmComponent } from './lotes-adm.component';
 
 export const routes = [
   { path: '', component: LotesAdmComponent, pathMatch: 'full' },
-  { path: 'lotes-create', component: LotesAdmCreateComponent, data: { breadcrumb: 'Cadastrar' } },
-  { path: 'lotes-edit', component: LotesAdmEditComponent, data: { breadcrumb: 'Editar' } }
+  { path: 'lotes-adm-create', component: LotesAdmCreateComponent, data: { breadcrumb: 'Cadastrar' } },
+  { path: 'lotes-adm-edit', component: LotesAdmEditComponent, data: { breadcrumb: 'Editar' } }
 ];
 
 @NgModule({
@@ -32,7 +33,8 @@ export const routes = [
     MultiselectDropdownModule,
     NgxPaginationModule,
     PipesModule,
-    NgxMaskModule
+    NgxMaskModule,
+    Ng2CompleterModule
   ],
   declarations: [
     LotesAdmComponent,

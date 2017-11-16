@@ -24,6 +24,7 @@ import { MarcaService } from './../../../services/marca.service';
 export class ProdutosAdmCreateComponent implements OnInit {
   public router: Router;
   public form: FormGroup;
+  public sucessos: Array<any> = [];
   public erros: Array<any> = [];
 
   public image: any;
@@ -35,6 +36,7 @@ export class ProdutosAdmCreateComponent implements OnInit {
 
   public produto_descricao: AbstractControl;
   public marca_id: AbstractControl;
+  public marca_descricao: AbstractControl;
   public categoria_id: AbstractControl;
   public quantidade: AbstractControl;
   public unidade_medida_id: AbstractControl;
@@ -45,13 +47,14 @@ export class ProdutosAdmCreateComponent implements OnInit {
     public categoriaService: CategoriaService,
     public subcategoriaService: SubcategoriaService,
     public produtoService: ProdutoService,
-    public marcasService: MarcaService
+    public marcaService: MarcaService
   ) {
 
     this.router = router;
 
     this.form = fb.group({
       produto_descricao: ['', Validators.compose([Validators.required])],
+      marca_descricao: ['', Validators.compose([Validators.required])],
       marca_id: ['', Validators.compose([Validators.required])],
       categoria_id: ['', Validators.compose([Validators.required])],
       quantidade: ['', Validators.compose([Validators.required])],
@@ -60,6 +63,7 @@ export class ProdutosAdmCreateComponent implements OnInit {
     });
 
     this.produto_descricao = this.form.controls['produto_descricao'];
+    this.marca_descricao = this.form.controls['marca_descricao'];
     this.marca_id = this.form.controls['marca_id'];
     this.categoria_id = this.form.controls['categoria_id'];
     this.quantidade = this.form.controls['quantidade'];
@@ -83,10 +87,11 @@ export class ProdutosAdmCreateComponent implements OnInit {
 
     if (this.form.valid) {
       this.produtoService.setProduto(values, this.image).subscribe(
-        funcionario => {
-          resp = funcionario['response'];
-          if (resp.status == 'true') {
-
+        produto => {
+          resp = produto['response'];
+          if (resp.status == 'true') {            
+            localStorage.setItem('msgSucessoProdutoCreate', 'Produto Cadastrado com Sucesso.');
+            this.router.navigate(['/adm/funcionarios-adm']);
           }
           else {
             msgErro.item = 'Erro ao efetuar o cadastro de produtos!';
@@ -111,8 +116,55 @@ export class ProdutosAdmCreateComponent implements OnInit {
     }
   }
 
+  public cadastrarMarca(): void {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    var msgSucesso: any = {
+      item: '',
+      descricao: ''
+    };
+
+    if (this.marca_descricao.value && this.marca_descricao.value != '') {
+      console.log(this.marca_descricao.value);
+      this.marcaService.setMarca(this.marca_descricao.value).subscribe(
+        marca => {
+          resp = marca['response'];
+          if (resp.status == 'true') {
+            this.listarMarcas();
+            msgSucesso = {
+              item: 'Parabéns!',
+              descricao: 'Marca Adicionada com sucesso'
+            }
+            this.sucessos.push(msgSucesso);
+          }
+          else {
+            msgErro.item = 'Erro ao efetuar o cadastro de marcas!';
+            msgErro.descricao = resp.descricao;
+            this.erros.push(msgErro);
+          }
+        },
+        err => {
+          msgErro.item = 'Erro ao efetuar o cadastro de marcas!';
+          msgErro.descricao = err;
+          this.erros.push(msgErro);
+        }
+      );
+    }
+    else {
+      this.marca_descricao.markAsTouched();
+    }
+  }
+
   public closeAlert(index) {
     this.erros.splice(index, 1);
+  }
+
+  public closeAlertSucesso(index) {
+    this.sucessos.splice(index, 1);
   }
 
   fileChangeListener($event) {
@@ -136,7 +188,6 @@ export class ProdutosAdmCreateComponent implements OnInit {
       item: '',
       descricao: ''
     };
-
 
     this.categoriaService.getCategorias().subscribe(
       categorias => {
@@ -185,8 +236,6 @@ export class ProdutosAdmCreateComponent implements OnInit {
         this.erros.push(msgErro);
       }
     );
-
-
   }
 
   listarSubcategorias() {
@@ -225,7 +274,7 @@ export class ProdutosAdmCreateComponent implements OnInit {
       descricao: ''
     };
 
-    this.marcasService.getMarcas().subscribe(
+    this.marcaService.getMarcas().subscribe(
       marcas => {
         resp = marcas['response'];
         if (resp.status == 'true') {

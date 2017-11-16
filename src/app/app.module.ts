@@ -7,7 +7,7 @@ import { AppSettings } from './app.settings';
 import { AppComponent } from './app.component';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate/ng2-translate';
 import { FacebookModule } from 'ngx-facebook';
-
+import { Ng2CompleterModule } from "ng2-completer";
 
 /** Services */
 import { AcessoService } from './services/acesso.service';
@@ -46,7 +46,8 @@ export function createTranslateLoader(http: Http) {
       deps: [Http]
   }),
     FacebookModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng2CompleterModule
   ],
   providers: [ 
     AppSettings,

@@ -1,194 +1,298 @@
-<div class="container-fluid">
-
-    <h2>Cadastrar Funcionários</h2>
-    <p class="text-muted">Precisa de uma ajudinha prara gerenciar sua loja? Cadastre aqui seus funcionários aqui eles podem ajudar você.</p>
+<div class="container-fluid lotes-create">
 
     <div class="row">
-        <!-- Div formulario -->
-        <div class="col-sm-12 login-container-formulario">
-            <div class="card border-0 box-shadow" widget="">
-                <div class="card-header transparent border-0 text-muted">
-                    <h4 class="mt-3 mb-3">
-                        <i class="fa fa-lock"></i> Dados do Funcionário</h4>
-                    <div class="widget-controls">
-                        <a class="transition" data-widgster="expand" href="#" style="display: none;">
-                            <i class="fa fa-chevron-down"></i>
-                        </a>
-                        <a class="transition" data-widgster="collapse" href="#">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="transition" data-widgster="fullscreen" href="#">
-                            <i class="fa fa-expand"></i>
-                        </a>
-                        <a class="transition" data-widgster="restore" href="#" style="display: none;">
-                            <i class="fa fa-compress"></i>
-                        </a>
-                        <a class="transition" data-widgster="close" href="#">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="card-block pt-0 widget-body">
+        <div class="col-sm-12">
+            <img class="icone-form-header pb-2" src="assets/img/icone/icones-adm_produto-crate.svg">
+            <h2 class="title-cadastro pb-2">Cadastrar Lotes</h2>
+        </div>
+    </div>
 
-                    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
 
-                        <div class="row">
+        <div class="row card-cadastro">
 
-                            <div class="col-sm-12">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label for="produto_descricao">Produto</label>
-                                            <input [formControl]="produto_descricao" class="form-control validation-field" type="text" name="nome" id="nome">
-                                            <small class="text-danger" *ngIf="form.get('produto_descricao').touched">
-                                                <span *ngIf="form.get('produto_descricao').hasError('required')">Descrição do Produto Obrigatória</span>
-                                                <span *ngIf="form.get('produto_descricao').hasError('minlength')">Minimo 3 caracteres</span>
-                                                <span *ngIf="form.get('produto_descricao').hasError('maxlength')">Máximo 150 caracteres</span>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="marca_id">Marca</label>
-                                            <select [formControl]="marca_id" name="marca_id" id="marca_id" class="form-control validation-field">
-                                                <option value="">Selecione</option>
-                                                <option *ngFor="let marca of marcas" [value]="marca.marca_id">
-                                                    {{marca.marca_descricao}}</option>
-                                            </select>
-                                            <small class="text-danger" *ngIf="form.get('marca_id').touched">
-                                                <span *ngIf="form.get('marca_id').hasError('required')">Marca obrigatória</span>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="categoria_id">Categoria</label>
-                                            <select [formControl]="categoria_id" name="categoria_id" id="categoria_id" class="form-control validation-field">
-                                                <option value="">Selecione</option>
-                                                <option *ngFor="let categoria of categorias" [value]="categoria.categoria_id">
-                                                    {{categoria.categoria_descricao}}</option>
-                                            </select>
-                                            <small class="text-danger" *ngIf="form.get('categoria_id').touched">
-                                                <span *ngIf="form.get('categoria_id').hasError('required')">Categoria obrigatória</span>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="sub_categoria_id">Subcategoria</label>
-                                            <select [formControl]="sub_categoria_id" name="sub_categoria_id" id="sub_categoria_id" class="form-control validation-field" (click)="listarSubcategorias()">
-                                                <option value="">Selecione</option>
-                                                <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.sub_categoria_id">
-                                                    {{subcategoria.sub_categoria_descricao}}</option>
-                                            </select>
-                                            <small class="text-danger" *ngIf="form.get('sub_categoria_id').touched">
-                                                <span *ngIf="form.get('sub_categoria_id').hasError('required')">SubCategoria obrigatória</span>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="quantidade">Quantidade</label>
-                                            <input [formControl]="quantidade" class="form-control validation-field" placeholder="XXXXXX" type="text" specialCharacters="false"
-                                                name="quantidade" id="quantidade" mask="00000">
-                                            <small class="text-danger" *ngIf="form.get('quantidade').touched">
-                                                <span *ngIf="form.get('quantidade').hasError('required')">Quantidade obrigatória</span>
-                                                <span *ngIf="form.get('quantidade').hasError('')">Quantidade inválida</span>
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="unidade_medida_id">Unidade Medida</label>
-                                            <select [formControl]="unidade_medida_id" name="unidade_medida_id" id="unidade_medida_id" class="form-control validation-field">
-                                                <option value="">Selecione</option>
-                                                <option *ngFor="let unidadeMedida of unidadesMedida" [value]="unidadeMedida.unidade_medida_id">
-                                                    {{unidadeMedida.unidade_medida_descricao}}</option>
-                                            </select>
-                                            <small class="text-danger" *ngIf="form.get('unidade_medida_id').touched">
-                                                <span *ngIf="form.get('unidade_medida_id').hasError('required')">Unidade Medida Obrigatória</span>
-                                            </small>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-2">
-                                        <br/>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#primary-modal">
-                                            <i class="fa fa-camera"></i>&nbsp;Carregar Foto
-                                        </button>
-                                        <div class="modal fade" id="primary-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header state modal-primary">
-                                                        <h4 class="modal-title" id="modal-primary-label">
-                                                            <i class="fa fa-camera"></i>Carregar Foto</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <input type="file" (change)="fileChange(input)" #input class="img-upload-btn" />
-
-                                                        <button class="btn btn-info btn-block rounded-0" type="button">
-                                                            <span *ngIf="!image">
-                                                                <i class="fa fa-upload"></i> Select Image... </span>
-                                                            <span *ngIf="image">
-                                                                <i class="fa fa-refresh"></i> Change Image... </span>
-                                                        </button>
-
-                                                        <div class="image-wrapper">
-                                                            <i *ngIf="image" class="fa fa-times delete-img" (click)="removeImage()"></i>
-                                                            <img [attr.src]="image" *ngIf="image" width="100%">
-                                                            <img src="assets/img/app/no-image.png" *ngIf="!image" width="100%">
-                                                        </div>
-
-
-
-
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary" type="submit">Salvar</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </form>
-
-                </div>
-
-
+            <div class="col-sm-12">
                 <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
                     <button type="button" class="close" (click)="closeAlert(i)">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <strong>{{erro.item}}</strong> {{erro.descricao}}
+                    <strong>{{erro.item}}</strong>
+                    <br/> {{erro.descricao}}
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div [hidden]="sucessos.length == 0" *ngFor="let sucesso of sucessos; index as i" class="alert alert-success" role="alert">
+                    <button type="button" class="close" (click)="closeAlertSucesso(i)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{sucesso.item}}</strong>
+                    <br/> {{sucesso.descricao}}
+                </div>
+            </div>
+
+            <!-- Div formulario -->
+            <div class="col-sm-12">
+
+                <div class="row">
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="produto_id">Produtos</label>
+                            <ng2-completer  [formControl]="lote_preco" 
+                                            [datasource]="dataService" 
+                                            [minSearchLength]="0"
+                                            [required]="true"
+                                            [textSearching]="'Buscando produtos...'"
+                                            [textSearching]="'Produto não encontrado...'"
+                                            [fillHighlighted]="false"
+                                            [clearUnselected]="true">
+                            </ng2-completer>
+                            <small class="text-danger" *ngIf="form.get('produto_id').touched">
+                                <span *ngIf="form.get('produto_id').hasError('required')">Produto obrigatório</span>
+                            </small>
+                        </div>
+                    </div>
+
+                   
+
+                    <div class="col-sm-4">
+                        <br/>
+                        <button type="button" class="btn btn-primary w-100p ml-0" data-dismiss="modal">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;Adicionar</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#image-upload-modal">
+                            <i class="fa fa-camera"></i>&nbsp;Info produto
+                        </button>
+                        <div class="modal fade" id="image-upload-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header state modal-primary">
+                                        <h4 class="modal-title" id="modal-primary-label">
+                                            <i class="fa fa-camera"></i>Carregar Foto</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <p>
+                                                    <strong>Código:</strong>
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <p>
+                                                    <strong>Produto:</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <p>
+                                                    <strong>Marca:</strong>
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <p>
+                                                    <strong>Categoria:</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <p>
+                                                    <strong>Subcategoria:</strong>
+                                                </p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <p>
+                                                    <strong>lote_data_fabricacao:</strong>
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary w-100p ml-4" data-dismiss="modal">
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin:5px 0;font-weight:600;">Single select example</div>
+
+                <div class="row">
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="lote_data_fabricao">Data Fabricação</label>
+                            <div class="input-group">
+                                <div class="input-group-addon" (click)="dc.toggle()">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input class="form-control validation-field" placeholder="yyyy-mm-dd" name="dp" [formControl]="lote_data_fabricacao" ngbDatepicker
+                                    [dayTemplate]="customDay" [markDisabled]="isDisabled" #dc="ngbDatepicker">
+                            </div>
+                        </div>
+                        <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled">
+                            <span class="custom-day" [class.weekend]="isWeekend(date)" [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth"
+                                [class.text-muted]="disabled">
+                                {{ date.day }}
+                            </span>
+                        </ng-template>
+                        <small class="text-danger" *ngIf="form.get('lote_data_fabricacao').touched">
+                            <span *ngIf="form.get('lote_data_fabricacao').hasError('required')">Data Fabricacao obrigatória</span>
+                            <span *ngIf="form.get('lote_data_fabricacao').hasError('')">Data fabricação inválida</span>
+                        </small>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="lote_data_vencimento">Data Vencimento</label>
+                            <div class="input-group">
+                                <div class="input-group-addon" (click)="dc.toggle()">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input class="form-control validation-field" placeholder="yyyy-mm-dd" name="dp" [formControl]="lote_data_vencimento" ngbDatepicker
+                                    [dayTemplate]="customDay" [markDisabled]="isDisabled" #dc="ngbDatepicker">
+
+                            </div>
+                        </div>
+                        <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled">
+                            <span class="custom-day" [class.weekend]="isWeekend(date)" [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth"
+                                [class.text-muted]="disabled">
+                                {{ date.day }}
+                            </span>
+                        </ng-template>
+                        <small class="text-danger" *ngIf="form.get('lote_data_vencimento').touched">
+                            <span *ngIf="form.get('lote_data_vencimento').hasError('required')">Data validade obrigatória</span>
+                            <span *ngIf="form.get('lote_data_vencimento').hasError('')">Data validade inválida</span>
+                        </small>
+                    </div>
+
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="lote_preco">Lote Preço</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">R$</div>
+                                <input [formControl]="lote_preco" class="form-control validation-field" type="text" name="lote_preco" id="lote_preco">
+                            </div>
+                            <small class="text-danger" *ngIf="form.get('lote_preco').touched">
+                                <span *ngIf="form.get('lote_preco').hasError('required')">Preço obrigatório</span>
+                                <span *ngIf="form.get('lote_preco').hasError('')">Preço obrigatório</span>
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="lote_quantidade">Lote Quantidade</label>
+                            <input [formControl]="lote_quantidade" class="form-control validation-field" type="text" name="lote_quantidade" id="lote_quantidade">
+                            <small class="text-danger" *ngIf="form.get('lote_quantidade').touched">
+                                <span *ngIf="form.get('lote_quantidade').hasError('required')">Quantidade obrigatória</span>
+                                <span *ngIf="form.get('lote_quantidade').hasError('')">Quantidade inválida</span>
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="unidade_medida_id">Unidade Medida</label>
+                            <select [formControl]="unidade_medida_id" name="unidade_medida_id" id="unidade_medida_id" class="form-control validation-field">
+                                <option value="">Selecione</option>
+                                <option *ngFor="let unidadeMedida of unidadesMedida" [value]="unidadeMedida.undiade_medida_id">
+                                    {{unidadeMedida.unidade_medida_descricao}}</option>
+                            </select>
+                            <small class="text-danger" *ngIf="form.get('produto_id').touched">
+                                <span *ngIf="form.get('produto_id').hasError('required')">Produto Obrigatório</span>
+                            </small>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div class="form-group">
+                            <label for="lote_quantidade">Lote Quantidade</label>
+                            <input [formControl]="lote_quantidade" class="form-control validation-field" placeholder="XXXXXX" type="text" specialCharacters="false"
+                                name="lote_quantidade" id="lote_quantidade" mask="00000">
+                            <small class="text-danger" *ngIf="form.get('lote_quantidade').touched">
+                                <span *ngIf="form.get('lote_quantidade').hasError('required')">Quantidade obrigatória</span>
+                                <span *ngIf="form.get('lote_quantidade').hasError('')">Quantidade inválida</span>
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row card-cadastro text-center mt-3">
+            <div class="col-sm-12 pb-2">
+                <h3>Quem pode comprar?</h3>
+            </div>
+            <div class="col-sm-3 offset-sm-3">
+                <p>
+                    <img class=" pb-2" src="assets/img/icone/B2B.svg" width="200px">
+                </p>
+                <div class="form-group">
+                    <input [formControl]="lote_quantidade" class="form-control validation-field" placeholder="Quantidade Minima B2C" type="text"
+                        specialCharacters="false" name="lote_quantidade" id="lote_quantidade" mask="00000" style="width:200px; margin:auto">
+                    <small class="text-danger" *ngIf="form.get('lote_quantidade').touched">
+                        <span *ngIf="form.get('lote_quantidade').hasError('required')">Quantidade obrigatória</span>
+                        <span *ngIf="form.get('lote_quantidade').hasError('')">Quantidade inválida</span>
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+                        <input [formControl]="vender_para_pf" class="custom-control-input checkbox-warning" type="checkbox">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">B2C</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <p>
+                    <img class="pb-2" src="assets/img/icone/B2C.svg" width="200px">
+                </p>
+                <div class="form-group">
+                    <input [formControl]="lote_quantidade" class="form-control validation-field" placeholder="Quantidade Minima B2B" type="text"
+                        specialCharacters="false" name="lote_quantidade" id="lote_quantidade" mask="00000" style="width:200px; margin:auto">
+                    <small class="text-danger" *ngIf="form.get('lote_quantidade').touched">
+                        <span *ngIf="form.get('lote_quantidade').hasError('required')">Comprar no mínimo</span>
+                        <span *ngIf="form.get('lote_quantidade').hasError('')">Comprar no mínimo</span>
+                    </small>
+                </div>
+                <label class="custom-control custom-checkbox">
+                    <input [formControl]="vender_para_pj" class="custom-control-input checkbox-warning" type="checkbox">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">B2B</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="row pt-4">
+            <div class="col-sm-12 text-center">
+                <div class="form-group">
+                    <button class="btn btn-primary btn-center w-100p" type="submit">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Salvar</button>
+
+                    <button class="btn btn-primary btn-center w-100p ml-4" type="button">
+                        <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;Voltar</button>
                 </div>
             </div>
         </div>
-    </div>
-
+    </form>
 </div>

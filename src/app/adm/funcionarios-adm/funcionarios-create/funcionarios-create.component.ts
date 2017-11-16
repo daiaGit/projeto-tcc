@@ -28,7 +28,7 @@ export class FuncionariosCreateComponent implements OnInit {
     placeholder: ''
   };
 
-  public image:any;
+  public image: any;
 
   public tiposTelefone: Array<any> = [];
   public cargos: Array<any> = [];
@@ -42,16 +42,16 @@ export class FuncionariosCreateComponent implements OnInit {
   public telefone_numero: AbstractControl;
   public tipo_telefone_id: AbstractControl;
 
-  constructor(  router: Router,
-                fb: FormBuilder,
-                public tipoTelefoneService: TipoTelefoneService,
-                public funcionarioService: FuncionarioService,
-                public cargoService: CargoService,
-                
+  constructor(router: Router,
+    fb: FormBuilder,
+    public tipoTelefoneService: TipoTelefoneService,
+    public funcionarioService: FuncionarioService,
+    public cargoService: CargoService,
+
   ) {
-    
+
     this.router = router;
- 
+
     this.form = fb.group({
       cargo_id: ['', Validators.compose([Validators.required])],
       email_descricao: ['', Validators.compose([Validators.required, emailValidator])],
@@ -93,7 +93,8 @@ export class FuncionariosCreateComponent implements OnInit {
         funcionario => {
           resp = funcionario['response'];
           if (resp.status == 'true') {
-          
+            localStorage.setItem('msgSucessoCreateFuncionario', 'Funcionário Cadastrado com Sucesso.');
+            this.router.navigate(['/adm/funcionarios-adm']);
           }
           else {
             msgErro.item = 'Erro ao efetuar o cadastro de funcionário!';
@@ -124,19 +125,23 @@ export class FuncionariosCreateComponent implements OnInit {
     this.erros.splice(index, 1);
   }
 
+  public voltar() {
+    this.router.navigate(['/adm/funcionarios-adm']);
+  }
+
   fileChangeListener($event) {
-    var image:any = new Image();
-    var file:File = $event.target.files[0];
-    var myReader:FileReader = new FileReader();
+    var image: any = new Image();
+    var file: File = $event.target.files[0];
+    var myReader: FileReader = new FileReader();
     var that = this;
-    myReader.onloadend = function (loadEvent:any) {
-        image.src = loadEvent.target.result;
-        //that.cropper.setImage(image); 
+    myReader.onloadend = function (loadEvent: any) {
+      image.src = loadEvent.target.result;
+      //that.cropper.setImage(image); 
     };
- 
+
     myReader.readAsDataURL(file);
-}
- 
+  }
+
 
   setMaskFone() {
     if (this.tipo_telefone_id.value == 2) {
@@ -186,21 +191,21 @@ export class FuncionariosCreateComponent implements OnInit {
       }
     );
   }
-  
-    fileChange(input){
-        const reader = new FileReader();
-        if (input.files.length) {
-            const file = input.files[0];
-            reader.onload = () => {
-                this.image = reader.result;
-            }
-            reader.readAsDataURL(file);           
-        }
-    }
 
-    removeImage():void{
-        this.image = '';
+  fileChange(input) {
+    const reader = new FileReader();
+    if (input.files.length) {
+      const file = input.files[0];
+      reader.onload = () => {
+        this.image = reader.result;
+      }
+      reader.readAsDataURL(file);
     }
+  }
+
+  removeImage(): void {
+    this.image = '';
+  }
 
 }
 

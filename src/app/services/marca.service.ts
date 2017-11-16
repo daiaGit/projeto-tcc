@@ -29,8 +29,9 @@ export class MarcaService {
 	setMarca(marca: any): Observable<any> {
 		
 		var params = {
-			marca_descricao:	marca.descricao
+			marca_descricao: marca
 		};
+		console.log( params);
  
     	return this.http.post(this.httpUtil.url(this.path) + "adicionar", params)
       				.map(this.httpUtil.extrairDados)

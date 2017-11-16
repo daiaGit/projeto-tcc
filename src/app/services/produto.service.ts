@@ -24,13 +24,24 @@ export class ProdutoService {
 	private path = 'produto/';
 
 	constructor(private http: Http, private httpUtil: HttpUtilService) {
+	
 	}
+
 
 	getProdutosByEstabelecimento(): Observable<any> {
 
 		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
 
 		return this.http.get(this.httpUtil.url(this.path) + "getProdutosByEstabelecimento/" + usuario.estabelecimento_id)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	getLotesByEstabelecimento(): Observable<any> {
+
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+		return this.http.get(this.httpUtil.url(this.path) + "getLotesByEstabelecimento/" + usuario.estabelecimento_id)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
@@ -57,8 +68,6 @@ export class ProdutoService {
 			quantidade: produto.quantidade
 		};
 
-		console.log(params);
- 
 		return this.http.post(this.httpUtil.url(this.path) + "adicionarProduto", params)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
@@ -66,15 +75,20 @@ export class ProdutoService {
 
 	setLote(lote: any): Observable<any> {
 
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
 		var params = {
-			produto_id: lote.produtoId,
-			estabelecimento_id: lote.estabelecimentoId,
-			lote_data_fabricacao: lote.dataFabricacao,
-			lote_data_vencimento: lote.dataVencimento,
-			lote_preco: lote.preco,
-			lote_obs: lote.observacao,
-			lote_quantidade: lote.quantidade,
-			unidade_medida_id: lote.unidadeMedidaId
+			produto_id: lote.produto_id,
+			estabelecimento_id: lote.estabelecimento_id,
+			lote_data_fabricacao: lote.lote_data_fabricacao,
+			lote_data_vencimento: lote.lote_data_vencimento,
+			lote_preco: lote.lote_preco,
+			lote_obs: lote.lote_obs,
+			lote_quantidade: lote.lote_quantidade,
+			unidade_medida_id: lote.unidade_medida_id,
+			qtd_minima_pj: lote.qtd_minima_pj,
+			qtd_minima_pf: lote.qtd_minima_pf,
+			vender_para: lote.vender_para
 		};
 
 		return this.http.post(this.httpUtil.url(this.path) + "adicionarLote", params)

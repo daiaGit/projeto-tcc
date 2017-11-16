@@ -30,6 +30,8 @@ export class FuncionariosEditComponent implements OnInit {
     placeholder: ''
   };
 
+  public image: any;
+
   public tiposTelefone: Array<any> = [];
   public cargos: Array<any> = [];
   public funcionario: any = null;
@@ -80,20 +82,24 @@ export class FuncionariosEditComponent implements OnInit {
 
     this.funcionario = JSON.parse(localStorage.getItem('funcionario'));
 
-    if (this.funcionario != null) {
+    if (this.funcionario && this.funcionario != null) {
       localStorage.removeItem('funcionario');
+      this.form.controls['cargo_id'].setValue(this.funcionario.cargo_id);
+      this.form.controls['email_descricao'].setValue(this.funcionario.email_descricao);
+      this.form.controls['funcionario_cpf'].setValue(this.funcionario.funcionario_cpf);
+      this.form.controls['funcionario_nome'].setValue(this.funcionario.funcionario_nome);
+      this.form.controls['funcionario_sobrenome'].setValue(this.funcionario.funcionario_sobrenome);
+      this.form.controls['telefone_ddd'].setValue(this.funcionario.telefone_ddd);
+      this.form.controls['telefone_numero'].setValue(this.funcionario.telefone_numero);
+      this.form.controls['tipo_telefone_id'].setValue(this.funcionario.tipo_telefone_id);
+    }
+    else {
+      this.voltar();
     }
 
     this.listarTiposTelefone();
     this.listarCargos();
 
-    this.form.controls['cargo_id'].setValue(this.funcionario.cargo_id);
-    this.form.controls['email_descricao'].setValue(this.funcionario.email_descricao);
-    this.form.controls['funcionario_nome'].setValue(this.funcionario.funcionario_nome);
-    this.form.controls['funcionario_sobrenome'].setValue(this.funcionario.funcionario_sobrenome);
-    this.form.controls['telefone_ddd'].setValue(this.funcionario.telefone_ddd);
-    this.form.controls['telefone_numero'].setValue(this.funcionario.telefone_numero);
-    this.form.controls['tipo_telefone_id'].setValue(this.funcionario.tipo_telefone_id);
   }
 
   public onSubmit(values: any): void {
@@ -105,7 +111,6 @@ export class FuncionariosEditComponent implements OnInit {
     };
 
     if (this.form.valid) {
-      console.log(values);
       this.funcionario.cargo_id = values.cargo_id;
       this.funcionario.email_descricao = values.email_descricao;
       this.funcionario.funcionario_nome = values.funcionario_nome;
@@ -113,12 +118,13 @@ export class FuncionariosEditComponent implements OnInit {
       this.funcionario.telefone_ddd = values.telefone_ddd;
       this.funcionario.telefone_numero = values.telefone_numero;
       this.funcionario.tipo_telefone_id = values.tipo_telefone_id;
-      console.log(this.funcionario);
+
       this.funcionarioService.alterarDadosFuncionario(this.funcionario).subscribe(
         funcionario => {
           resp = funcionario['response'];
           if (resp.status == 'true') {
-            console.log(resp);
+            localStorage.setItem('msgSucessoEditFuncionario', 'Funcionário Editado com Sucesso.');
+            this.router.navigate(['/adm/funcionarios-adm']);
           }
           else {
             msgErro.item = 'Erro ao efetuar o cadastro de funcionário!';
@@ -159,6 +165,10 @@ export class FuncionariosEditComponent implements OnInit {
     this.erros.splice(this.erros.indexOf(index), 1);
   }
 
+  public voltar() {
+    this.router.navigate(['/adm/funcionarios-adm']);
+  }
+
   /** LISTAR CONTEÚDO */
   listarTiposTelefone() {
     var msgErro: any = {
@@ -197,6 +207,20 @@ export class FuncionariosEditComponent implements OnInit {
     );
   }
 
+  fileChange(input) {
+    const reader = new FileReader();
+    if (input.files.length) {
+      const file = input.files[0];
+      reader.onload = () => {
+        this.image = reader.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  removeImage(): void {
+    this.image = '';
+  }
 
 }
 

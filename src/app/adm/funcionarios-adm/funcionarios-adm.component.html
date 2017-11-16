@@ -1,85 +1,119 @@
-<div class="row mb-1">
+<div class="container-fluid funcionario-adm">
 
-    <div class="col">
-        <div class="form-group">
-            <div class="input-group box-shadow">
-                <div class="input-group-addon border-top-0 border-left-0 border-bottom-0 rounded-0">
-                    <i class="fa fa-search"></i>
-                </div>
-                <input type="text" [(ngModel)]="searchText" placeholder="Search user by name..." class="form-control border-0">
-                <div class="input-group-addon border-top-0 border-right-0 border-bottom-0">
-                        <a (click)="cadastrarFuncionario()" href="javascript:void(0);">
-                            <i class="fa fa-user-plus"></i>
-                            </a>>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <img class="icone-form-header pb-2" src="assets/img/icone/icones-adm-funcionario.svg">
+            <h2 class="title-cadastro pb-2">Meus Funcionarios</h2>
+        </div>
+    </div>
+
+    <div class="row card-cadastro">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <button class="btn btn-primary btn-center w-100p" type="button">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Filtrar</button>
+
+                <button class="btn btn-primary btn-center w-100p ml-4" type="button">
+                    <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;Adicionar</button>
+            </div>
+            <div class="form-group">
+                <div class="input-group box-shadow">
+                    <div class="input-group-addon border-top-0 border-left-0 border-bottom-0 rounded-0">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <input type="text" [(ngModel)]="searchText" placeholder="Buscar por nome ou cpf..." class="form-control input-lg border-0">
                 </div>
             </div>
         </div>
     </div>
 
-</div>
 
-<div class="row">
-    <div *ngFor="let funcionario of funcionarios | FuncionarioSearchPipe : searchText | paginate: { itemsPerPage: 9, currentPage: p }; let i = index;"
-        class="col-xl-4 col-lg-6 mb-4">
-        <div class="flip">
-            <div class="content">
-                <div class="front">
-                    <div class="card border-0 box-shadow rounded-0">
-                        <div class="card-header border-0 rounded-0 text-muted h50">
-                            <div class="widget-controls">
-                                <ul class="card-action-buttons">
-                                    <li>
-                                        <a (click)="editarFuncionario(funcionario)" href="javascript:void(0);" class="btn-floating waves-effect waves-light cyan">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);" class="btn-floating waves-effect waves-light cyan">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </li>
-                                </ul>
 
-                            </div>
-                        </div>
-                        <div class="card-block pt-3">
+    <div class="row">
 
-                            <div class="media">
-                                <div class="d-flex flex-column justify-content-center">
-                                    <img class="rounded-circle img-funcionario" src="../../../assets/img/users/default-user.jpg" width="60">
-                                </div>
-                                <div class="media-body">
+        <div class="col-sm-12">
+            <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
+                <button type="button" class="close" (click)="closeAlert(i)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>{{erro.item}}</strong> {{erro.descricao}}
+            </div>
+        </div>
 
-                                    <h5 class="card-title activator grey-text text-darken-4 mt-4">
-                                        {{funcionario.funcionario_nome}}&nbsp;{{funcionario.funcionario_sobrenome}}
-                                    </h5>
-                                    <p class="mt-0 mb-0">
-                                        <strong>CFP:</strong>&nbsp;{{funcionario.funcionario_cpf}}
-                                    </p>
-                                    <p class="mt-0 mb-0">
-                                        <strong>CARGO:</strong>&nbsp;{{funcionario.cargo_descricao}}
-                                    </p>
-                                    <p class="mt-0 mb-0">
-                                        <strong>TELEFONE:</strong>&nbsp;({{funcionario.telefone_ddd}})&nbsp;{{funcionario.telefone_numero}}
-                                    </p>
-                                    <p class="mt-0 mb-0">
-                                        <strong>EMAIL:</strong>&nbsp;{{funcionario.email_descricao}}
-                                    </p>
+        <div class="col-sm-12">
+            <div [hidden]="sucessos.length == 0" *ngFor="let sucesso of sucessos; index as i" class="alert alert-danger" role="alert">
+                <button type="button" class="close" (click)="closeAlert(i)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>{{sucesso.item}}</strong>
+                <br/>{{sucesso.descricao}}
+            </div>
+        </div>
+
+        <div *ngFor="let funcionario of funcionarios | FuncionarioSearchPipe : searchText | paginate: { itemsPerPage: 9, currentPage: p }; let i = index;"
+            class="col-xl-4 col-lg-6 mb-4">
+            <div class="flip">
+                <div class="content">
+                    <div class="front">
+                        <div class="card border-0 box-shadow rounded-0">
+                            <div class="card-header border-0 rounded-0 text-muted h50">
+                                <div class="widget-controls">
+                                    <ul class="card-action-buttons">
+                                        <li>
+                                            <a (click)="editarFuncionario(funcionario)" href="javascript:void(0);" class="btn-floating waves-effect waves-light cyan">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="btn-floating waves-effect waves-light cyan">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+
                                 </div>
                             </div>
+                            <div class="card-block pt-3">
 
+                                <div class="media">
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <img class="rounded-circle img-funcionario" src="../../../assets/img/users/default-user.jpg" width="60">
+                                    </div>
+                                    <div class="media-body">
+
+                                        <h5 class="card-title activator grey-text text-darken-4 mt-4">
+                                            {{funcionario.funcionario_nome}}&nbsp;{{funcionario.funcionario_sobrenome}}
+                                        </h5>
+                                        <p class="mt-0 mb-0">
+                                            <strong>CFP:</strong>&nbsp;{{funcionario.funcionario_cpf}}
+                                        </p>
+                                        <p class="mt-0 mb-0">
+                                            <strong>CARGO:</strong>&nbsp;{{funcionario.cargo_descricao}}
+                                        </p>
+                                        <p class="mt-0 mb-0">
+                                            <strong>TELEFONE:</strong>&nbsp;({{funcionario.telefone_ddd}})&nbsp;{{funcionario.telefone_numero}}
+                                        </p>
+                                        <p class="mt-0 mb-0">
+                                            <strong>EMAIL:</strong>&nbsp;{{funcionario.email_descricao}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="bg-white text-center">
-            <pagination-controls autoHide="true" (pageChange)="p = $event" maxSize="3"></pagination-controls>
+    <div class="row">
+        <div class="col-12">
+            <div class="bg-white text-center">
+                <pagination-controls autoHide="true" (pageChange)="p = $event" maxSize="3"></pagination-controls>
+            </div>
         </div>
     </div>
 </div>
