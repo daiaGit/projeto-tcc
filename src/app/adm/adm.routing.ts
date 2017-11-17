@@ -47,6 +47,16 @@ export const routes: Routes = [
                 path: 'charts',
                 loadChildren: 'app/adm/charts/charts.module#ChartsModule',
                 data: { breadcrumb: 'Gráficos' }
+            },
+            {
+                path: 'perfil-adm',
+                loadChildren: 'app/adm/perfil-adm/perfil-adm.module#PerfilAdmModule',
+                data: { breadcrumb: 'Perfil' }
+            },
+            {
+                path: 'privacidade-adm',
+                loadChildren: 'app/adm/privacidade-adm/privacidade-adm.module#PrivacidadeAdmModule',
+                data: { breadcrumb: 'Privacidade Adm' }
             }
 
         ]

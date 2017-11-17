@@ -1,7 +1,4 @@
-import { EstabelecimentoAdmEnderecoComponent } from './estabelecimento-adm-endereco/estabelecimento-adm-endereco.component';
-import { EstabelecimentoAdmContatoComponent } from './estabelecimento-adm-contato/estabelecimento-adm-contato.component';
-import { EstabelecimentoAdmBancarioComponent } from './estabelecimento-adm-bancario/estabelecimento-adm-bancario.component';
-
+import { SharedModule } from './../../shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,11 +10,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from '../../theme/pipes/pipes.module';
-import { Ng2CompleterModule } from "ng2-completer";
 
 /** Componentes */
 import { EstabelecimentoAdmComponent } from './estabelecimento-adm.component';
 import { EstabelecimentoAdmComercialComponent } from './estabelecimento-adm-comercial/estabelecimento-adm-comercial.component';
+import { EstabelecimentoAdmEnderecoComponent } from './estabelecimento-adm-endereco/estabelecimento-adm-endereco.component';
+import { EstabelecimentoAdmContatoComponent } from './estabelecimento-adm-contato/estabelecimento-adm-contato.component';
+import { EstabelecimentoAdmBancarioComponent } from './estabelecimento-adm-bancario/estabelecimento-adm-bancario.component';
 
 
 export const routes = [
@@ -35,8 +34,7 @@ export const routes = [
     MultiselectDropdownModule,
     NgxPaginationModule,
     PipesModule,
-    NgxMaskModule,
-    Ng2CompleterModule
+    NgxMaskModule
   ],
   declarations: [
     EstabelecimentoAdmComponent,

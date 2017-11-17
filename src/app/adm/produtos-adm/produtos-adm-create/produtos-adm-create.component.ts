@@ -207,8 +207,6 @@ export class ProdutosAdmCreateComponent implements OnInit {
         this.erros.push(msgErro);
       }
     );
-
-
   }
 
   listarUnidadesMedida() {

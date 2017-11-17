@@ -1,3 +1,4 @@
+import { SmarketLoaderComponent } from './../theme/components/smarket-loader/smarket-loader.component';
 import { HeaderSmarketZeroComponent } from './../theme/components/header-smarket-zero/header-smarket-zero.component';
 import { PipesModule } from './../theme/pipes/pipes.module';
 import { RouterModule, Router } from '@angular/router';
@@ -40,7 +41,8 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
     FullScreenComponent,
     ApplicationsComponent,
     MessagesComponent,
-    FlagsMenuComponent
+    FlagsMenuComponent,
+    SmarketLoaderComponent
   ],
   exports: [
     FooterComponent,
@@ -53,7 +55,8 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
     FullScreenComponent,
     ApplicationsComponent,
     MessagesComponent,
-    FlagsMenuComponent
+    FlagsMenuComponent,
+    SmarketLoaderComponent
   ]
 })
 export class SharedModule { }

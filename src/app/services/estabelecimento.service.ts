@@ -94,6 +94,17 @@ export class EstabelecimentoService {
 	}
 
 
+	getEstabelecimentoVendedor(): Observable<any[]> {
+
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentoVendedor/" + usuario.estabelecimento_id)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+
+	}
+
+
 	//LISTA ESTABELECIMENTOS COM APROVAÇÃO DE CADASTRO PENDENTE
 	getEstabelecimentosPedentes(): Observable<any[]> {
 		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentosVendedoresPendentes")
@@ -102,7 +113,7 @@ export class EstabelecimentoService {
 	}
 
 	//LISTA ID DO ESTABELECIMENTO PELO ID DO FUNCIONARIO
-	getEstabelecimentoByFuncionario(usuario_id, tipo_usuario_id): Observable<any[]> {		
+	getEstabelecimentoByFuncionario(usuario_id, tipo_usuario_id): Observable<any[]> {
 		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentoByFuncionario/" + usuario_id + "/" + tipo_usuario_id)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);

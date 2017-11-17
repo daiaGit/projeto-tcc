@@ -37,9 +37,20 @@ export class FuncionarioService {
 			.catch(this.httpUtil.processarErros);
 	}
 
+	/** Lista Funcionario por Id */
+	getFuncionario(): Observable<any[]> {
+
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+		return this.http.get(this.httpUtil.url(this.path) + "getFuncionario/" + usuario.usuario_id + '/' + + usuario.tipo_usuario_id)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+
 	/** Adicionar Funcionario */
 	setFuncionarios(funcionario: any): Observable<any> {
-		
+
 		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
 
 		var params = {
