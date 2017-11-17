@@ -49,23 +49,35 @@ export const horizontalMenuShopItems = [
 ]
 
 export const verticalMenuEstabelecimentoItems = [ 
-    new Menu (1, 'Meus Brindes', '/adm/brindes-adm', null, 'tachometer', null, false, 0),
-    new Menu (2, 'Meus Funcionários', '/adm/funcionarios-adm', null, 'tachometer', null, false, 0),
-    new Menu (3, 'Minhas Marcas', '/adm/marcas-adm', null, 'tachometer', null, false, 0),
-    new Menu (4, 'Meus produtos', '/adm/produtos-adm', null, 'tachometer', null, false, 0),
-    new Menu (5, 'Meus lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 0),
-    new Menu (6, 'Formas Pagamento', '/adm/formas-pagamento', null, 'tachometer', null, false, 0),
-    new Menu (7, 'Formas Entrega', '/adm/formas-entrega', null, 'tachometer', null, false, 0),
+    new Menu (1, 'Meu Estabelecimento', null, null, 'area-chart', null, true, 0),
+    new Menu (10, 'Funcionários', '/adm/funcionarios-adm', null, 'tachometer', null, false, 1),
+    new Menu (11, 'Estabelecimento', '/adm/estabelecimento-adm', null, 'tachometer', null, false, 1),
+    new Menu (2, 'Minha Loja', null, null, 'area-chart', null, true, 0),
+    new Menu (20, 'Produtos', '/adm/produtos-adm', null, 'tachometer', null, false, 2),
+    new Menu (21, 'Lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 2),
+    new Menu (22, 'Formas Entrega', '/adm/formas-pagamento', null, 'tachometer', null, false, 2),
+    new Menu (23, 'Formas Pagamento', '/adm/formas-entrega', null, 'tachometer', null, false, 2),
+    new Menu (3, 'Charts', null, null, 'area-chart', null, true, 0),
+    new Menu (30, 'Bar Charts', '/adm/charts/bar', null, 'bar-chart', null, false, 3),
+    new Menu (31, 'Pie Charts', '/adm/charts/pie', null, 'pie-chart', null, false, 3),
+    new Menu (4, 'Pedidos', null, null, 'area-chart', null, true, 0),
+    new Menu (5, 'Relatórios', null, null, 'area-chart', null, true, 0)
 ]
 
 export const horizontalMenuEstabelecimentoItems = [
-    new Menu (1, 'Meus Brindes', '/adm/brindes-adm', null, 'tachometer', null, false, 0),
-    new Menu (2, 'Meus Funcionários', '/adm/funcionarios-adm', null, 'tachometer', null, false, 0),
-    new Menu (3, 'Minhas Marcas', '/adm/marcas-adm', null, 'tachometer', null, false, 0),
-    new Menu (4, 'Meus produtos', '/adm/produtos-adm', null, 'tachometer', null, false, 0),
-    new Menu (5, 'Meus lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 0),
-    new Menu (6, 'Formas Entrega', '/adm/formas-pagamento', null, 'tachometer', null, false, 0),
-    new Menu (7, 'Formas Pagamento', '/adm/formas-entrega', null, 'tachometer', null, false, 0),
+    new Menu (1, 'Meu Estabelecimento', null, null, 'area-chart', null, true, 0),
+    new Menu (10, 'Funcionários', '/adm/funcionarios-adm', null, 'tachometer', null, false, 1),
+    new Menu (11, 'Estabelecimento', '/adm/estabelecimento-adm', null, 'tachometer', null, false, 1),
+    new Menu (2, 'Minha Loja', null, null, 'area-chart', null, true, 0),
+    new Menu (20, 'Produtos', '/adm/produtos-adm', null, 'tachometer', null, false, 2),
+    new Menu (21, 'Lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 2),
+    new Menu (22, 'Formas Entrega', '/adm/formas-pagamento', null, 'tachometer', null, false, 2),
+    new Menu (23, 'Formas Pagamento', '/adm/formas-entrega', null, 'tachometer', null, false, 2),
+    new Menu (3, 'Charts', null, null, 'area-chart', null, true, 0),
+    new Menu (30, 'Bar Charts', '/adm/charts/bar', null, 'bar-chart', null, false, 3),
+    new Menu (31, 'Pie Charts', '/adm/charts/pie', null, 'pie-chart', null, false, 3),
+    new Menu (4, 'Pedidos', null, null, 'area-chart', null, true, 0),
+    new Menu (5, 'Relatórios', null, null, 'area-chart', null, true, 0)
 ]
 
 export const verticalMenuSmarketItems = [ 

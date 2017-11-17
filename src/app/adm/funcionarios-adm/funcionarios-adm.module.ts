@@ -1,3 +1,4 @@
+import { TranslateModule } from 'ng2-translate/ng2-translate';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -32,7 +33,8 @@ export const routes = [
     MultiselectDropdownModule,
     NgxPaginationModule,
     PipesModule,
-    NgxMaskModule
+    NgxMaskModule,
+    TranslateModule
   ],
   declarations: [
     FuncionariosAdmComponent,

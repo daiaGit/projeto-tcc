@@ -34,5 +34,8 @@
         "SENHAREQUIRED": "Senha obrigatória!",
         "SENHAMIN": "Minimo 6 caracteres",
         "SENHAMAX": "Máximo 20 caracteres"
+    },
+    "PRODUTOS":{
+        "CADASTRARPRODUTO": "Cadastrar Produto"
     }
 }

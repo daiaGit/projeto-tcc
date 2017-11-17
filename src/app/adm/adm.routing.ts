@@ -14,11 +14,6 @@ export const routes: Routes = [
                 pathMatch: 'full',
             },
             {
-                path: 'brindes-adm',
-                loadChildren: 'app/adm/brindes-adm/brindes-adm.module#BrindesAdmModule',
-                data: { breadcrumb: 'Meus Brindes' }
-            },
-            {
                 path: 'funcionarios-adm',
                 loadChildren: 'app/adm/funcionarios-adm/funcionarios-adm.module#FuncionariosAdmModule',
                 data: { breadcrumb: 'Meus Funcionários' }
@@ -42,6 +37,16 @@ export const routes: Routes = [
                 path: 'formas-pagamento',
                 loadChildren: 'app/adm/formas-pagamento/formas-pagamento.module#FormasPagamentoModule',
                 data: { breadcrumb: 'Formas de Entrega' }
+            },
+            {
+                path: 'estabelecimento-adm',
+                loadChildren: 'app/adm/estabelecimento-adm/estabelecimento-adm.module#EstabelecimentoAdmModule',
+                data: { breadcrumb: 'Estabelecimento' }
+            },
+            {
+                path: 'charts',
+                loadChildren: 'app/adm/charts/charts.module#ChartsModule',
+                data: { breadcrumb: 'Gráficos' }
             }
 
         ]

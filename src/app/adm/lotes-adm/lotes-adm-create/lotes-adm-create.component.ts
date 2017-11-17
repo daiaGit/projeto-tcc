@@ -45,7 +45,7 @@ export class LotesAdmCreateComponent implements OnInit {
 
   protected searchStr: string;
   protected captain: string;
-  protected dataService: CompleterData;
+  public dataService: CompleterData;
   protected searchData = [
     { color: 'red', value: '#f00' },
     { color: 'green', value: '#0f0' },

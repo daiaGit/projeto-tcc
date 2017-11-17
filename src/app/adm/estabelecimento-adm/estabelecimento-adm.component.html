@@ -1,0 +1,40 @@
+<div class="container-fluid formas-entrega">
+    <div class="row">
+        <div class="col-sm-12 col-12">
+            <h6 class="mt-4">Top horizontal tabs</h6>
+            <div class="clearfix">
+                <ul class="nav nav-tabs custom top">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#ta">Active</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tb">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#comercial" data-toggle="tab">Comercial</a>
+                            <a class="dropdown-item" href="#endereco" data-toggle="tab">Endereço</a>
+                            <a class="dropdown-item" href="#contato" data-toggle="tab">Contatos</a>
+                            <a class="dropdown-item" href="#bancario" data-toggle="tab">Bancários</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content top">
+                <div class="tab-pane active" id="comercial">
+                    <app-estabelecimento-adm-comercial></app-estabelecimento-adm-comercial>
+                </div>
+                <div class="tab-pane" id="endereco">
+                    <app-estabelecimento-adm-endereco></app-estabelecimento-adm-endereco>
+                </div>
+                <div class="tab-pane" id="contato">
+                    <app-estabelecimento-adm-contato></app-estabelecimento-adm-contato>
+                </div>
+                <div class="tab-pane" id="bancario">
+                    <app-estabelecimento-adm-bancario></app-estabelecimento-adm-bancario>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
