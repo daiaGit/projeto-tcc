@@ -88,8 +88,6 @@
                                                     <input [formControl]="marca_descricao" class="form-control validation-field" type="text" name="marca_descricao" id="marca_descricao">
                                                     <small class="text-danger" *ngIf="form.get('marca_descricao').touched">
                                                         <span *ngIf="form.get('marca_descricao').hasError('required')">{{ 'PRODUTOS.DESCRICAOMARCA' | translate}}</span>
-                                                        <span *ngIf="form.get('marca_descricao').hasError('minlength')">{{ 'PRODUTOS.MINCARACTERE' | translate}}</span>
-                                                        <span *ngIf="form.get('marca_descricao').hasError('maxlength')">{{ 'PRODUTOS.MAXCARACTERE' | translate}}</span>
                                                     </small>
                                                 </div>
                                             </div>
@@ -143,7 +141,7 @@
                     <div class="col-sm-2">
                         <div class="form-group">
                             <label for="quantidade">{{ 'PRODUTOS.QUANTIDADE' | translate}}</label>
-                            <input [formControl]="quantidade" class="form-control validation-field" placeholder="XXXXXX" type="text" specialCharacters="false"
+                            <input [formControl]="quantidade" class="form-control validation-field" placeholder="" type="text" specialCharacters="false"
                                 name="quantidade" id="quantidade" mask="00000">
                             <small class="text-danger" *ngIf="form.get('quantidade').touched">
                                 <span *ngIf="form.get('quantidade').hasError('required')">{{ 'PRODUTOS.QUANTIDADEOBRIGATORIA' | translate}}</span>
@@ -220,10 +218,11 @@
                     <button class="btn btn-primary btn-center w-100p" type="submit">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Salvar</button>
 
-                    <button class="btn btn-primary btn-center w-100p ml-4" type="button">
+                    <button class="btn btn-primary btn-center w-100p ml-4" type="button" (click)="voltar()">
                         <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;Voltar</button>
                 </div>
             </div>
         </div>
+
     </form>
 </div>

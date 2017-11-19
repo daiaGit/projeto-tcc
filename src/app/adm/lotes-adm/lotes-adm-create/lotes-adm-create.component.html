@@ -1,5 +1,9 @@
 <div class="container-fluid lotes-create">
 
+    <div *ngIf="carregando" class="overlay">
+        <img class="loader-custom" src="assets/img/gif/loader.gif" width="30%">
+    </div>
+
     <div class="row">
         <div class="col-sm-12">
             <img class="icone-form-header pb-2" src="assets/img/icone/icones-adm_produto-crate.svg">
@@ -39,14 +43,8 @@
                     <div class="col-sm-8">
                         <div class="form-group">
                             <label for="produto_id">Produtos</label>
-                            <ng2-completer  [formControl]="lote_preco" 
-                                            [datasource]="dataService" 
-                                            [minSearchLength]="0"
-                                            [required]="true"
-                                            [textSearching]="'Buscando produtos...'"
-                                            [textSearching]="'Produto não encontrado...'"
-                                            [fillHighlighted]="false"
-                                            [clearUnselected]="true">
+                            <ng2-completer [formControl]="produto_id" [datasource]="dataService" [minSearchLength]="3" [required]="true" [textSearching]="'Buscando produtos...'"
+                                [textSearching]="'Produto não encontrado...'" [fillHighlighted]="false" [clearUnselected]="true">
                             </ng2-completer>
                             <small class="text-danger" *ngIf="form.get('produto_id').touched">
                                 <span *ngIf="form.get('produto_id').hasError('required')">Produto obrigatório</span>
@@ -54,7 +52,7 @@
                         </div>
                     </div>
 
-                   
+
 
                     <div class="col-sm-4">
                         <br/>
@@ -125,7 +123,6 @@
                         </div>
                     </div>
                 </div>
-                <div style="margin:5px 0;font-weight:600;">Single select example</div>
 
                 <div class="row">
 
@@ -136,7 +133,7 @@
                                 <div class="input-group-addon" (click)="dc.toggle()">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input class="form-control validation-field" placeholder="yyyy-mm-dd" name="dp" [formControl]="lote_data_fabricacao" ngbDatepicker
+                                <input class="form-control validation-field" placeholder="dd-mm-yyyy" name="dp" [formControl]="lote_data_fabricacao" ngbDatepicker
                                     [dayTemplate]="customDay" [markDisabled]="isDisabled" #dc="ngbDatepicker">
                             </div>
                         </div>
@@ -148,7 +145,6 @@
                         </ng-template>
                         <small class="text-danger" *ngIf="form.get('lote_data_fabricacao').touched">
                             <span *ngIf="form.get('lote_data_fabricacao').hasError('required')">Data Fabricacao obrigatória</span>
-                            <span *ngIf="form.get('lote_data_fabricacao').hasError('')">Data fabricação inválida</span>
                         </small>
                     </div>
 
@@ -159,7 +155,7 @@
                                 <div class="input-group-addon" (click)="dc.toggle()">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <input class="form-control validation-field" placeholder="yyyy-mm-dd" name="dp" [formControl]="lote_data_vencimento" ngbDatepicker
+                                <input class="form-control validation-field" placeholder="dd-mm-yyyy" name="dp" [formControl]="lote_data_vencimento" ngbDatepicker
                                     [dayTemplate]="customDay" [markDisabled]="isDisabled" #dc="ngbDatepicker">
 
                             </div>
@@ -172,7 +168,6 @@
                         </ng-template>
                         <small class="text-danger" *ngIf="form.get('lote_data_vencimento').touched">
                             <span *ngIf="form.get('lote_data_vencimento').hasError('required')">Data validade obrigatória</span>
-                            <span *ngIf="form.get('lote_data_vencimento').hasError('')">Data validade inválida</span>
                         </small>
                     </div>
 
@@ -186,7 +181,6 @@
                             </div>
                             <small class="text-danger" *ngIf="form.get('lote_preco').touched">
                                 <span *ngIf="form.get('lote_preco').hasError('required')">Preço obrigatório</span>
-                                <span *ngIf="form.get('lote_preco').hasError('')">Preço obrigatório</span>
                             </small>
                         </div>
 
@@ -198,7 +192,6 @@
                             <input [formControl]="lote_quantidade" class="form-control validation-field" type="text" name="lote_quantidade" id="lote_quantidade">
                             <small class="text-danger" *ngIf="form.get('lote_quantidade').touched">
                                 <span *ngIf="form.get('lote_quantidade').hasError('required')">Quantidade obrigatória</span>
-                                <span *ngIf="form.get('lote_quantidade').hasError('')">Quantidade inválida</span>
                             </small>
                         </div>
                     </div>
@@ -212,7 +205,7 @@
                                     {{unidadeMedida.unidade_medida_descricao}}</option>
                             </select>
                             <small class="text-danger" *ngIf="form.get('produto_id').touched">
-                                <span *ngIf="form.get('produto_id').hasError('required')">Produto Obrigatório</span>
+                                <span *ngIf="form.get('produto_id').hasError('required')">Unidade Medida Obrigatório</span>
                             </small>
                         </div>
                     </div>
@@ -221,17 +214,11 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-
                         <div class="form-group">
-                            <label for="lote_quantidade">Lote Quantidade</label>
-                            <input [formControl]="lote_quantidade" class="form-control validation-field" placeholder="XXXXXX" type="text" specialCharacters="false"
-                                name="lote_quantidade" id="lote_quantidade" mask="00000">
-                            <small class="text-danger" *ngIf="form.get('lote_quantidade').touched">
-                                <span *ngIf="form.get('lote_quantidade').hasError('required')">Quantidade obrigatória</span>
-                                <span *ngIf="form.get('lote_quantidade').hasError('')">Quantidade inválida</span>
-                            </small>
+                            <label for="lote_obs">Lote Observação</label>
+                            <input [formControl]="lote_obs" class="form-control validation-field" placeholder="" type="text" specialCharacters="false"
+                                name="lote_obs" id="lote_quantidade">
                         </div>
-
                     </div>
                 </div>
 

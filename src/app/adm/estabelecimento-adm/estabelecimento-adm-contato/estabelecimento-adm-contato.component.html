@@ -1,87 +1,85 @@
 <div class="container-fluid estabelecimento-adm-comercial">
-        
-            <div *ngIf="carregando" class="overlay">
-                <img class="loader-custom" src="assets/img/gif/loader.gif" width="30%">
-            </div>
+
+    <div *ngIf="carregando" class="overlay">
+        <img class="loader-custom" src="assets/img/gif/loader.gif" width="30%">
+    </div>
 
 
-            <div class="row">
-                <div class="col-sm-3">
-                    </div>
-            </div>
-        
-            <div class="row">
-
-
-        
-                <!-- Div propaganda -->
-                <div class="col-sm-12">
-        
-                    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
-        
-                        <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
-                            <button type="button" class="close" (click)="closeAlert(i)">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <strong>{{erro.item}}</strong> {{erro.descricao}}
-                        </div>
-        
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <div class="form-group">
-                                    <label for="tipoTelefone">Tipo de Telefone</label>
-                                    <select [formControl]="tipoTelefone" class="form-control validation-field" name="tipoTelefone" id="tipoTelefone" (change)="setMaskFone()">
-                                        <option value="">Selecione</option>
-                                        <option *ngFor="let tipoTelefone of tiposTelefone" [value]="tipoTelefone.tipo_telefone_id">
-                                            {{tipoTelefone.tipo_telefone_descricao}}</option>
-                                    </select>
-                                    <small class="text-danger" *ngIf="form.get('tipoTelefone').touched">
-                                        <span *ngIf="form.get('tipoTelefone').hasError('required')">Tipo de telefone obrigatório</span>
-                                    </small>
-                                </div>
-                            </div>
-        
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label for="ddd">DDD</label>
-                                    <input [formControl]="ddd" name="ddd" id="ddd" class="form-control validation-field" placeholder="(XX)" type="text" specialCharacters="false"
-                                        mask="(00)">
-                                    <small class="text-danger" *ngIf="form.get('ddd').touched">
-                                        <span *ngIf="form.get('ddd').hasError('required')">DDD obrigatório</span>
-                                        <span *ngIf="form.get('ddd').hasError('invalidDDD')">DDD inválido</span>
-                                    </small>
-                                </div>
-                            </div>
-        
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="telefone">Telefone Comercial</label>
-                                    <input [formControl]="telefone" class="form-control validation-field" name="telefone" id="telefone" [placeholder]="maskFone.placeholder"
-                                        type="text" specialCharacters="false" [mask]="maskFone.mask">
-                                    <small class="text-danger" *ngIf="form.get('telefone').touched">
-                                        <span *ngIf="form.get('telefone').hasError('required')">Telefone obrigatório</span>
-                                        <span *ngIf="form.get('telefone').hasError('invalidTelefone')">Telefone inválido</span>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="funcionarioEmail">Email Comercial</label>
-                                    <input [formControl]="funcionarioEmail" name="funcionarioEmail" id="funcionarioEmail" class="form-control validation-field"
-                                        type="text">
-                                    <small class="text-danger" *ngIf="form.get('funcionarioEmail').touched">
-                                        <span *ngIf="form.get('funcionarioEmail').hasError('required')">Email obrigatório</span>
-                                        <span *ngIf="form.get('funcionarioEmail').hasError('invalidEmail')">Email inválido</span>
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-        
-                    </form>
-        
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-sm-3">
         </div>
+    </div>
+
+    <div class="row">
+
+        <!-- Div propaganda -->
+        <div class="col-sm-12">
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
+
+                <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
+                    <button type="button" class="close" (click)="closeAlert(i)">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{erro.item}}</strong> {{erro.descricao}}
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="form-group">
+                            <label for="tipoTelefone">Tipo de Telefone</label>
+                            <select [formControl]="tipoTelefone" class="form-control validation-field" name="tipoTelefone" id="tipoTelefone" (change)="setMaskFone()">
+                                <option value="">Selecione</option>
+                                <option *ngFor="let tipoTelefone of tiposTelefone" [value]="tipoTelefone.tipo_telefone_id">
+                                    {{tipoTelefone.tipo_telefone_descricao}}</option>
+                            </select>
+                            <small class="text-danger" *ngIf="form.get('tipoTelefone').touched">
+                                <span *ngIf="form.get('tipoTelefone').hasError('required')">Tipo de telefone obrigatório</span>
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="ddd">DDD</label>
+                            <input [formControl]="ddd" name="ddd" id="ddd" class="form-control validation-field" placeholder="(XX)" type="text" specialCharacters="false"
+                                mask="(00)">
+                            <small class="text-danger" *ngIf="form.get('ddd').touched">
+                                <span *ngIf="form.get('ddd').hasError('required')">DDD obrigatório</span>
+                                <span *ngIf="form.get('ddd').hasError('invalidDDD')">DDD inválido</span>
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="telefone">Telefone Comercial</label>
+                            <input [formControl]="telefone" class="form-control validation-field" name="telefone" id="telefone" [placeholder]="maskFone.placeholder"
+                                type="text" specialCharacters="false" [mask]="maskFone.mask">
+                            <small class="text-danger" *ngIf="form.get('telefone').touched">
+                                <span *ngIf="form.get('telefone').hasError('required')">Telefone obrigatório</span>
+                                <span *ngIf="form.get('telefone').hasError('invalidTelefone')">Telefone inválido</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="funcionarioEmail">Email Comercial</label>
+                            <input [formControl]="funcionarioEmail" name="funcionarioEmail" id="funcionarioEmail" class="form-control validation-field"
+                                type="text">
+                            <small class="text-danger" *ngIf="form.get('funcionarioEmail').touched">
+                                <span *ngIf="form.get('funcionarioEmail').hasError('required')">Email obrigatório</span>
+                                <span *ngIf="form.get('funcionarioEmail').hasError('invalidEmail')">Email inválido</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>

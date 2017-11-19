@@ -160,27 +160,22 @@ export class AcessoService {
 	}
 
 	public logoutAreaSmarket() {
-		localStorage.removeItem('usuarioSmarket');
-		localStorage.removeItem('autenticaSmarket');
+		localStorage.clear();
 	}
 
 	public logoutAreaAdm() {
-		localStorage.removeItem('usuarioAdm');
-		localStorage.removeItem('autenticaAdm');
+		localStorage.clear();
 	}
 
 	public logoutAreaShop() {
-		localStorage.removeItem('usuarioShop');
-		localStorage.removeItem('autenticaShop');
+		localStorage.clear();
 	}
 
 	public logoutAreaZero() {
-		localStorage.removeItem('usuarioDoacao');
-		localStorage.removeItem('autenticaDoacao');
+		localStorage.clear();
 	}
 
 	public logoutAreaDoacao() {
-		localStorage.removeItem('usuarioZero');
-		localStorage.removeItem('autenticaZero');
+		localStorage.clear();
 	}
 }

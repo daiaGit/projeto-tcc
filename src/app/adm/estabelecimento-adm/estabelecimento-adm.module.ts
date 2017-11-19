@@ -17,6 +17,7 @@ import { EstabelecimentoAdmComercialComponent } from './estabelecimento-adm-come
 import { EstabelecimentoAdmEnderecoComponent } from './estabelecimento-adm-endereco/estabelecimento-adm-endereco.component';
 import { EstabelecimentoAdmContatoComponent } from './estabelecimento-adm-contato/estabelecimento-adm-contato.component';
 import { EstabelecimentoAdmBancarioComponent } from './estabelecimento-adm-bancario/estabelecimento-adm-bancario.component';
+import { EstabelecimentoAdmPublicidadeComponent } from 'app/adm/estabelecimento-adm/estabelecimento-adm-publicidade/estabelecimento-adm-publicidade.component';
 
 
 export const routes = [
@@ -41,7 +42,8 @@ export const routes = [
     EstabelecimentoAdmComercialComponent,
     EstabelecimentoAdmBancarioComponent,
     EstabelecimentoAdmContatoComponent,
-    EstabelecimentoAdmEnderecoComponent
+    EstabelecimentoAdmEnderecoComponent,
+    EstabelecimentoAdmPublicidadeComponent
   ]
 })
 

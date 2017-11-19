@@ -85,6 +85,21 @@ export class EstabelecimentoService {
 			.catch(this.httpUtil.processarErros);
 	}
 
+	setFotosEstabelecimento(estabelecimento_banner: any, estabelecimento_logo: any ): Observable<any> {
+		
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+				var params = {
+					estabelecimento_id: usuario.estabelecimento_id,
+					estabelecimento_logo: estabelecimento_logo,
+					estabelecimento_banner: estabelecimento_banner
+				};
+		
+				return this.http.post(this.httpUtil.url(this.path) + 'adicionarImagens', params)
+					.map(this.httpUtil.extrairDados)
+					.catch(this.httpUtil.processarErros);
+			}
+
 	getEstabelecimentoByLocalidade(latitude, longitude): Observable<any[]> {
 
 		return this.http.get(this.httpUtil.url(this.path) + "getEstabelecimentosVendedoresLocalidade/" + latitude + "/" + longitude + "/30")

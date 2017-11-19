@@ -43,7 +43,7 @@
         </div>
 
         <div class="col-sm-12">
-            <div [hidden]="sucessos.length == 0" *ngFor="let sucesso of sucessos; index as i" class="alert alert-danger" role="alert">
+            <div [hidden]="sucessos.length == 0" *ngFor="let sucesso of sucessos; index as i" class="alert alert-success" role="alert">
                 <button type="button" class="close" (click)="closeAlert(i)">
                     <span aria-hidden="true">&times;</span>
                 </button>

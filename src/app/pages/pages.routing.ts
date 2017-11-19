@@ -10,7 +10,7 @@ export const routes: Routes = [
         children:[
             { path:'', redirectTo:'dashboard', pathMatch:'full' },
             { path: 'dashboard', loadChildren: 'app/pages/dashboard/dashboard.module#DashboardModule', data: { breadcrumb: 'Dashboard' }  },          
-            { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } },
+            { path: 'search', component: SearchComponent, data: { breadcrumb: 'Search' } }
            
        ]
     }

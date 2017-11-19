@@ -1,108 +1,35 @@
 <div class="container-fluid estabelecimento-adm-comercial">
 
-    <div *ngIf="carregando" class="overlay">
-        <img class="loader-custom" src="assets/img/gif/loader.gif" width="30%">
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+                <strong>Razão Social:</strong>
+            </p>
+            <p>
+                <strong>Nome Fantasia:</strong>
+            </p>
+            <p>
+                <strong>CNPJ:</strong>
+            </p>
+            <p>
+                <strong>Segmento de Negócio:</strong>
+            </p>
+            <p>
+                <strong>Inscrição Estadual:</strong>
+            </p>
+            <p>
+                <strong>Inscrição Municipal:</strong>
+            </p>
+        </div>
+        <div class="col-sm-12">
+
+        </div>
     </div>
+
 
 
     <!-- Div propaganda -->
     <div class="col-sm-12">
-
-        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
-
-            <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
-                <button type="button" class="close" (click)="closeAlert(i)">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>{{erro.item}}</strong> {{erro.descricao}}
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="razaoSocial">Razão Social</label>
-                        <input [formControl]="razaoSocial" class="form-control validation-field" name="razaoSocial" id="razaoSocial" type="text">
-                        <small class="text-danger" *ngIf="form.get('razaoSocial').touched" disabled>
-                            <span *ngIf="form.get('razaoSocial').hasError('required')">Razão Social Obrigatória</span>
-                            <span *ngIf="form.get('razaoSocial').hasError('minlength')">Minimo 3 caracteres</span>
-                            <span *ngIf="form.get('razaoSocial').hasError('maxlength')">Maximo 150 caracteres </span>
-                        </small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label for="nomeFantasia">Nome Fantasia</label>
-                        <input [formControl]="nomeFantasia" class="form-control validation-field" name="nomeFantasia" id="nomeFantasia" type="text"  disabled>>
-                        <small class="text-danger" *ngIf="form.get('nomeFantasia').touched">
-                            <span *ngIf="form.get('nomeFantasia').hasError('required')">Nome Fantasia Obrigatório</span>
-                            <span *ngIf="form.get('nomeFantasia').hasError('minlength')">Minimo 3 caracteres</span>
-                            <span *ngIf="form.get('nomeFantasia').hasError('maxlength')">Maximo 150 caracteres </span>
-                        </small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label for="tipoEstabelecimento">Segmento</label>
-                            <input [formControl]="tipoEstabelecimento" class="form-control validation-field" name="tipoEstabelecimento" id="tipoEstabelecimento"
-                                type="text"  disabled>>
-                            <small class="text-danger" *ngIf="form.get('nomeFantasia').touched">
-                                <span *ngIf="form.get('nomeFantasia').hasError('required')">Nome Fantasia Obrigatório</span>
-                                <span *ngIf="form.get('nomeFantasia').hasError('minlength')">Minimo 3 caracteres</span>
-                                <span *ngIf="form.get('nomeFantasia').hasError('maxlength')">Maximo 150 caracteres </span>
-                            </small>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="cnpj">CNPJ</label>
-                        <input [formControl]="cnpj" name="cnpj" id="cnpj" class="form-control validation-field" placeholder="XX.XXX.XXX/XXX-XX" type="text"
-                            specialCharacters="false" mask="00.000.000/0000-00">
-                        <small class="text-danger" *ngIf="form.get('cnpj').touched">
-                            <span *ngIf="form.get('cnpj').hasError('required')">Cnpj obrigatório</span>
-                            <span *ngIf="form.get('cnpj').hasError('invalidCnpj')">Cnpj inválido</span>
-                        </small>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="isncricaoEstadual">Inscrição Estadual</label>
-                        <input [formControl]="inscricaoEstadual" name="inscricaoEstadual" id="inscricaoEstadual" class="form-control validation-field"
-                            type="text">
-                        <small class="text-danger" *ngIf="form.get('inscricaoEstadual').touched">
-                            <span *ngIf="form.get('inscricaoEstadual').hasError('required')">Inscrição estudal obrigatório</span>
-                        </small>
-                    </div>
-                </div>
-
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="isncricaoMunicipal">Inscrição Municipal</label>
-                        <input [formControl]="inscricaoMunicipal" name="inscricaoMunicipal" id="inscricaoMunicipal" class="form-control validation-field"
-                            type="text">
-                        <small class="text-danger" *ngIf="form.get('inscricaoMunicipal').touched">
-                            <span *ngIf="form.get('inscricaoMunicipal').hasError('required')">Incrição Municipal Obrigatório</span>
-                        </small>
-                    </div>
-
-                </div>
-            </div>
-
-        </form>
 
     </div>
 </div>

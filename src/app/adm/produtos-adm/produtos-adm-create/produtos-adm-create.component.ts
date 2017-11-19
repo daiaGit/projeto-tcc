@@ -54,7 +54,7 @@ export class ProdutosAdmCreateComponent implements OnInit {
 
     this.form = fb.group({
       produto_descricao: ['', Validators.compose([Validators.required])],
-      marca_descricao: ['', Validators.compose([Validators.required])],
+      marca_descricao: [''],
       marca_id: ['', Validators.compose([Validators.required])],
       categoria_id: ['', Validators.compose([Validators.required])],
       quantidade: ['', Validators.compose([Validators.required])],
@@ -91,7 +91,7 @@ export class ProdutosAdmCreateComponent implements OnInit {
           resp = produto['response'];
           if (resp.status == 'true') {            
             localStorage.setItem('msgSucessoProdutoCreate', 'Produto Cadastrado com Sucesso.');
-            this.router.navigate(['/adm/funcionarios-adm']);
+            this.router.navigate(['/adm/produtos-adm']);
           }
           else {
             msgErro.item = 'Erro ao efetuar o cadastro de produtos!';
@@ -292,6 +292,10 @@ export class ProdutosAdmCreateComponent implements OnInit {
     );
 
 
+  }
+
+  public voltar() {
+    this.router.navigate(['/adm/produtos-adm']);
   }
 
   fileChange(input) {

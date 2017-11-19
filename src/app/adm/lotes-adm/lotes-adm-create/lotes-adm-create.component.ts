@@ -27,6 +27,8 @@ export class LotesAdmCreateComponent implements OnInit {
   public erros: Array<any> = [];
   public modelPopup: NgbDateStruct = {year: new Date().getFullYear(), month: new Date().getMonth()+1, day: new Date().getDate()-3};
   
+  public carregando: boolean;
+
   public produtos: Array<any> = [];
   public unidadesMedida: Array<any> = [];
 
@@ -55,16 +57,12 @@ export class LotesAdmCreateComponent implements OnInit {
     { color: 'yellow', value: '#ff0' },
     { color: 'black', value: '#000' }
   ];
-  protected captains = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett' ];
-
 
   constructor(router: Router,
     fb: FormBuilder,
     public produtoService: ProdutoService,
     private completerService: CompleterService
   ) {
-
-    this.dataService = completerService.local(this.searchData, 'color', 'color');
 
     this.router = router;
 
@@ -73,7 +71,7 @@ export class LotesAdmCreateComponent implements OnInit {
       lote_data_fabricacao: ['', Validators.compose([Validators.required])],
       lote_data_vencimento: ['', Validators.compose([Validators.required])],
       lote_preco: ['', Validators.compose([Validators.required])],
-      lote_obs: ['', Validators.compose([Validators.required])],
+      lote_obs: [''],
       lote_quantidade: ['', Validators.compose([Validators.required])],
       unidade_medida_id: ['', Validators.compose([Validators.required])],
       qtd_minima_pj: ['', Validators.compose([Validators.required])],
@@ -96,6 +94,8 @@ export class LotesAdmCreateComponent implements OnInit {
 
     this.vender_para_pj.setValue(true);
     this.vender_para_pf.setValue(true);
+    this.qtd_minima_pf.setValue('0');
+    this.qtd_minima_pj.setValue('0');
   }
 
   ngOnInit() {
@@ -161,19 +161,23 @@ export class LotesAdmCreateComponent implements OnInit {
       descricao: ''
     };
 
+    this.carregando = true;
     this.produtoService.getUnidadesMedidas().subscribe(
       unidadesMedida => {
+        this.carregando = false;
         resp = unidadesMedida['response'];
         if (resp.status == 'true') {
           this.unidadesMedida = resp.objeto;
         }
         else {
+          this.carregando = false;
           msgErro.item = 'Erro ao carregar as unidades de medida!';
           msgErro.descricao = resp.descricao;
           this.erros.push(msgErro);
         }
       },
       err => {
+        this.carregando = false;
         msgErro.item = 'Erro ao carregar as unidades de medida!';
         msgErro.descricao = err;
         this.erros.push(msgErro);
@@ -188,19 +192,24 @@ export class LotesAdmCreateComponent implements OnInit {
       descricao: ''
     };
 
+    this.carregando = true;
     this.produtoService.getProdutosByEstabelecimento().subscribe(
       unidadesMedida => {
+        this.carregando = false;
         resp = unidadesMedida['response'];
         if (resp.status == 'true') {
-          this.unidadesMedida = resp.objeto;
+          this.produtos = resp.objeto;
+          this.dataService = this.completerService.local(this.produtos, 'produto_descricao', 'produto_descricao');
         }
         else {
+          this.carregando = false;
           msgErro.item = 'Erro ao carregar os produtos!';
           msgErro.descricao = resp.descricao;
           this.erros.push(msgErro);
         }
       },
       err => {
+        this.carregando = false;
         msgErro.item = 'Erro ao carregar os produtos!';
         msgErro.descricao = err;
         this.erros.push(msgErro);

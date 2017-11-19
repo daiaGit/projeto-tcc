@@ -42,7 +42,7 @@ export class FuncionarioService {
 
 		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
 
-		return this.http.get(this.httpUtil.url(this.path) + "getFuncionario/" + usuario.usuario_id + '/' + + usuario.tipo_usuario_id)
+		return this.http.get(this.httpUtil.url(this.path) + "getFuncionario/" + usuario.usuario_id + '/' + + usuario.tipo_usuario_id + '/' + usuario.estabelecimento_id)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}

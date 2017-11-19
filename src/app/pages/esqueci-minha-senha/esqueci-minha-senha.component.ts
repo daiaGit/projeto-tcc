@@ -63,8 +63,7 @@ export class EsqueciMinhaSenhaComponent implements OnInit {
         recuperaSenha => {
           resp = recuperaSenha['response'];
           if (resp.status == 'true') {
-
-            this.router.navigate(['/smarket/dashboard-smarket']);
+            this.router.navigate(['/pages/sucesso']);
           }
           else {
             msgErro.item = 'Erro ao recuperar senha!';

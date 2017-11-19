@@ -5,6 +5,8 @@ import { FormGroup, AbstractControl, FormBuilder, Validators, FormControl } from
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgxMaskModule } from 'ngx-mask';
+import { ConsumidorService } from 'app/services/consumidor.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /** Services */
 
@@ -16,7 +18,8 @@ import { NgxMaskModule } from 'ngx-mask';
   providers: [
     TipoTelefoneService,
     CargoService,
-    FuncionarioService
+    FuncionarioService,
+    ConsumidorService
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -25,6 +28,7 @@ export class PerfilAdmComponent implements OnInit {
   public router: Router;
   public form: FormGroup;
   public erros: Array<any> = [];
+  public sucessos: Array<any> = [];
   public carregando:boolean;
 
   public maskFone: any = {
@@ -33,6 +37,7 @@ export class PerfilAdmComponent implements OnInit {
   };
 
   public image: any;
+  public imageUsuario: any;
 
   public tiposTelefone: Array<any> = [];
   public cargos: Array<any> = [];
@@ -51,7 +56,9 @@ export class PerfilAdmComponent implements OnInit {
     fb: FormBuilder,
     public tipoTelefoneService: TipoTelefoneService,
     public cargoService: CargoService,
-    public funcionarioService: FuncionarioService
+    public funcionarioService: FuncionarioService,
+    public consumidorService: ConsumidorService,
+    private domSanitizer: DomSanitizer
   ) {
 
     this.router = router;
@@ -82,22 +89,9 @@ export class PerfilAdmComponent implements OnInit {
 
   ngOnInit() {
 
-    this.funcionario = JSON.parse(localStorage.getItem('funcionario'));
-
-    if (this.funcionario && this.funcionario != null) {
-      localStorage.removeItem('funcionario');
-      this.form.controls['cargo_id'].setValue(this.funcionario.cargo_id);
-      this.form.controls['email_descricao'].setValue(this.funcionario.email_descricao);
-      this.form.controls['funcionario_cpf'].setValue(this.funcionario.funcionario_cpf);
-      this.form.controls['funcionario_nome'].setValue(this.funcionario.funcionario_nome);
-      this.form.controls['funcionario_sobrenome'].setValue(this.funcionario.funcionario_sobrenome);
-      this.form.controls['telefone_ddd'].setValue(this.funcionario.telefone_ddd);
-      this.form.controls['telefone_numero'].setValue(this.funcionario.telefone_numero);
-      this.form.controls['tipo_telefone_id'].setValue(this.funcionario.tipo_telefone_id);
-    }
-
     this.listarTiposTelefone();
     this.listarCargos();
+    this.buscarFuncionario();
 
   }
 
@@ -123,8 +117,11 @@ export class PerfilAdmComponent implements OnInit {
           this.carregando = false;
           resp = funcionario['response'];
           if (resp.status == 'true') {
-            localStorage.setItem('msgSucessoEditFuncionario', 'Funcionário Editado com Sucesso.');
-            this.router.navigate(['/adm/funcionarios-adm']);
+            var msgSucesso: any = {
+              item: 'Parabéns!',
+              descricao: 'Seus dados foram alterados com sucesso.'
+            };
+            this.sucessos.push(msgSucesso);
           }
           else {
             msgErro.item = 'Erro ao efetuar o cadastro de funcionário!';
@@ -166,7 +163,94 @@ export class PerfilAdmComponent implements OnInit {
     this.erros.splice(this.erros.indexOf(index), 1);
   }
 
+  public closeAlertSucesso(index) {
+    this.sucessos.splice(this.erros.indexOf(index), 1);
+  }
+
   /** LISTAR CONTEÚDO */
+
+    /** LISTAR CONTEÚDO */
+    buscarFuncionario() {
+      var resp: any;
+      var msgErro: any = {
+          item: '',
+          descricao: ''
+      };
+      this.carregando = true;
+      this.funcionarioService.getFuncionario().subscribe(
+          estabelecimento => {
+              this.carregando = false;
+              resp = estabelecimento['response'];
+              this.funcionario = resp.objeto;
+              if (resp.status == 'true') {
+                this.form.controls['cargo_id'].setValue(this.funcionario.cargo_id);
+                this.form.controls['email_descricao'].setValue(this.funcionario.email_descricao);
+                this.form.controls['funcionario_cpf'].setValue(this.funcionario.funcionario_cpf);
+                this.form.controls['funcionario_nome'].setValue(this.funcionario.funcionario_nome);
+                this.form.controls['funcionario_sobrenome'].setValue(this.funcionario.funcionario_sobrenome);
+                this.form.controls['telefone_ddd'].setValue(this.funcionario.telefone_ddd);
+                this.form.controls['telefone_numero'].setValue(this.funcionario.telefone_numero);
+                this.form.controls['tipo_telefone_id'].setValue(this.funcionario.tipo_telefone_id);
+                if(this.funcionario.funcionario_foto){
+                  this.imageUsuario = this.domSanitizer.bypassSecurityTrustResourceUrl(this.funcionario.funcionario_foto);
+                  this.image = this.imageUsuario;
+                }
+
+              }
+              else {
+                this.carregando = false;
+                  msgErro.item = 'Erro ao carregar o estabelecimento!';
+                  msgErro.descricao = resp.descricao;
+                  this.erros.push(msgErro);
+              }
+          },
+          err => {
+            this.carregando = false;
+              this.carregando = false;
+              msgErro.item = 'Erro ao carregar o estabelecimento!';
+              msgErro.descricao = err;
+              this.erros.push(msgErro);
+          }
+      );
+  }
+
+  adicionarFoto() {
+    var resp: any;
+    var msgErro: any = {
+        item: '',
+        descricao: ''
+    };
+    this.carregando = true;
+
+    this.consumidorService.adicionarFotoUsuario(this.image).subscribe(
+        estabelecimento => {
+            this.carregando = false;
+            resp = estabelecimento['response'];
+            if (resp.status == 'true') {              
+              var msgSucesso: any = {
+                item: 'Parabéns!',
+                descricao: 'Sua foto foi adiciona com sucesso'
+              };
+              this.sucessos.push(msgSucesso);
+              this.imageUsuario = this.image;
+            }
+            else {
+              this.carregando = false;
+                msgErro.item = 'Erro ao enviar foto!';
+                msgErro.descricao = resp.descricao;
+                this.erros.push(msgErro);
+            }
+        },
+        err => {
+          this.carregando = false;
+            this.carregando = false;
+            msgErro.item = 'Erro ao enviar foto!';
+            msgErro.descricao = err;
+            this.erros.push(msgErro);
+        }
+    );
+}
+
   listarTiposTelefone() {
     var msgErro: any = {
       item: '',
@@ -185,7 +269,6 @@ export class PerfilAdmComponent implements OnInit {
         this.erros.push(msgErro);
       }
     );
-
   }
 
   public listarCargos() {

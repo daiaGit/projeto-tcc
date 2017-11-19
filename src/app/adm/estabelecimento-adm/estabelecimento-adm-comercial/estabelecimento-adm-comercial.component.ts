@@ -83,6 +83,9 @@ export class EstabelecimentoAdmComercialComponent implements OnInit {
         this.erros.splice(this.erros.indexOf(index), 1);
     }
 
+    public closeAlertSucesso(index) {
+        this.erros.splice(this.erros.indexOf(index), 1);
+    }
 
     /** LISTAR CONTEÚDO */
     listarEstabelecimentoVendedor() {

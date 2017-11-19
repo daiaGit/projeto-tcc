@@ -61,7 +61,7 @@ export const routes: Routes = [
   },
   {
     path: 'login-smarket',
-    loadChildren: 'app/smarket/login-smarket/login-smarket.module#LoginSmarketModule'
+    loadChildren: 'app/smarket/login-smarket/login-smarket.module#LoginSmarketModule',
   },
   {
     path: 'smarket',

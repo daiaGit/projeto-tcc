@@ -1,26 +1,26 @@
 export const single = [
   {
-    name: 'Germany',
+    name: 'Janeiro',
     value: 40632
   },
   {
-    name: 'United States',
+    name: 'Fevereiro',
     value: 49737
   },
   {
-    name: 'France',
+    name: 'Março',
     value: 36745
   },
   {
-    name: 'United Kingdom',
+    name: 'Abril',
     value: 36240
   },
   {
-    name: 'Spain',
+    name: 'Maio',
     value: 33000
   },
   {
-    name: 'Italy',
+    name: 'Junho',
     value: 35800
   }
 ];
