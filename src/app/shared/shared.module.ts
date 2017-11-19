@@ -28,7 +28,8 @@ import { ApplicationsComponent } from './../theme/components/applications/applic
   imports: [
     CommonModule,
     RouterModule,
-    PipesModule
+    PipesModule,
+    TranslateModule
   ],
   declarations: [
     FooterComponent,

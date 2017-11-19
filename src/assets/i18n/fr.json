@@ -1,5 +1,10 @@
-
 {
+    "IDIOMAS": {
+        "IDIOMAPORTUGES": "Portugais",
+        "IDIOMAINGLES": "Anglais",
+        "IDIOMAFRANCES": "Français",
+        "IDIOMAESPANHOL": "Espagnol"
+    },
     "LOGIN": {
         "LINKESQUECISENHA": "Mot de passe oublié?",
         "LABELEMAIL": "Email",

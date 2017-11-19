@@ -9,20 +9,27 @@ import { TranslateService } from 'ng2-translate';
 })
 export class FlagsMenuComponent implements OnInit {
 
-  public idiomaSelecionado: any;
-  public translate: TranslateService;
-  public browserLang: string = this.translate.getBrowserLang();
+  public idiomaSelecionado: any = {
+    idioma: '',
+    class: ''
+  };
+  public browserLang: string;
 
-  constructor() {
-    this.idiomaSelecionado =  this.browserLang.match(/en|pt-BR|es|fr/) ? this.browserLang : 'pt-BR';
+  constructor(public translate: TranslateService) {
+    this.browserLang = this.translate.getBrowserLang();
+    this.idiomaSelecionado.idioma = this.browserLang.match(/en|pt-BR|es|fr/) ? this.browserLang : 'pt-BR';
+    this.idiomaSelecionado.class = "flag-icon flag-icon-" + this.idiomaSelecionado.idioma ;
+
+    console.log(this.idiomaSelecionado);
   }
 
   ngOnInit() {
   }
 
   public alterarIdioma(idioma) {
-    this.idiomaSelecionado = idioma;
-    this.translate.use(this.idiomaSelecionado);
+    this.idiomaSelecionado.idioma = idioma;
+    this.idiomaSelecionado.class = 'flag-icon flag-icon-' + idioma;
+    this.translate.use(this.idiomaSelecionado.idioma);
   }
 
 }

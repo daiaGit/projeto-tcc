@@ -1,4 +1,10 @@
 {
+    "IDIOMAS": {
+        "IDIOMAPORTUGES": "Português",
+        "IDIOMAINGLES": "Inglês",
+        "IDIOMAFRANCES": "Francês",
+        "IDIOMAESPANHOL": "Espanhol"
+    },
     "LOGIN": {
         "TITULOLOGINSMARKET": "Acesso Restrito",
         "TITULOLOGINADM": "Acesso do Vendedor",
@@ -61,6 +67,6 @@
         "CARREGARFOTO":"Carregar Foto",
         "BUSCARFOTO":"Buscar Foto",
         "TROCARFOTO":"Trocar Foto"
-
     }
+
 }
