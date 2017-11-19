@@ -2,17 +2,22 @@
 
     <div class="row">
 
+        <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
+            <button type="button" class="close" (click)="closeAlert(i)">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{erro.item}}</strong> {{erro.descricao}}
+        </div>
+
+        <div class="col-sm-12 pb-2">
+            <h3>Endereço</h3>
+            <hr/>
+        </div>
+
         <!-- Div propaganda -->
         <div class="col-sm-12">
 
             <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
-
-                <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
-                    <button type="button" class="close" (click)="closeAlert(i)">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>{{erro.item}}</strong> {{erro.descricao}}
-                </div>
 
                 <div class="row">
                     <div class="col-sm-4">
