@@ -12,6 +12,7 @@ import { MailSearchPipe } from './search/mail-search.pipe';
 import { LoteSearchPipe } from './search/lote-search.pipe';
 import { ProdutoSearchPipe } from './search/produto-search.pipe';
 import { CnpjFormatPipe } from 'app/theme/pipes/format/cnpj-format.pipe';
+import { CpfFormatPipe } from 'app/theme/pipes/format/cpf-format.pipe';
 
 @NgModule({
     imports: [ 
@@ -27,7 +28,8 @@ import { CnpjFormatPipe } from 'app/theme/pipes/format/cnpj-format.pipe';
         EstabelecimentoSearchPipe,
         TruncatePipe,
         MailSearchPipe,
-        CnpjFormatPipe
+        CnpjFormatPipe,
+        CpfFormatPipe
     ],
     exports: [
         ProfilePicturePipe,
@@ -39,7 +41,8 @@ import { CnpjFormatPipe } from 'app/theme/pipes/format/cnpj-format.pipe';
         EstabelecimentoSearchPipe,
         TruncatePipe,
         MailSearchPipe,
-        CnpjFormatPipe
+        CnpjFormatPipe,
+        CpfFormatPipe
     ]
 })
 export class PipesModule { }
