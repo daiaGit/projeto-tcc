@@ -1,0 +1,14 @@
+
+{
+    "LOGIN": {
+        "LINKESQUECISENHA": "Forgot your password?",
+        "LABELEMAIL": "Email",
+        "LABELSENHA": "Password",
+        "BTNENTRAR": "Enter"
+    },
+    "LOGIN-VALIDATE": {
+        "EMAILREQUIRED": "Email required!",
+        "EMAILINVALID": "Invalid Email!",
+        "SENHAREQUIRED": "Password required!"
+    }
+}
