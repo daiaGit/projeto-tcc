@@ -33,7 +33,6 @@ export class EstabelecimentoAdmContatoComponent implements OnInit {
     public router: Router;
     public form: FormGroup;
     public erros: Array<any> = [];
-    public carregando: boolean = false;
 
     public estabelecimento: any;
 
@@ -108,14 +107,14 @@ export class EstabelecimentoAdmContatoComponent implements OnInit {
             item : '',
             descricao: ''
         };
-this.carregando = true;
+
         this.tipoTelefoneService.listarTodos().subscribe(
             tiposTelefone => {
-                this.carregando = false;
+                
                 this.tiposTelefone = tiposTelefone['tiposTelefone'];
             },
             err => {
-                this.carregando = false;
+                
                 msgErro.item = 'Erro ao listar tipos de Telefone!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -130,10 +129,10 @@ this.carregando = true;
             item: '',
             descricao: ''
         };        
-        this.carregando = true;
+        
         this.estabelecimentoService.getEstabelecimentoVendedor().subscribe(
             estabelecimento => {
-                this.carregando = false;
+                
                 resp = estabelecimento['response'];
                 if (resp.status == 'true') {
                     this.estabelecimento = resp.objeto[0];                
@@ -145,7 +144,7 @@ this.carregando = true;
                 }
             },
             err => {
-                this.carregando = false;
+                
                 msgErro.item = 'Erro ao carregar o estabelecimento!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);

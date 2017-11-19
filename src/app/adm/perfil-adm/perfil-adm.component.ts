@@ -29,7 +29,6 @@ export class PerfilAdmComponent implements OnInit {
   public form: FormGroup;
   public erros: Array<any> = [];
   public sucessos: Array<any> = [];
-  public carregando:boolean;
 
   public maskFone: any = {
     mask: '',
@@ -101,7 +100,7 @@ export class PerfilAdmComponent implements OnInit {
       item: '',
       descricao: ''
     };
-    this.carregando = true;
+    
 
     if (this.form.valid) {
       this.funcionario.cargo_id = values.cargo_id;
@@ -114,7 +113,7 @@ export class PerfilAdmComponent implements OnInit {
 
       this.funcionarioService.alterarDadosFuncionario(this.funcionario).subscribe(
         funcionario => {
-          this.carregando = false;
+          
           resp = funcionario['response'];
           if (resp.status == 'true') {
             var msgSucesso: any = {
@@ -130,7 +129,7 @@ export class PerfilAdmComponent implements OnInit {
           }
         },
         err => {
-          this.carregando = false;
+          
           msgErro.item = 'Erro ao efetuar o cadastro de funcionário!';
           msgErro.descricao = err;
           this.erros.push(msgErro);
@@ -176,10 +175,10 @@ export class PerfilAdmComponent implements OnInit {
           item: '',
           descricao: ''
       };
-      this.carregando = true;
+      
       this.funcionarioService.getFuncionario().subscribe(
           estabelecimento => {
-              this.carregando = false;
+              
               resp = estabelecimento['response'];
               this.funcionario = resp.objeto;
               if (resp.status == 'true') {
@@ -198,15 +197,15 @@ export class PerfilAdmComponent implements OnInit {
 
               }
               else {
-                this.carregando = false;
+                
                   msgErro.item = 'Erro ao carregar o estabelecimento!';
                   msgErro.descricao = resp.descricao;
                   this.erros.push(msgErro);
               }
           },
           err => {
-            this.carregando = false;
-              this.carregando = false;
+            
+              
               msgErro.item = 'Erro ao carregar o estabelecimento!';
               msgErro.descricao = err;
               this.erros.push(msgErro);
@@ -220,11 +219,11 @@ export class PerfilAdmComponent implements OnInit {
         item: '',
         descricao: ''
     };
-    this.carregando = true;
+    
 
     this.consumidorService.adicionarFotoUsuario(this.image).subscribe(
         estabelecimento => {
-            this.carregando = false;
+            
             resp = estabelecimento['response'];
             if (resp.status == 'true') {              
               var msgSucesso: any = {
@@ -235,15 +234,15 @@ export class PerfilAdmComponent implements OnInit {
               this.imageUsuario = this.image;
             }
             else {
-              this.carregando = false;
+              
                 msgErro.item = 'Erro ao enviar foto!';
                 msgErro.descricao = resp.descricao;
                 this.erros.push(msgErro);
             }
         },
         err => {
-          this.carregando = false;
-            this.carregando = false;
+          
+            
             msgErro.item = 'Erro ao enviar foto!';
             msgErro.descricao = err;
             this.erros.push(msgErro);
@@ -256,14 +255,14 @@ export class PerfilAdmComponent implements OnInit {
       item: '',
       descricao: ''
     };
-    this.carregando = true;
+    
     this.tipoTelefoneService.listarTodos().subscribe(
       tiposTelefone => {
-        this.carregando = false;
+        
         this.tiposTelefone = tiposTelefone['tiposTelefone'];
       },
       err => {
-        this.carregando = false;
+        
         msgErro.item = 'Erro ao buscar tipos de telefone!';
         msgErro.descricao = err;
         this.erros.push(msgErro);
@@ -276,14 +275,13 @@ export class PerfilAdmComponent implements OnInit {
       item: '',
       descricao: ''
     };
-    this.carregando = true;
+    
     this.cargoService.listarTodos().subscribe(
       cargos => {
-        this.carregando =false;
         this.cargos = cargos['cargo'];
       },
       err => {
-        this.carregando = false;
+        
         msgErro.item = 'Erro ao buscar cargos!';
         msgErro.descricao = err;
         this.erros.push(msgErro);

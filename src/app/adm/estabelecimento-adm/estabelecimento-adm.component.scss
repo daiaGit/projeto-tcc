@@ -1,4 +1,4 @@
-.formas-entrega {
+.estabelecimento-dados{
     .result {
         margin-top: 30px;
         border: 1px solid rgba(125, 125, 125, 0.6);
@@ -168,17 +168,12 @@
   .input-group-addon .fa-calendar{
       cursor: pointer;
   }
+  .btn-exibe-estabelecimento:hover{
+background-color: rgb(192, 191, 191) !important;
+  }
+
+  .divider{
+ padding: 10px;
+  }
 
   }
-  
-  .app.combined .container-fluid {
-    background-color: #fff !important; 
-    font-size: 14px;
-
-    /*icones*/
-    .icone-estab-loja{
-        background-image: url(../../../assets/img/icone/icone-estab-_loja.svg);
-        background-size: cover;
-        font-size: 50px;
-    }
-}

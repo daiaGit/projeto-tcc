@@ -26,8 +26,6 @@ export class LotesAdmCreateComponent implements OnInit {
   public sucessos: Array<any> = [];
   public erros: Array<any> = [];
   public modelPopup: NgbDateStruct = {year: new Date().getFullYear(), month: new Date().getMonth()+1, day: new Date().getDate()-3};
-  
-  public carregando: boolean;
 
   public produtos: Array<any> = [];
   public unidadesMedida: Array<any> = [];
@@ -161,23 +159,23 @@ export class LotesAdmCreateComponent implements OnInit {
       descricao: ''
     };
 
-    this.carregando = true;
+    
     this.produtoService.getUnidadesMedidas().subscribe(
       unidadesMedida => {
-        this.carregando = false;
+        
         resp = unidadesMedida['response'];
         if (resp.status == 'true') {
           this.unidadesMedida = resp.objeto;
         }
         else {
-          this.carregando = false;
+          
           msgErro.item = 'Erro ao carregar as unidades de medida!';
           msgErro.descricao = resp.descricao;
           this.erros.push(msgErro);
         }
       },
       err => {
-        this.carregando = false;
+        
         msgErro.item = 'Erro ao carregar as unidades de medida!';
         msgErro.descricao = err;
         this.erros.push(msgErro);
@@ -192,24 +190,24 @@ export class LotesAdmCreateComponent implements OnInit {
       descricao: ''
     };
 
-    this.carregando = true;
+    
     this.produtoService.getProdutosByEstabelecimento().subscribe(
       unidadesMedida => {
-        this.carregando = false;
+        
         resp = unidadesMedida['response'];
         if (resp.status == 'true') {
           this.produtos = resp.objeto;
           this.dataService = this.completerService.local(this.produtos, 'produto_descricao', 'produto_descricao');
         }
         else {
-          this.carregando = false;
+          
           msgErro.item = 'Erro ao carregar os produtos!';
           msgErro.descricao = resp.descricao;
           this.erros.push(msgErro);
         }
       },
       err => {
-        this.carregando = false;
+        
         msgErro.item = 'Erro ao carregar os produtos!';
         msgErro.descricao = err;
         this.erros.push(msgErro);
