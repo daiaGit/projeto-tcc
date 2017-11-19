@@ -49,19 +49,19 @@ export const horizontalMenuShopItems = [
 ]
 
 export const verticalMenuEstabelecimentoItems = [ 
-    new Menu (1, 'Meu Estabelecimento', null, null, 'area-chart', null, true, 0),
-    new Menu (10, 'Funcionários', '/adm/funcionarios-adm', null, 'tachometer', null, false, 1),
-    new Menu (11, 'Estabelecimento', '/adm/estabelecimento-adm', null, 'tachometer', null, false, 1),
-    new Menu (2, 'Minha Loja', null, null, 'area-chart', null, true, 0),
-    new Menu (20, 'Produtos', '/adm/produtos-adm', null, 'tachometer', null, false, 2),
-    new Menu (21, 'Lotes', '/adm/lotes-adm', null, 'tachometer', null, false, 2),
-    new Menu (22, 'Formas Entrega', '/adm/formas-pagamento', null, 'tachometer', null, false, 2),
-    new Menu (23, 'Formas Pagamento', '/adm/formas-entrega', null, 'tachometer', null, false, 2),
+    new Menu (1, 'Meu Estabelecimento', null, null, 'building', null, true, 0),
+    new Menu (10, 'Funcionários', '/adm/funcionarios-adm', null, 'user', null, false, 1),
+    new Menu (11, 'Estabelecimento', '/adm/estabelecimento-adm', null, 'cog', null, false, 1),
+    new Menu (2, 'Minha Loja', null, null, 'briefcase', null, true, 0),
+    new Menu (20, 'Produtos', '/adm/produtos-adm', null, 'circle', null, false, 2),
+    new Menu (21, 'Lotes', '/adm/lotes-adm', null, 'archive', null, false, 2),
+    new Menu (22, 'Formas Entrega', '/adm/formas-pagamento', null, 'truck', null, false, 2),
+    new Menu (23, 'Formas Pagamento', '/adm/formas-entrega', null, 'credit-card', null, false, 2),
     new Menu (3, 'Charts', null, null, 'area-chart', null, true, 0),
     new Menu (30, 'Bar Charts', '/adm/charts/bar', null, 'bar-chart', null, false, 3),
     new Menu (31, 'Pie Charts', '/adm/charts/pie', null, 'pie-chart', null, false, 3),
-    new Menu (4, 'Pedidos', null, null, 'area-chart', null, true, 0),
-    new Menu (5, 'Relatórios', null, null, 'area-chart', null, true, 0)
+    new Menu (4, 'Pedidos', null, null, 'bell', null, true, 0),
+    new Menu (5, 'Relatórios', null, null, 'edit', null, true, 0)
 ]
 
 export const horizontalMenuEstabelecimentoItems = [
