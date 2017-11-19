@@ -35,7 +35,6 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
     public router: Router;
     public form: FormGroup;
     public erros: Array<any> = [];
-    public carregando: boolean = false;
 
     public estabelecimento: any;
     public estados: Array<any> = [];
@@ -98,14 +97,14 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
             item : '',
             descricao: ''
         };
-        this.carregando = true;
+        
         this.estadoService.listarTodos().subscribe(
             estados => {
-                this.carregando = false;
+                
                 this.estados = estados['estados'];
             },
             err => {
-                this.carregando = false;
+                
                 msgErro.item = 'Erro ao listar Estados!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -119,17 +118,17 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
             item : '',
             descricao: ''
         };
-        this.carregando = true;
+        
         var estado: any;
         this.estadoService.listarPorSigla(estadoSigla).subscribe(
             estado => {
-                this.carregando = false;                
+                                
                 estado = estado['estado'];
                 this.estado.setValue(estado['estado_id']);
                 this.listarCidades();            
             },
             err => {
-                this.carregando = false;
+                
                 msgErro.item = 'Erro ao listar Estado pela Sigla!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -143,16 +142,16 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
             item : '',
             descricao: ''
         };
-        this.carregando = true;
+        
         var estado: any;
         this.cidadeService.getCidadesPorDescricaoEstado(estadoSigla, cidadeNome).subscribe(
             cidade => {
-                this.carregando = false;                
+                                
                 cidade = cidade['cidade'];
                 this.cidade.setValue(cidade['cidade_id']);          
             },
             err => {
-                this.carregando = false;
+                
                 msgErro.item = 'Erro ao listar Cidade pelo nome!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -166,15 +165,15 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
             item : '',
             descricao: ''
         };
-        this.carregando = true;
+
         this.cidade.setValue('');
         this.cidadeService.listarTodos(this.estado.value).subscribe(
             cidades => {
-                this.carregando = false;
+                
                 this.cidades = cidades['cidades'];
             },
             err => {
-                this.carregando = false;
+                
                 msgErro.item = 'Erro ao listar Cidades!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -187,10 +186,10 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
             item: '',
             descricao: ''
         };
-        this.carregando = true;
+        
         this.estabelecimentoService.getEstabelecimentoVendedor().subscribe(
             estabelecimento => {                
-                this.carregando = false;
+                
                 resp = estabelecimento['response'];
                 if (resp.status == 'true') {
                     this.estabelecimento = resp.objeto[0];
@@ -209,7 +208,7 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
                 }
             },
             err => {                
-                this.carregando = false;
+                
                 msgErro.item = 'Erro ao carregar endereço do estabelecimento!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -222,10 +221,10 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
             item : '',
             descricao: ''
         };
-        this.carregando = true;
+        
         this.cepService.getEnderecoCep(this.cep.value).subscribe(
             endereco => {
-                this.carregando = false;
+                
                 if (endereco) {
                     if (!endereco['erro']) {
                         this.rua.setValue(endereco['logradouro']);

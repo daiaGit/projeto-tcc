@@ -11,6 +11,7 @@ import { TruncatePipe } from './truncate/truncate.pipe';
 import { MailSearchPipe } from './search/mail-search.pipe';
 import { LoteSearchPipe } from './search/lote-search.pipe';
 import { ProdutoSearchPipe } from './search/produto-search.pipe';
+import { CnpjFormatPipe } from 'app/theme/pipes/format/cnpj-format.pipe';
 
 @NgModule({
     imports: [ 
@@ -25,7 +26,8 @@ import { ProdutoSearchPipe } from './search/produto-search.pipe';
         LoteSearchPipe,
         EstabelecimentoSearchPipe,
         TruncatePipe,
-        MailSearchPipe
+        MailSearchPipe,
+        CnpjFormatPipe
     ],
     exports: [
         ProfilePicturePipe,
@@ -36,7 +38,8 @@ import { ProdutoSearchPipe } from './search/produto-search.pipe';
         LoteSearchPipe,
         EstabelecimentoSearchPipe,
         TruncatePipe,
-        MailSearchPipe
+        MailSearchPipe,
+        CnpjFormatPipe
     ]
 })
 export class PipesModule { }

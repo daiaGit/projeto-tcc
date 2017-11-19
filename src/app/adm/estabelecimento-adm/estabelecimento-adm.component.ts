@@ -19,43 +19,57 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 export class EstabelecimentoAdmComponent implements OnInit {
   public router: Router;
   public form: FormGroup;
-  public sucessos: Array<any> = [];
-  public erros: Array<any> = [];
 
-  public minhasEntregas: Array<any> = [];
-  public unidadesMedida: Array<any> = [];
+  public loja: boolean = true;
+  public endereco: boolean = false;
+  public telefone: boolean = false;
+  public bancario: boolean = false;
+  public fotos: boolean = false;
+  public contrato: boolean = false;
 
-  public entrega_frete: AbstractControl;
-  public entrega_retira: AbstractControl;
+  constructor(router: Router
 
-  public exibir_fretes: boolean = true;
-
-  constructor(router: Router,
-    fb: FormBuilder
   ) {
     this.router = router;
 
-    this.form = fb.group({
-      entrega_frete: ['', Validators.compose([Validators.required])],
-      entrega_retira: ['', Validators.compose([Validators.required])],
-    });
 
-    this.entrega_frete = this.form.controls['entrega_frete'];
-    this.entrega_retira = this.form.controls['entrega_retira'];
+
   }
 
   ngOnInit() {
 
   }
 
-  public closeAlert(index) {
-    this.erros.splice(index, 1);
+  public ativarConteudo(tipo) {
+
+    this.loja = false;
+    this.endereco = false;
+    this.telefone = false;
+    this.bancario = false;
+    this.fotos = false;
+    this.contrato = false;
+
+    if (tipo == 0) {
+      this.loja = true;
+    }
+    else if (tipo == 1) {
+      this.endereco = true;
+    }
+    else if (tipo == 2) {
+      this.telefone = true;
+    }
+    else if (tipo == 3) {
+      this.telefone = true;
+    }
+    else if (tipo == 4) {
+      this.fotos = true;
+    }
+    else if (tipo == 5) {
+      this.contrato = true;
+    }
+
   }
 
-  public closeAlertSucesso(index) {
-    this.sucessos.splice(index, 1);
-  }
- 
 
 }
 
