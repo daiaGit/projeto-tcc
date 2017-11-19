@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="funcionario_nome">{{ 'FUNCIONARIOS.NOME' | translate}}</label>
+                            <label for="funcionario_nome">{{ 'FUNCIONARIOS.LABELNOME' | translate}}</label>
                             <input [formControl]="funcionario_nome" class="form-control validation-field" type="text" name="nome" id="nome">
                             <small class="text-danger" *ngIf="form.get('funcionario_nome').touched">
                                 <span *ngIf="form.get('funcionario_nome').hasError('required')">{{ 'FUNCIONARIOS.NOMEOBRIGATORIO' | translate}}</span>
@@ -38,7 +38,7 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="funcionario_sobrenome">{{ 'FUNCIONARIOS.SOBRENOME' | translate}}</label>
+                            <label for="funcionario_sobrenome">{{ 'FUNCIONARIOS.LABELSOBRENOME' | translate}}</label>
                             <input [formControl]="funcionario_sobrenome" class="form-control validation-field" type="text" name="funcionario_sobrenome"
                                 id="funcionario_sobrenome">
                             <small class="text-danger" *ngIf="form.get('funcionario_sobrenome').touched">
@@ -65,9 +65,9 @@
 
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="cargo_id">{{ 'FUNCIONARIOS.CARGO' | translate}}</label>
+                            <label for="cargo_id">{{ 'FUNCIONARIOS.LABELCARGO' | translate}}</label>
                             <select [formControl]="cargo_id" name="cargo_id" id="cargo_id" class="form-control validation-field">
-                                <option value="">{{ 'FUNCIONARIOS.CARGO' | translate}}</option>
+                                <option value="">{{ 'FUNCIONARIOS.LABELCARGO' | translate}}</option>
                                 <option *ngFor="let cargo of cargos" [value]="cargo.cargo_id">
                                     {{cargo.cargo_descricao}}</option>
                             </select>
@@ -79,7 +79,7 @@
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="email_descricao">{{ 'FUNCIONARIOS.EMAIL' | translate}}</label>
+                            <label for="email_descricao">{{ 'FUNCIONARIOS.LABELEMAIL' | translate}}</label>
                             <input [formControl]="email_descricao" class="form-control validation-field" type="text" name="email_descricao" id="email_descricao">
                             <small class="text-danger" *ngIf="form.get('email_descricao').touched">
                                 <span *ngIf="form.get('email_descricao').hasError('required')">{{ 'FUNCIONARIOS.EMAILOBRIGATORIO' | translate}}</span>
@@ -96,7 +96,7 @@
                             <label for="tipo_telefone_id">{{ 'FUNCIONARIOS.TIPOTELEFONE' | translate}}</label>
                             <select [formControl]="tipo_telefone_id" class="form-control validation-field" name="tipo_telefone_id" id="tipo_telefone_id"
                                 (change)="setMaskFone()">
-                                <option value="">{{ 'FUNCIONARIOS.SELECIONE' | translate}}</option>
+                                <option value="">{{ 'FUNCIONARIOS.OPTIONSELECIONE' | translate}}</option>
                                 <option *ngFor="let tipoTelefone of tiposTelefone" [value]="tipoTelefone.tipo_telefone_id">
                                     {{tipoTelefone.tipo_telefone_descricao}}</option>
                             </select>
@@ -120,7 +120,7 @@
 
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="telefone_numero">{{ 'FUNCIONARIOS.TELEFONE' | translate}}</label>
+                            <label for="telefone_numero">{{ 'FUNCIONARIOS.LABELTELEFONE' | translate}}</label>
                             <input [formControl]="telefone_numero" class="form-control validation-field" name="telefone_numero" id="telefone_numero"
                                 [placeholder]="maskFone.placeholder" type="text" specialCharacters="false" [mask]="maskFone.mask">
                             <small class="text-danger" *ngIf="form.get('telefone_numero').touched">
@@ -164,9 +164,9 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-primary w-100p ml-0" data-dismiss="modal">
-                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;{{ 'FUNCIONARIOS.ADICIONAR' | translate}}</button>
+                                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>&nbsp;{{ 'FUNCIONARIOS.BTNADICIONAR' | translate}}</button>
                                         <button type="button" class="btn btn-primary w-100p ml-4" data-dismiss="modal">
-                                            <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;{{ 'FUNCIONARIOS.FECHAR' | translate}}</button>
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;{{ 'FUNCIONARIOS.BTNFECHAR' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -180,10 +180,10 @@
             <div class="col-sm-12 text-center">
                 <div class="form-group">
                     <button class="btn btn-primary btn-center w-100p" type="submit">
-                        <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;{{ 'FUNCIONARIOS.SALVAR' | translate}}</button>
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;{{ 'FUNCIONARIOS.BTNSALVAR' | translate}}</button>
 
                     <button class="btn btn-primary btn-center w-100p ml-4" (click)="voltar()" type="button">
-                        <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;{{ 'FUNCIONARIOS.VOLTAR' | translate}}</button>
+                        <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;{{ 'FUNCIONARIOS.BTNVOLTAR' | translate}}</button>
                 </div>
             </div>
         </div>
