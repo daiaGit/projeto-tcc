@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-12">
             <img class="icone-form-header pb-2" src="assets/img/icone/icones-adm_produto-crate.svg">
-            <h2 class="title-cadastro pb-2">{{ 'PRODUTOS.CADASTRARPRODUTO' | translate}}</h2>
+            <h2 class="title-cadastro pb-2">{{ 'PRODUTOS.H2CADASTRARPRODUTO' | translate}}</h2>
         </div>
     </div>
 
@@ -37,12 +37,12 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="produto_descricao">{{ 'PRODUTOS.TITULOPRODUTO' | translate}}</label>
+                            <label for="produto_descricao">{{ 'PRODUTOS.LABELTITULOPRODUTO' | translate}}</label>
                             <input [formControl]="produto_descricao" class="form-control validation-field" type="text" name="nome" id="nome">
                             <small class="text-danger" *ngIf="form.get('produto_descricao').touched">
-                                <span *ngIf="form.get('produto_descricao').hasError('required')">{{ 'PRODUTOS.DESCRICAOPRODUTO' | translate}}</span>
-                                <span *ngIf="form.get('produto_descricao').hasError('minlength')">{{ 'PRODUTOS.MINCARACTERE' | translate}}</span>
-                                <span *ngIf="form.get('produto_descricao').hasError('maxlength')">{{ 'PRODUTOS.MAXCARACTERE' | translate}}</span>
+                                <span *ngIf="form.get('produto_descricao').hasError('required')">{{ 'PRODUTOS.SPANDESCRICAOPRODUTO' | translate}}</span>
+                                <span *ngIf="form.get('produto_descricao').hasError('minlength')">{{ 'PRODUTOS.SPANMINCARACTERE' | translate}}</span>
+                                <span *ngIf="form.get('produto_descricao').hasError('maxlength')">{{ 'PRODUTOS.SPANMAXCARACTERE' | translate}}</span>
                             </small>
                         </div>
                     </div>
@@ -52,14 +52,14 @@
 
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="marca_id">{{ 'PRODUTOS.TITULOMARCA' | translate}}</label>
+                            <label for="marca_id">{{ 'PRODUTOS.LABELTITULOMARCA' | translate}}</label>
                             <select [formControl]="marca_id" name="marca_id" id="marca_id" class="form-control validation-field">
-                                <option value="">{{ 'PRODUTOS.SELECIONEMARCA' | translate}}</option>
+                                <option value="">{{ 'PRODUTOS.OPTIONSELECIONEMARCA' | translate}}</option>
                                 <option *ngFor="let marca of marcas" [value]="marca.marca_id">
                                     {{marca.marca_descricao}}</option>
                             </select>
                             <small class="text-danger" *ngIf="form.get('marca_id').touched">
-                                <span *ngIf="form.get('marca_id').hasError('required')">{{ 'PRODUTOS.MARCAOBRIGATORIA' | translate}}</span>
+                                <span *ngIf="form.get('marca_id').hasError('required')">{{ 'PRODUTOS.SPANMARCAOBRIGATORIA' | translate}}</span>
                             </small>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                     <div class="col-sm-2">
                         <br/>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#marca-modal">
-                            <i class="fa fa-star" aria-hidden="true"></i>&nbsp;{{ 'PRODUTOS.ADICIONARMARCA' | translate}}
+                            <i class="fa fa-star" aria-hidden="true"></i>&nbsp;{{ 'PRODUTOS.BTNADICIONARMARCA' | translate}}
                         </button>
                         <div class="modal fade" id="marca-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                             <div class="modal-dialog" role="document">
@@ -83,11 +83,11 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <h4 class="modal-title" id="modal-primary-label">
-                                                        {{ 'PRODUTOS.ADICIONARMARCA' | translate}}</h4>
-                                                    <label for="marca_descricao">{{ 'PRODUTOS.TITULOMARCA' | translate}}</label>
+                                                        {{ 'PRODUTOS.BTNADICIONARMARCA' | translate}}</h4>
+                                                    <label for="marca_descricao">{{ 'PRODUTOS.LABELTITULOMARCA' | translate}}</label>
                                                     <input [formControl]="marca_descricao" class="form-control validation-field" type="text" name="marca_descricao" id="marca_descricao">
                                                     <small class="text-danger" *ngIf="form.get('marca_descricao').touched">
-                                                        <span *ngIf="form.get('marca_descricao').hasError('required')">{{ 'PRODUTOS.DESCRICAOMARCA' | translate}}</span>
+                                                        <span *ngIf="form.get('marca_descricao').hasError('required')">{{ 'PRODUTOS.SPANDESCRICAOMARCA' | translate}}</span>
                                                     </small>
                                                 </div>
                                             </div>
@@ -114,7 +114,7 @@
                                     {{categoria.categoria_descricao}}</option>
                             </select>
                             <small class="text-danger" *ngIf="form.get('categoria_id').touched">
-                                <span *ngIf="form.get('categoria_id').hasError('required')">{{ 'PRODUTOS.CATEGORIAOBRIGATORIA' | translate}}</span>
+                                <span *ngIf="form.get('categoria_id').hasError('required')">{{ 'PRODUTOS.SPANCATEGORIAOBRIGATORIA' | translate}}</span>
                             </small>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                                     {{subcategoria.sub_categoria_descricao}}</option>
                             </select>
                             <small class="text-danger" *ngIf="form.get('sub_categoria_id').touched">
-                                <span *ngIf="form.get('sub_categoria_id').hasError('required')">{{ 'PRODUTOS.SUBCATEGORIAOBRIGATORIA' | translate}}SubCategoria obrigatória</span>
+                                <span *ngIf="form.get('sub_categoria_id').hasError('required')">{{ 'PRODUTOS.SPANSUBCATEGORIAOBRIGATORIA' | translate}}SubCategoria obrigatória</span>
                             </small>
                         </div>
                     </div>
@@ -144,22 +144,22 @@
                             <input [formControl]="quantidade" class="form-control validation-field" placeholder="" type="text" specialCharacters="false"
                                 name="quantidade" id="quantidade" mask="00000">
                             <small class="text-danger" *ngIf="form.get('quantidade').touched">
-                                <span *ngIf="form.get('quantidade').hasError('required')">{{ 'PRODUTOS.QUANTIDADEOBRIGATORIA' | translate}}</span>
-                                <span *ngIf="form.get('quantidade').hasError('')">{{ 'PRODUTOS.QUANTIDADEINVALIDA' | translate}}</span>
+                                <span *ngIf="form.get('quantidade').hasError('required')">{{ 'PRODUTOS.SPANQUANTIDADEOBRIGATORIA' | translate}}</span>
+                                <span *ngIf="form.get('quantidade').hasError('')">{{ 'PRODUTOS.SPANQUANTIDADEINVALIDA' | translate}}</span>
                             </small>
                         </div>
                     </div>
 
                     <div class="col-sm-3">
                         <div class="form-group">
-                            <label for="unidade_medida_id">{{ 'PRODUTOS.UNIDADEMEDIDA' | translate}}</label>
+                            <label for="unidade_medida_id">{{ 'PRODUTOS.LABELUNIDADEMEDIDA' | translate}}</label>
                             <select [formControl]="unidade_medida_id" name="unidade_medida_id" id="unidade_medida_id" class="form-control validation-field">
                                 <option value="">Selecione</option>
                                 <option *ngFor="let unidadeMedida of unidadesMedida" [value]="unidadeMedida.unidade_medida_id">
                                     {{unidadeMedida.unidade_medida_descricao}}</option>
                             </select>
                             <small class="text-danger" *ngIf="form.get('unidade_medida_id').touched">
-                                <span *ngIf="form.get('unidade_medida_id').hasError('required')">{{ 'PRODUTOS.UNIDADEMEDIDAOBRIGATORIA' | translate}}</span>
+                                <span *ngIf="form.get('unidade_medida_id').hasError('required')">{{ 'PRODUTOS.SPANUNIDADEMEDIDAOBRIGATORIA' | translate}}</span>
                             </small>
                         </div>
                     </div>
@@ -167,14 +167,14 @@
                     <div class="col-sm-2">
                         <br/>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#image-upload-modal">
-                            <i class="fa fa-camera"></i>&nbsp;{{ 'PRODUTOS.CARREGARFOTO' | translate}}
+                            <i class="fa fa-camera"></i>&nbsp;{{ 'PRODUTOS.BTNCARREGARFOTO' | translate}}
                         </button>
                         <div class="modal fade" id="image-upload-modal" tabindex="-1" role="dialog" aria-labelledby="modal-primary-label">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header state modal-primary">
                                         <h4 class="modal-title" id="modal-primary-label">
-                                            <i class="fa fa-camera"></i>{{ 'PRODUTOS.CARREGARFOTO' | translate}}</h4>
+                                            <i class="fa fa-camera"></i>{{ 'PRODUTOS.BTNCARREGARFOTO' | translate}}</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
                                         </button>
@@ -184,9 +184,9 @@
 
                                         <button class="btn btn-warning btn-block rounded-0" type="button">
                                             <span *ngIf="!image">
-                                                <i class="fa fa-upload"></i>{{ 'PRODUTOS.BUSCARFOTO' | translate}}</span>
+                                                <i class="fa fa-upload"></i>{{ 'PRODUTOS.BTNBUSCARFOTO' | translate}}</span>
                                             <span *ngIf="image">
-                                                <i class="fa fa-refresh"></i>{{ 'PRODUTOS.TROCARFOTO' | translate}}</span>
+                                                <i class="fa fa-refresh"></i>{{ 'PRODUTOS.BTNTROCARFOTO' | translate}}</span>
                                         </button>
 
                                         <div class="image-wrapper">
