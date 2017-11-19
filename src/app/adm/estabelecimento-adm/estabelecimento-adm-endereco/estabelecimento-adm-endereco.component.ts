@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { OnInit } from '@angular/core';
+import { EnderecoService } from 'app/services/endereco.service';
 
 /** Services */
 
@@ -25,7 +26,8 @@ import { OnInit } from '@angular/core';
         EstabelecimentoService,
         CidadeService,
         EstadoService,
-        CepService
+        CepService,
+        EnderecoService
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -35,6 +37,7 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
     public router: Router;
     public form: FormGroup;
     public erros: Array<any> = [];
+    public sucessos: Array<any> = [];
 
     public estabelecimento: any;
     public estados: Array<any> = [];
@@ -54,7 +57,8 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
         public estabelecimentoService: EstabelecimentoService,
         public cidadeService: CidadeService,
         public estadoService: EstadoService,
-        public cepService: CepService
+        public cepService: CepService,
+        public enderecoService: EnderecoService
     ) {
 
         this.router = router;
@@ -92,19 +96,77 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
         this.erros.splice(this.erros.indexOf(index), 1);
     }
 
-    public listarEstados() {
+    public closeAlertSucesso(index) {
+        this.sucessos.splice(this.erros.indexOf(index), 1);
+    }
+
+    public onSubmit(values: Object): void {
+        var resp: any;
         var msgErro: any = {
-            item : '',
+            item: '',
             descricao: ''
         };
-        
+
+        var msgSucesso: any = {
+            item: '',
+            descricao: ''
+        };
+
+
+        if (this.form.valid) {
+
+            this.estabelecimento.endereco.endereco_rua = values['rua'];
+            this.estabelecimento.endereco.endereco_numero = values['numero'];
+            this.estabelecimento.endereco.endereco_complemento = values['complemento'];
+            this.estabelecimento.endereco.endereco_bairro = values['bairro'];
+            this.estabelecimento.endereco.endereco_cep = values['cep'];
+            this.estabelecimento.endereco.estado_id = values['estado'];
+            this.estabelecimento.endereco.cidade_id = values['cidade'];
+
+            this.enderecoService.atualizarEndereco(this.estabelecimento.endereco).subscribe(
+                endereco => {
+                    resp = endereco['response'];
+                    if (resp.status == 'true') {
+                        msgSucesso.item = 'parabéns endereço atualizado com sucesso!';
+                        msgSucesso.descricao = resp.descricao;
+                        this.sucessos.push(msgSucesso);
+                    }
+                    else {
+                        msgErro.item = 'Erro ao salvar o endereço do estabelecimento!';
+                        msgErro.descricao = resp.descricao;
+                        this.erros.push(msgErro);
+                    }
+                },
+                err => {
+                    msgErro.item = 'Erro ao salvar o endereço do estabelecimento!';
+                    msgErro.descricao = err;
+                    this.erros.push(msgErro);
+                }
+            );
+        }
+        else {
+            this.rua.markAsTouched()
+            this.numero.markAsTouched()
+            this.complemento.markAsTouched()
+            this.bairro.markAsTouched()
+            this.cep.markAsTouched()
+            this.estado.markAsTouched()
+            this.cidade.markAsTouched()
+        }
+    }
+
+    public listarEstados() {
+        var msgErro: any = {
+            item: '',
+            descricao: ''
+        };
+
         this.estadoService.listarTodos().subscribe(
             estados => {
-                
                 this.estados = estados['estados'];
             },
             err => {
-                
+
                 msgErro.item = 'Erro ao listar Estados!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -115,20 +177,20 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
 
     public selecionarEstadoSigla(estadoSigla) {
         var msgErro: any = {
-            item : '',
+            item: '',
             descricao: ''
         };
-        
+
         var estado: any;
         this.estadoService.listarPorSigla(estadoSigla).subscribe(
             estado => {
-                                
+
                 estado = estado['estado'];
                 this.estado.setValue(estado['estado_id']);
-                this.listarCidades();            
+                this.listarCidades();
             },
             err => {
-                
+
                 msgErro.item = 'Erro ao listar Estado pela Sigla!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -139,19 +201,19 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
 
     public selecionarCidadeNome(estadoSigla, cidadeNome) {
         var msgErro: any = {
-            item : '',
+            item: '',
             descricao: ''
         };
-        
+
         var estado: any;
         this.cidadeService.getCidadesPorDescricaoEstado(estadoSigla, cidadeNome).subscribe(
             cidade => {
-                                
+
                 cidade = cidade['cidade'];
-                this.cidade.setValue(cidade['cidade_id']);          
+                this.cidade.setValue(cidade['cidade_id']);
             },
             err => {
-                
+
                 msgErro.item = 'Erro ao listar Cidade pelo nome!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -162,18 +224,18 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
 
     public listarCidades() {
         var msgErro: any = {
-            item : '',
+            item: '',
             descricao: ''
         };
 
         this.cidade.setValue('');
         this.cidadeService.listarTodos(this.estado.value).subscribe(
             cidades => {
-                
+
                 this.cidades = cidades['cidades'];
             },
             err => {
-                
+
                 msgErro.item = 'Erro ao listar Cidades!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -186,10 +248,10 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
             item: '',
             descricao: ''
         };
-        
+
         this.estabelecimentoService.getEstabelecimentoVendedor().subscribe(
-            estabelecimento => {                
-                
+            estabelecimento => {
+
                 resp = estabelecimento['response'];
                 if (resp.status == 'true') {
                     this.estabelecimento = resp.objeto[0];
@@ -198,8 +260,8 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
                     this.complemento.setValue(this.estabelecimento.endereco.endereco_complemento);
                     this.bairro.setValue(this.estabelecimento.endereco.endereco_bairro);
                     this.cep.setValue(this.estabelecimento.endereco.endereco_cep);
-                    this.estado.setValue(this.estabelecimento.endereco.estado_id);
-                    this.cidade.setValue(this.estabelecimento.endereco.cidade_id);
+                    this.selecionarEstadoSigla(this.estabelecimento.endereco.estado_sigla);
+                    this.selecionarCidadeNome(this.estabelecimento.endereco.estado_sigla, this.estabelecimento.endereco.cidade_descricao)
                 }
                 else {
                     msgErro.item = 'Erro ao carregar endereço do estabelecimento!';
@@ -207,8 +269,8 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
                     this.erros.push(msgErro);
                 }
             },
-            err => {                
-                
+            err => {
+
                 msgErro.item = 'Erro ao carregar endereço do estabelecimento!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -218,13 +280,13 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
 
     public buscarCep() {
         var msgErro: any = {
-            item : '',
+            item: '',
             descricao: ''
         };
-        
+
         this.cepService.getEnderecoCep(this.cep.value).subscribe(
             endereco => {
-                
+
                 if (endereco) {
                     if (!endereco['erro']) {
                         this.rua.setValue(endereco['logradouro']);
@@ -239,7 +301,7 @@ export class EstabelecimentoAdmEnderecoComponent implements OnInit {
                         this.bairro.setValue('');
                     }
 
-                }                
+                }
             },
             err => {
                 msgErro.item = 'Erro ao buscar cep!';

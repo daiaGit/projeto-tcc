@@ -33,6 +33,7 @@ export class EstabelecimentoAdmContatoComponent implements OnInit {
     public router: Router;
     public form: FormGroup;
     public erros: Array<any> = [];
+    public sucessos: Array<any> = [];
 
     public estabelecimento: any;
 
@@ -43,7 +44,7 @@ export class EstabelecimentoAdmContatoComponent implements OnInit {
         placeholder: ''
     };
 
-    public funcionarioEmail: AbstractControl;
+    public email: AbstractControl;
     public ddd: AbstractControl;
     public telefone: AbstractControl;
     public tipoTelefone: AbstractControl;
@@ -56,17 +57,17 @@ export class EstabelecimentoAdmContatoComponent implements OnInit {
 
         this.router = router;
 
-        this.form = fb.group({         
-            funcionarioEmail: ['', Validators.compose([Validators.required, emailValidator])],
+        this.form = fb.group({
+            email: ['', Validators.compose([Validators.required, emailValidator])],
             tipoTelefone: ['', Validators.required],
             ddd: ['', Validators.compose([Validators.required, dddValidator])],
             telefone: ['', Validators.compose([Validators.required, foneValidator])],
         });
-     
-        this.funcionarioEmail = this.form.controls['funcionarioEmail'];
+
+        this.email = this.form.controls['email'];
         this.tipoTelefone = this.form.controls['tipoTelefone'];
         this.ddd = this.form.controls['ddd'];
-        this.telefone = this.form.controls['telefone'];      
+        this.telefone = this.form.controls['telefone'];
 
         this.maskFone.mask = '0000-0000';
         this.maskFone.placeholder = 'XXXX-XXXX';
@@ -75,28 +76,82 @@ export class EstabelecimentoAdmContatoComponent implements OnInit {
 
     public ngOnInit() {
         this.listarTiposTelefone();
-        this.listarEstabelecimentoVendedor();
+        if (localStorage.getItem('contatosEstabelecimento')) {
+            var contato: any = JSON.parse(localStorage.getItem('contatosEstabelecimento'));
+            console.log(contato);            
+        }
+        else {
+            this.listarEstabelecimentoVendedor();
+        }
+    }
+
+    public onSubmit(values: Object): void {
+        var resp: any;
+        var msgErro: any = {
+            item: '',
+            descricao: ''
+        };
+
+        var msgSucesso: any = {
+            item: '',
+            descricao: ''
+        };
+
+        if (localStorage.getItem('contatosEstabelecimento')) {
+            msgSucesso.item = 'parabéns contatos salvos com sucesso!';
+            msgSucesso.descricao = 'Contatos Atualizados com Sucesso';
+            localStorage.setItem('contatosEstabelecimento', JSON.stringify(values));
+            this.sucessos.push(msgSucesso);
+        }
+        else if (this.form.valid) {
+
+            this.estabelecimentoService.setTelefone(values).subscribe(
+                contato => {
+                    resp = contato['response'];
+                    if (resp.status == 'true') {
+                        msgSucesso.item = 'parabéns contatos salvos com sucesso!';
+                        msgSucesso.descricao = resp.descricao;
+                        localStorage.setItem('contatosEstabelecimento', JSON.stringify(values));
+                        this.sucessos.push(msgSucesso);
+                    }
+                    else {
+                        msgErro.item = 'Erro ao salvar os contatos do estabelecimento!';
+                        msgErro.descricao = resp.descricao;
+                        this.erros.push(msgErro);
+                    }
+                },
+                err => {
+                    msgErro.item = 'Erro ao salvar os contatos do estabelecimento!';
+                    msgErro.descricao = err;
+                    this.erros.push(msgErro);
+                }
+            );
+        }
+        else {
+            this.email.markAsTouched()
+            this.ddd.markAsTouched()
+            this.telefone.markAsTouched()
+            this.tipoTelefone.markAsTouched()
+        }
     }
 
     public ngAfterViewInit() {
         document.getElementById('preloader').classList.add('hide');
     }
 
-
-
     /** Ações Formulário */
     public closeAlert(index) {
         this.erros.splice(this.erros.indexOf(index), 1);
     }
 
-    setMaskFone() {           
-        if(this.tipoTelefone.value == 2){
+    setMaskFone() {
+        if (this.tipoTelefone.value == 2) {
             this.maskFone.mask = '00000-0000';
-            this.maskFone.placeholder = 'XXXXX-XXXX';  
+            this.maskFone.placeholder = 'XXXXX-XXXX';
         }
-        else{
+        else {
             this.maskFone.mask = '0000-0000';
-            this.maskFone.placeholder = 'XXXX-XXXX'; 
+            this.maskFone.placeholder = 'XXXX-XXXX';
         }
     }
 
@@ -104,17 +159,17 @@ export class EstabelecimentoAdmContatoComponent implements OnInit {
     /** Listar Conteúdo */
     public listarTiposTelefone() {
         var msgErro: any = {
-            item : '',
+            item: '',
             descricao: ''
         };
 
         this.tipoTelefoneService.listarTodos().subscribe(
             tiposTelefone => {
-                
+
                 this.tiposTelefone = tiposTelefone['tiposTelefone'];
             },
             err => {
-                
+
                 msgErro.item = 'Erro ao listar tipos de Telefone!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
@@ -128,14 +183,14 @@ export class EstabelecimentoAdmContatoComponent implements OnInit {
         var msgErro: any = {
             item: '',
             descricao: ''
-        };        
-        
+        };
+
         this.estabelecimentoService.getEstabelecimentoVendedor().subscribe(
             estabelecimento => {
-                
+
                 resp = estabelecimento['response'];
                 if (resp.status == 'true') {
-                    this.estabelecimento = resp.objeto[0];                
+                    this.estabelecimento = resp.objeto[0];
                 }
                 else {
                     msgErro.item = 'Erro ao carregar o estabelecimento!';
@@ -144,14 +199,14 @@ export class EstabelecimentoAdmContatoComponent implements OnInit {
                 }
             },
             err => {
-                
+
                 msgErro.item = 'Erro ao carregar o estabelecimento!';
                 msgErro.descricao = err;
                 this.erros.push(msgErro);
             }
         );
     }
-  
+
 
 }
 

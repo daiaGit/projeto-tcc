@@ -59,7 +59,7 @@ export class EstabelecimentoAdmComponent implements OnInit {
       this.telefone = true;
     }
     else if (tipo == 3) {
-      this.telefone = true;
+      this.bancario = true;
     }
     else if (tipo == 4) {
       this.fotos = true;

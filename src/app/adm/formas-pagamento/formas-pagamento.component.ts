@@ -22,11 +22,12 @@ export class FormasPagamentoComponent implements OnInit {
   public sucessos: Array<any> = [];
   public erros: Array<any> = [];
 
-  public minhasEntregas: Array<any> = [];
-  public unidadesMedida: Array<any> = [];
+  public formasPagamento: Array<any> = [];
 
-  public entrega_frete: AbstractControl;
-  public entrega_retira: AbstractControl;
+  public pag_cartao: AbstractControl;
+  public pag_boleto: AbstractControl;
+  public pag_loja: AbstractControl;
+  public pag_faturamento: AbstractControl;
 
   public exibir_fretes: boolean = true;
 
@@ -36,16 +37,64 @@ export class FormasPagamentoComponent implements OnInit {
     this.router = router;
 
     this.form = fb.group({
-      entrega_frete: ['', Validators.compose([Validators.required])],
-      entrega_retira: ['', Validators.compose([Validators.required])],
+      pag_cartao: ['', Validators.compose([Validators.required])],
+      pag_boleto: ['', Validators.compose([Validators.required])],
+      pag_loja: [''],
+      pag_faturamento: ['']
     });
 
-    this.entrega_frete = this.form.controls['entrega_frete'];
-    this.entrega_retira = this.form.controls['entrega_retira'];
+    this.pag_cartao = this.form.controls['pag_cartao'];
+    this.pag_boleto = this.form.controls['pag_boleto'];
+    this.pag_loja = this.form.controls['pag_loja'];
+    this.pag_faturamento = this.form.controls['pag_faturamento'];
   }
 
   ngOnInit() {
+    this.pag_cartao.setValue(true);
+    this.pag_boleto.setValue(true);
+  }
 
+  public onSubmit(values: Object): void {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    var msgSucesso: any = {
+      item: '',
+      descricao: ''
+    };
+
+    if (this.form.valid) {
+
+      this.estabelecimentoService.atualizarEndereco(values).subscribe(
+        endereco => {
+          resp = endereco['response'];
+          if (resp.status == 'true') {
+            msgSucesso.item = 'parabéns formas de pagamento salvas com sucesso!';
+            msgSucesso.descricao = resp.descricao;
+            this.sucessos.push(msgSucesso);
+          }
+          else {
+            msgErro.item = 'Erro ao salvar as formas de pagamento.';
+            msgErro.descricao = resp.descricao;
+            this.erros.push(msgErro);
+          }
+        },
+        err => {
+          msgErro.item = 'Erro ao salvar as formas de pagamento!';
+          msgErro.descricao = err;
+          this.erros.push(msgErro);
+        }
+      );
+    }
+    else {
+      this.pag_cartao.markAsTouched();
+      this.pag_boleto.markAsTouched()
+      this.pag_loja.markAsTouched()
+      this.pag_faturamento.markAsTouched()
+    }
   }
 
   public closeAlert(index) {
@@ -55,7 +104,7 @@ export class FormasPagamentoComponent implements OnInit {
   public closeAlertSucesso(index) {
     this.sucessos.splice(index, 1);
   }
- 
+
 
 }
 

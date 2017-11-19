@@ -1,23 +1,32 @@
-<div class="estabelecimento-adm-comercial">
+<div class="estabelecimento-adm-endereco">
 
-    <div class="row">
-        <div class="col-sm-3">
-        </div>
+    <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
+        <button type="button" class="close" (click)="closeAlert(i)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{erro.item}}</strong> {{erro.descricao}}
+    </div>
+
+
+    <div [hidden]="sucessos.length == 0" *ngFor="let sucesso of sucessos; index as i" class="alert alert-success" role="alert">
+        <button type="button" class="close" (click)="closeAlertSucesso(i)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{sucesso.item}}</strong>
+        <br/>{{sucesso.descricao}}
     </div>
 
     <div class="row">
+
+        <div class="col-sm-12 pb-2">
+            <h3>Contatos</h3>
+            <hr/>
+        </div>
 
         <!-- Div propaganda -->
         <div class="col-sm-12">
 
             <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
-
-                <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
-                    <button type="button" class="close" (click)="closeAlert(i)">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong>{{erro.item}}</strong> {{erro.descricao}}
-                </div>
 
                 <div class="row">
                     <div class="col-sm-5">
@@ -62,13 +71,22 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label for="funcionarioEmail">Email Comercial</label>
-                            <input [formControl]="funcionarioEmail" name="funcionarioEmail" id="funcionarioEmail" class="form-control validation-field"
+                            <label for="email">Email Comercial</label>
+                            <input [formControl]="email" name="email" id="email" class="form-control validation-field"
                                 type="text">
-                            <small class="text-danger" *ngIf="form.get('funcionarioEmail').touched">
-                                <span *ngIf="form.get('funcionarioEmail').hasError('required')">Email obrigatório</span>
-                                <span *ngIf="form.get('funcionarioEmail').hasError('invalidEmail')">Email inválido</span>
+                            <small class="text-danger" *ngIf="form.get('email').touched">
+                                <span *ngIf="form.get('email').hasError('required')">Email obrigatório</span>
+                                <span *ngIf="form.get('email').hasError('invalidEmail')">Email inválido</span>
                             </small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pt-4">
+                    <div class="col-sm-12 text-center">
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-center w-100p ml-4" type="submit">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Salvar</button>
                         </div>
                     </div>
                 </div>

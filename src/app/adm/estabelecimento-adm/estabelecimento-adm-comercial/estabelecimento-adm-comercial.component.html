@@ -1,13 +1,13 @@
 <div class="estabelecimento-adm-comercial">
 
-    <div class="col-sm-12">
-        <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
-            <button type="button" class="close" (click)="closeAlert(i)">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>{{erro.item}}</strong> {{erro.descricao}}
-        </div>
+
+    <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
+        <button type="button" class="close" (click)="closeAlert(i)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{erro.item}}</strong> {{erro.descricao}}
     </div>
+
 
     <div class="row">
 

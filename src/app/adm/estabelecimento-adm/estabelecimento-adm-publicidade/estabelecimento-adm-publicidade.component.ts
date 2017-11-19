@@ -75,6 +75,34 @@ export class EstabelecimentoAdmPublicidadeComponent implements OnInit {
         );
     }
 
+    listarEstabelecimentoVendedor() {
+        var resp: any;
+        var msgErro: any = {
+            item: '',
+            descricao: ''
+        };
+
+        this.estabelecimentoService.getEstabelecimentoVendedor().subscribe(
+            estabelecimento => {
+                resp = estabelecimento['response'];
+                if (resp.status == 'true') {
+
+                }
+                else {
+                    msgErro.item = 'Erro ao carregar imagens do estabelecimento!';
+                    msgErro.descricao = resp.descricao;
+                    this.erros.push(msgErro);
+                }
+            },
+            err => {
+
+                msgErro.item = 'Erro ao carregar imagens do estabelecimento!';
+                msgErro.descricao = err;
+                this.erros.push(msgErro);
+            }
+        );
+    }
+
     /** Ações Formulário */
     public closeAlert(index) {
         this.erros.splice(this.erros.indexOf(index), 1);

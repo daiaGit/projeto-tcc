@@ -19,7 +19,7 @@
                     </p>
                     <div class="form-group">
                         <label class="custom-control custom-checkbox">
-                            <input [formControl]="" class="custom-control-input checkbox-warning" type="checkbox">
+                            <input [formControl]="pag_cartao" class="custom-control-input checkbox-warning" type="checkbox" disabled>
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Pagamento com cartão (SMARKET)</span>
                         </label>
@@ -30,7 +30,7 @@
                         <img class=" pb-2" src="assets/img/icone/icone-pag-boleto.svg" width="150px">
                     </p>
                     <label class="custom-control custom-checkbox">
-                        <input [formControl]="" class="custom-control-input checkbox-warning" type="checkbox">
+                        <input [formControl]="pag_boleto" class="custom-control-input checkbox-warning" type="checkbox" disabled>
                         <span class="custom-control-indicator"></span>
                         <span class="custom-control-description">Pagamento com cartão (SMARKET)</span>
                     </label>
@@ -47,7 +47,7 @@
                     </p>
                     <div class="form-group">
                         <label class="custom-control custom-checkbox">
-                            <input [formControl]="" class="custom-control-input checkbox-warning" type="checkbox">
+                            <input [formControl]="pag_loja" class="custom-control-input checkbox-warning" type="checkbox">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Pagar na loja (SMARKET)</span>
                         </label>
@@ -58,7 +58,7 @@
                         <img class=" pb-2" src="assets/img/icone/icone-pag-faturamento.svg" width="150px">
                     </p>
                     <label class="custom-control custom-checkbox">
-                        <input [formControl]="" class="custom-control-input checkbox-warning" type="checkbox">
+                        <input [formControl]="pag_faturamento" class="custom-control-input checkbox-warning" type="checkbox">
                         <span class="custom-control-indicator"></span>
                         <span class="custom-control-description">Pagamento por Faturamento (exclusivo PJ)</span>
                     </label>
@@ -73,6 +73,7 @@
                     </div>
                 </div>
             </div>
+
         </form>
     </div>
 

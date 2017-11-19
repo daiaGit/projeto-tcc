@@ -85,20 +85,50 @@ export class EstabelecimentoService {
 			.catch(this.httpUtil.processarErros);
 	}
 
-	setFotosEstabelecimento(estabelecimento_banner: any, estabelecimento_logo: any ): Observable<any> {
-		
+	setFotosEstabelecimento(estabelecimento_banner: any, estabelecimento_logo: any): Observable<any> {
+
 		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
 
-				var params = {
-					estabelecimento_id: usuario.estabelecimento_id,
-					estabelecimento_logo: estabelecimento_logo,
-					estabelecimento_banner: estabelecimento_banner
-				};
-		
-				return this.http.post(this.httpUtil.url(this.path) + 'adicionarImagens', params)
-					.map(this.httpUtil.extrairDados)
-					.catch(this.httpUtil.processarErros);
-			}
+		var params = {
+			estabelecimento_id: usuario.estabelecimento_id,
+			estabelecimento_logo: estabelecimento_logo,
+			estabelecimento_banner: estabelecimento_banner
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + 'adicionarImagens', params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	setTelefone(contato: any): Observable<any> {
+
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+		var params = {
+			estabelecimento_id: usuario.estabelecimento_id,
+			tipo_telefone_id: contato.tipoTelefone,
+			telefone_ddd: contato.ddd,
+			telefone_numero: contato.telefone
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + 'adicionarTelefone', params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	setFormasPagamento(formaPagamento: any): Observable<any> {
+
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+		var params = {
+			estabelecimento_id: usuario.estabelecimento_id,
+			forma_pagamento_id: formaPagamento
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + 'adicionarFormaPagamento', params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
 
 	getEstabelecimentoByLocalidade(latitude, longitude): Observable<any[]> {
 

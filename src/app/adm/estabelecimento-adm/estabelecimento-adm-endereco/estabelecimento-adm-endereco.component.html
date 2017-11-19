@@ -1,13 +1,22 @@
-<div class="estabelecimento-adm-comercial">
+<div class="estabelecimento-adm-endereco">
+
+    <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
+        <button type="button" class="close" (click)="closeAlert(i)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{erro.item}}</strong> {{erro.descricao}}
+    </div>
+
+
+    <div [hidden]="sucessos.length == 0" *ngFor="let sucesso of sucessos; index as i" class="alert alert-success" role="alert">
+        <button type="button" class="close" (click)="closeAlertSucesso(i)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{sucesso.item}}</strong>
+        <br/>{{sucesso.descricao}}
+    </div>
 
     <div class="row">
-
-        <div [hidden]="erros.length == 0" *ngFor="let erro of erros; index as i" class="alert alert-danger" role="alert">
-            <button type="button" class="close" (click)="closeAlert(i)">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>{{erro.item}}</strong> {{erro.descricao}}
-        </div>
 
         <div class="col-sm-12 pb-2">
             <h3>Endereço</h3>
@@ -115,8 +124,8 @@
                 <div class="row pt-4">
                     <div class="col-sm-12 text-center">
                         <div class="form-group">
-                            <button class="btn btn-primary btn-center w-100p ml-4" type="button">
-                                <i class="fa fa-reply" aria-hidden="true"></i>&nbsp;Editar</button>
+                            <button class="btn btn-primary btn-center w-100p ml-4" type="submit">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;Salvar</button>
                         </div>
                     </div>
                 </div>
