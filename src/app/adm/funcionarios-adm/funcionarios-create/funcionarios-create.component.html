@@ -29,7 +29,7 @@
                             <label for="funcionario_nome">{{ 'FUNCIONARIOS.LBLNOME' | translate}}</label>
                             <input [formControl]="funcionario_nome" class="form-control validation-field" type="text" name="nome" id="nome">
                             <small class="text-danger" *ngIf="form.get('funcionario_nome').touched">
-                                <span *ngIf="form.get('funcionario_nome').hasError('required')">{{ 'FUNCIONARIOS.SPANNOMEOBRIGATORIO' | translate}}</span>
+                                <span *ngIf="form.get('funcionario_nome').hasError('required')">{{ 'FUNCIONARIOS.SPANNOMEOBGT' | translate}}</span>
                                 <span *ngIf="form.get('funcionario_nome').hasError('minlength')">{{ 'FUNCIONARIOS.SPANMINCARACTERES' | translate}}</span>
                                 <span *ngIf="form.get('funcionario_nome').hasError('maxlength')">{{ 'FUNCIONARIOS.SPANMAXCARACTERES' | translate}}</span>
                             </small>
@@ -42,7 +42,7 @@
                             <input [formControl]="funcionario_sobrenome" class="form-control validation-field" type="text" name="funcionario_sobrenome"
                                 id="funcionario_sobrenome">
                             <small class="text-danger" *ngIf="form.get('funcionario_sobrenome').touched">
-                                <span *ngIf="form.get('funcionario_sobrenome').hasError('required')">{{ 'FUNCIONARIOS.SPANSOBRENOMEOBRIGATORIO' | translate}}</span>
+                                <span *ngIf="form.get('funcionario_sobrenome').hasError('required')">{{ 'FUNCIONARIOS.SPANSOBRENOMEOBGT' | translate}}</span>
                                 <span *ngIf="form.get('funcionario_sobrenome').hasError('minlength')">{{ 'FUNCIONARIOS.SPANMINCARACTERES' | translate}}</span>
                                 <span *ngIf="form.get('funcionario_sobrenome').hasError('maxlength')">{{ 'FUNCIONARIOS.SPANMAXCARACTERES' | translate}}</span>
                             </small>
@@ -57,7 +57,7 @@
                             <input [formControl]="funcionario_cpf" name="funcionario_cpf" id="funcionario_cpf" class="form-control validation-field"
                                 placeholder="XXX.XXX.XXX-XX" type="text" specialCharacters="false" mask="000.000.000-00">
                             <small class="text-danger" *ngIf="form.get('funcionario_cpf').touched">
-                                <span *ngIf="form.get('funcionario_cpf').hasError('required')">{{ 'FUNCIONARIOS.SPANCPFOBRIGATORIO' | translate}}</span>
+                                <span *ngIf="form.get('funcionario_cpf').hasError('required')">{{ 'FUNCIONARIOS.SPANCPFOBGT' | translate}}</span>
                                 <span *ngIf="form.get('funcionario_cpf').hasError('invalidCpf')">{{ 'FUNCIONARIOS.SPANCPFINVALIDO' | translate}}</span>
                             </small>
                         </div>
@@ -72,7 +72,7 @@
                                     {{cargo.cargo_descricao}}</option>
                             </select>
                             <small class="text-danger" *ngIf="form.get('cargo_id').touched">
-                                <span *ngIf="form.get('cargo_id').hasError('required')">{{ 'FUNCIONARIOS.SPANCARGOOBRIGATORIO' | translate}}</span>
+                                <span *ngIf="form.get('cargo_id').hasError('required')">{{ 'FUNCIONARIOS.SPANCARGOOBGT' | translate}}</span>
                             </small>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             <label for="email_descricao">{{ 'FUNCIONARIOS.LBLEMAIL' | translate}}</label>
                             <input [formControl]="email_descricao" class="form-control validation-field" type="text" name="email_descricao" id="email_descricao">
                             <small class="text-danger" *ngIf="form.get('email_descricao').touched">
-                                <span *ngIf="form.get('email_descricao').hasError('required')">{{ 'FUNCIONARIOS.SPANEMAILOBRIGATORIO' | translate}}</span>
+                                <span *ngIf="form.get('email_descricao').hasError('required')">{{ 'FUNCIONARIOS.SPANEMAILOBGT' | translate}}</span>
                                 <span *ngIf="form.get('email_descricao').hasError('invalidEmail')">{{ 'FUNCIONARIOS.SPANEMAILINVALIDO' | translate}}</span>
                             </small>
                         </div>
@@ -101,7 +101,7 @@
                                     {{tipoTelefone.tipo_telefone_descricao}}</option>
                             </select>
                             <small class="text-danger" *ngIf="form.get('tipo_telefone_id').touched">
-                                <span *ngIf="form.get('tipo_telefone_id').hasError('required')">{{ 'FUNCIONARIOS.SPANTIPOTELEFONEOBRIGATORIO' | translate}}</span>
+                                <span *ngIf="form.get('tipo_telefone_id').hasError('required')">{{ 'FUNCIONARIOS.SPANTIPOTELEFONEOBGT' | translate}}</span>
                             </small>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                             <input [formControl]="telefone_ddd" class="form-control validation-field" placeholder="(XX)" type="text" specialCharacters="false"
                                 name="telefone_ddd" id="telefone_ddd" mask="(00)">
                             <small class="text-danger" *ngIf="form.get('telefone_ddd').touched">
-                                <span *ngIf="form.get('telefone_ddd').hasError('required')">{{ 'FUNCIONARIOS.SPANDDDOBRIGATORIO' | translate}}</span>
+                                <span *ngIf="form.get('telefone_ddd').hasError('required')">{{ 'FUNCIONARIOS.SPANDDDOBGT' | translate}}</span>
                                 <span *ngIf="form.get('telefone_ddd').hasError('invalidDDD')">{{ 'FUNCIONARIOS.SPANDDDINVALIDO' | translate}}</span>
                             </small>
                         </div>
@@ -124,7 +124,7 @@
                             <input [formControl]="telefone_numero" class="form-control validation-field" name="telefone_numero" id="telefone_numero"
                                 [placeholder]="maskFone.placeholder" type="text" specialCharacters="false" [mask]="maskFone.mask">
                             <small class="text-danger" *ngIf="form.get('telefone_numero').touched">
-                                <span *ngIf="form.get('telefone_numero').hasError('required')">{{ 'FUNCIONARIOS.SPANTELEFONEOBRIGATORIO' | translate}}</span>
+                                <span *ngIf="form.get('telefone_numero').hasError('required')">{{ 'FUNCIONARIOS.SPANTELEFONEOBGT' | translate}}</span>
                                 <span *ngIf="form.get('telefone_numero').hasError('invalidTelefone')">{{ 'FUNCIONARIOS.SPANTELEFONEINVALIDO' | translate}}</span>
                             </small>
                         </div>
