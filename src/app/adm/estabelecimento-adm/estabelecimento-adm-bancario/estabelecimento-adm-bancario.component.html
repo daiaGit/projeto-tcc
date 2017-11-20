@@ -7,15 +7,15 @@
         <strong>{{erro.item}}</strong> {{erro.descricao}}
     </div>
 
-    <div class="col-sm-12">
-            <div [hidden]="sucessos.length == 0" *ngFor="let sucesso of sucessos; index as i" class="alert alert-success" role="alert">
-                <button type="button" class="close" (click)="closeAlert(i)">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>{{sucesso.item}}</strong>
-                <br/>{{sucesso.descricao}}
-            </div>
-        </div>
+
+    <div [hidden]="sucessos.length == 0" *ngFor="let sucesso of sucessos; index as i" class="alert alert-success" role="alert">
+        <button type="button" class="close" (click)="closeAlert(i)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{sucesso.item}}</strong>
+        <br/>{{sucesso.descricao}}
+    </div>
+
 
     <div class="row">
 
@@ -28,8 +28,6 @@
         <div class="col-sm-12">
 
             <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="text-left mt-4">
-
-
 
                 <div class="row">
 

@@ -2,6 +2,7 @@ import { FormGroup, AbstractControl, FormBuilder, Validators, FormControl } from
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { EstabelecimentoService } from 'app/services/estabelecimento.service';
 
 /** Services */
 
@@ -11,7 +12,7 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './formas-pagamento.component.html',
   styleUrls: ['./formas-pagamento.component.scss'],
   providers: [
-
+    EstabelecimentoService
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -32,7 +33,8 @@ export class FormasPagamentoComponent implements OnInit {
   public exibir_fretes: boolean = true;
 
   constructor(router: Router,
-    fb: FormBuilder
+    fb: FormBuilder,
+    public estabelecimentoService: EstabelecimentoService
   ) {
     this.router = router;
 
@@ -54,7 +56,20 @@ export class FormasPagamentoComponent implements OnInit {
     this.pag_boleto.setValue(true);
   }
 
-  public onSubmit(values: Object): void {
+  atualizaFormaPagamento(value, idFormaPagamento) {
+
+    console.log(value);
+    console.log(idFormaPagamento);
+
+    if (value == true) {
+      this.adicionarFormaPagamento(idFormaPagamento);
+    }
+    else {
+      this.removeFormaPagamento(idFormaPagamento);
+    }
+  }
+
+  public adicionarFormaPagamento(idFormaPagamento): void {
     var resp: any;
     var msgErro: any = {
       item: '',
@@ -68,33 +83,61 @@ export class FormasPagamentoComponent implements OnInit {
 
     if (this.form.valid) {
 
-      this.estabelecimentoService.atualizarEndereco(values).subscribe(
+      this.estabelecimentoService.setFormasPagamento(idFormaPagamento).subscribe(
         endereco => {
           resp = endereco['response'];
           if (resp.status == 'true') {
-            msgSucesso.item = 'parabéns formas de pagamento salvas com sucesso!';
+            msgSucesso.item = 'parabéns forma de pagamento adicionada com sucesso!';
             msgSucesso.descricao = resp.descricao;
             this.sucessos.push(msgSucesso);
           }
           else {
-            msgErro.item = 'Erro ao salvar as formas de pagamento.';
+            msgErro.item = 'Erro ao adicionar forma de pagamento.';
             msgErro.descricao = resp.descricao;
             this.erros.push(msgErro);
           }
         },
         err => {
-          msgErro.item = 'Erro ao salvar as formas de pagamento!';
+          msgErro.item = 'Erro ao adicionar forma de pagamento!';
           msgErro.descricao = err;
           this.erros.push(msgErro);
         }
       );
     }
-    else {
-      this.pag_cartao.markAsTouched();
-      this.pag_boleto.markAsTouched()
-      this.pag_loja.markAsTouched()
-      this.pag_faturamento.markAsTouched()
-    }
+  }
+
+  public removeFormaPagamento(idFormaPagamento): void {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    var msgSucesso: any = {
+      item: '',
+      descricao: ''
+    };
+
+    this.estabelecimentoService.removeFormasPagamento(idFormaPagamento).subscribe(
+      endereco => {
+        resp = endereco['response'];
+        if (resp.status == 'true') {
+          msgSucesso.item = 'parabéns forma de pagamento removida com sucesso!';
+          msgSucesso.descricao = resp.descricao;
+          this.sucessos.push(msgSucesso);
+        }
+        else {
+          msgErro.item = 'Erro ao remover as forma de pagamento.';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
+      },
+      err => {
+        msgErro.item = 'Erro ao remover forma de pagamento!';
+        msgErro.descricao = err;
+        this.erros.push(msgErro);
+      }
+    );
   }
 
   public closeAlert(index) {
@@ -104,7 +147,6 @@ export class FormasPagamentoComponent implements OnInit {
   public closeAlertSucesso(index) {
     this.sucessos.splice(index, 1);
   }
-
 
 }
 

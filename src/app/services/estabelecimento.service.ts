@@ -125,7 +125,49 @@ export class EstabelecimentoService {
 			forma_pagamento_id: formaPagamento
 		};
 
-		return this.http.post(this.httpUtil.url(this.path) + 'adicionarFormaPagamento', params)
+		return this.http.post(this.httpUtil.url(this.path) + 'atribuirFormaPagamento', params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	removeFormasPagamento(formaPagamento: any): Observable<any> {
+
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+		var params = {
+			estabelecimento_id: usuario.estabelecimento_id,
+			forma_pagamento_id: formaPagamento
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + 'removerFormaPagamento', params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	setFormasEntrega(formaEntrega: any): Observable<any> {
+
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+		var params = {
+			estabelecimento_id: usuario.estabelecimento_id,
+			tipo_entrega_id: formaEntrega
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + 'atribuirFormaEntrega', params)
+			.map(this.httpUtil.extrairDados)
+			.catch(this.httpUtil.processarErros);
+	}
+
+	removeFormasEntrega(formaEntrega: any): Observable<any> {
+
+		var usuario = JSON.parse(localStorage.getItem('usuarioAdm'));
+
+		var params = {
+			estabelecimento_id: usuario.estabelecimento_id,
+			tipo_entrega_id: formaEntrega
+		};
+
+		return this.http.post(this.httpUtil.url(this.path) + 'removerFormaEntrega', params)
 			.map(this.httpUtil.extrairDados)
 			.catch(this.httpUtil.processarErros);
 	}
