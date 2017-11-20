@@ -20,13 +20,16 @@
       "prefix": "app",
       "styles": [
         "../node_modules/font-awesome/scss/font-awesome.scss",
-        "../node_modules/bootstrap/scss/bootstrap.scss",      
+        "../node_modules/bootstrap/scss/bootstrap.scss",
+        "../node_modules/ion-rangeslider/css/ion.rangeSlider.css",
+        "../node_modules/ion-rangeslider/css/ion.rangeSlider.skinFlat.css",      
         "styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/tether/dist/js/tether.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/ion-rangeslider/js/ion.rangeSlider.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

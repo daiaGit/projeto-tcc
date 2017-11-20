@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { EstabelecimentoService } from 'app/services/estabelecimento.service';
+import { CidadeService } from 'app/services/cidade.service';
+import { EntregaService } from 'app/services/entrega.service';
+
 
 /** Services */
 
@@ -12,7 +15,9 @@ import { EstabelecimentoService } from 'app/services/estabelecimento.service';
   templateUrl: './formas-entrega.component.html',
   styleUrls: ['./formas-entrega.component.scss'],
   providers: [
-    EstabelecimentoService
+    EstabelecimentoService,
+    CidadeService,
+    EntregaService
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -23,34 +28,38 @@ export class FormasEntregaComponent implements OnInit {
   public sucessos: Array<any> = [];
   public erros: Array<any> = [];
 
+  public estabelecimento: any;
+  public cidade: any;
   public formasEntrega: Array<any> = [];
 
   public entrega_frete: AbstractControl;
   public entrega_loja: AbstractControl;
-  public param_frete: AbstractControl;
 
   public exibir_fretes: boolean = true;
 
   constructor(router: Router,
     fb: FormBuilder,
-    public estabelecimentoService: EstabelecimentoService
+    public estabelecimentoService: EstabelecimentoService,
+    public cidadeService: CidadeService,
+    public entregaService: EntregaService
   ) {
     this.router = router;
 
     this.form = fb.group({
       entrega_frete: [''],
-      entrega_loja: [''],
-      param_frete: [''],
+      entrega_loja: ['']
     });
 
     this.entrega_frete = this.form.controls['entrega_frete'];
     this.entrega_loja = this.form.controls['entrega_loja'];
-    this.param_frete = this.form.controls['param_frete'];
 
   }
 
   ngOnInit() {
-
+    this.listarFormasEntrega();
+    this.listarEstabelecimentoVendedor();
+    this.listarEstabelecimentoVendedor();
+    this.getCidade();
   }
 
   atualizaFormaEntrega(value, idFormaEntrega) {
@@ -144,6 +153,141 @@ export class FormasEntregaComponent implements OnInit {
   public closeAlertSucesso(index) {
     this.sucessos.splice(index, 1);
   }
+
+  myOnChange(teste) {
+
+  }
+
+  myOnFinish(teste) {
+    console.log(teste);
+  }
+
+  myOnUpdate(teste) {
+
+  }
+
+  listarFormasEntrega() {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    this.entregaService.getEntregaByEstabelecimento().subscribe(
+      formasEntrega => {
+        resp = formasEntrega['response'];
+        if (resp.status == 'true') {
+          this.formasEntrega = resp.objeto;
+          for (var v in this.formasEntrega) {
+            if (this.formasEntrega[v].tipo_entrga_id == 1) {
+              this.entrega_frete.setValue(true);
+            }
+            if (this.formasEntrega[v].tipo_entrga_id == 2) {
+              this.entrega_loja.setValue(true);
+            }
+          }
+        }
+        else {
+          msgErro.item = 'Erro ao carregar as formas de entrega!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
+      },
+      err => {
+
+        msgErro.item = 'Erro ao carregar as formas de entrega!';
+        msgErro.descricao = err;
+        this.erros.push(msgErro);
+      }
+    );
+  }
+
+  listarEstabelecimentoVendedor() {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    this.estabelecimentoService.getEstabelecimentoVendedor().subscribe(
+      estabelecimento => {
+
+        resp = estabelecimento['response'];
+        if (resp.status == 'true') {
+          this.estabelecimento = resp.objeto;
+        }
+        else {
+          msgErro.item = 'Erro ao carregar endereço do estabelecimento!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
+      },
+      err => {
+
+        msgErro.item = 'Erro ao carregar endereço do estabelecimento!';
+        msgErro.descricao = err;
+        this.erros.push(msgErro);
+      }
+    );
+  }
+
+  getCidade() {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    this.cidadeService.getCidadeById(this.estabelecimento.endereco.cidade_id).subscribe(
+      cidade => {
+
+        resp = cidade['response'];
+        if (resp.status == 'true') {
+          this.cidade = resp.objeto;
+        }
+        else {
+          msgErro.item = 'Erro ao carregar cidade!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
+      },
+      err => {
+        msgErro.item = 'Erro ao carregar cidade!';
+        msgErro.descricao = err;
+        this.erros.push(msgErro);
+      }
+    );
+  }
+
+  getCidadesByLocalidade(raio) {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    this.cidadeService.getCidadesByLocalidade(this.cidade, raio).subscribe(
+      cidade => {
+
+        resp = cidade['response'];
+        if (resp.status == 'true') {
+
+        }
+        else {
+          msgErro.item = 'Erro ao carregar cidades dentro do raio estipulado!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
+      },
+      err => {
+
+        msgErro.item = 'Erro ao carregar cidades dentro do raio estipulado!';
+        msgErro.descricao = err;
+        this.erros.push(msgErro);
+      }
+    );
+  }
+
 
 }
 

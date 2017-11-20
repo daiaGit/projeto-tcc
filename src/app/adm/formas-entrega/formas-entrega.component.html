@@ -69,11 +69,21 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="param_frete">Adicionar Raio de Entrega</label>
-                    <input [formControl]="param_frete" name="param_frete" id="param_frete" class="form-control validation-field" type="text">
+                    <ion-range-slider   #sliderElement 
+                                        max="100" 
+                                        min="0"
+                                        grid= "true"
+                                        from="0"
+                                        postfix = "km" 
+                                        (onUpdate)="myOnUpdate($event)" 
+                                        (onChange)="myOnChange($event)" 
+                                        (onFinish)="myOnFinish($event)">
+                    </ion-range-slider>
                 </div>
             </div>
 
         </div>
+
 
     </form>
 </div>

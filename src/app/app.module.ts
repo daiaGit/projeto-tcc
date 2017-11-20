@@ -38,6 +38,7 @@ export function createTranslateLoader(http: Http) {
     AtivaCadastroComponent
   ],
   imports: [
+
     BrowserModule,
     routing,
     TranslateModule.forRoot({

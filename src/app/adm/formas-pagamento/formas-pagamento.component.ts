@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { EstabelecimentoService } from 'app/services/estabelecimento.service';
+import { PagamentoService } from 'app/services/pagamento.service';
 
 /** Services */
 
@@ -12,7 +13,8 @@ import { EstabelecimentoService } from 'app/services/estabelecimento.service';
   templateUrl: './formas-pagamento.component.html',
   styleUrls: ['./formas-pagamento.component.scss'],
   providers: [
-    EstabelecimentoService
+    EstabelecimentoService,
+    PagamentoService
   ],
   encapsulation: ViewEncapsulation.None
 })
@@ -34,7 +36,8 @@ export class FormasPagamentoComponent implements OnInit {
 
   constructor(router: Router,
     fb: FormBuilder,
-    public estabelecimentoService: EstabelecimentoService
+    public estabelecimentoService: EstabelecimentoService,
+    public pagamentoService: PagamentoService
   ) {
     this.router = router;
 
@@ -52,9 +55,12 @@ export class FormasPagamentoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.listarFormasPagamento();
     this.pag_cartao.setValue(true);
     this.pag_boleto.setValue(true);
   }
+
+  public onSubmit(values: Object): void { }
 
   atualizaFormaPagamento(value, idFormaPagamento) {
 
@@ -134,6 +140,52 @@ export class FormasPagamentoComponent implements OnInit {
       },
       err => {
         msgErro.item = 'Erro ao remover forma de pagamento!';
+        msgErro.descricao = err;
+        this.erros.push(msgErro);
+      }
+    );
+  }
+
+  listarFormasPagamento() {
+    var resp: any;
+    var msgErro: any = {
+      item: '',
+      descricao: ''
+    };
+
+    this.pagamentoService.getFormasPagamentoByEstabelecimento().subscribe(
+      formasPagamento => {
+        resp = formasPagamento['response'];
+        if (resp.status == 'true') {
+          this.formasPagamento = resp.objeto;
+
+          for (var v in this.formasPagamento) {
+            if (this.formasPagamento[v].forma_pagamento_id == 4) {
+              this.pag_cartao.setValue(true);
+            }
+            if (this.formasPagamento[v].forma_pagamento_id == 1) {
+              this.pag_boleto.setValue(true);
+            }
+            if (this.formasPagamento[v].forma_pagamento_id == 3) {
+              this.pag_loja.setValue(true);
+            }
+            if (this.formasPagamento[v].forma_pagamento_id == 2) {
+              this.pag_faturamento.setValue(true);
+            }
+          }
+
+        }
+        else {
+          this.adicionarFormaPagamento(4);
+          this.adicionarFormaPagamento(1);
+          msgErro.item = 'Erro ao carregar as formas de pagamento!';
+          msgErro.descricao = resp.descricao;
+          this.erros.push(msgErro);
+        }
+      },
+      err => {
+
+        msgErro.item = 'Erro ao carregar as formas de pagamento!';
         msgErro.descricao = err;
         this.erros.push(msgErro);
       }

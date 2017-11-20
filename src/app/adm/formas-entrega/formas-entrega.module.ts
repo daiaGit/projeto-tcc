@@ -10,6 +10,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from '../../theme/pipes/pipes.module';
 import { Ng2CompleterModule } from "ng2-completer";
+import { IonRangeSliderModule } from "ng2-ion-range-slider";
 
 /** Componentes */
 import { FormasEntregaComponent } from './formas-entrega.component';
@@ -30,7 +31,8 @@ export const routes = [
     NgxPaginationModule,
     PipesModule,
     NgxMaskModule,
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    IonRangeSliderModule    
   ],
   declarations: [
     FormasEntregaComponent
