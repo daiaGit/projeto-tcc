@@ -130,11 +130,11 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <input class="form-control validation-field" placeholder="dd-mm-yyyy" name="dp" [formControl]="lote_data_fabricacao" ngbDatepicker
-                                    [dayTemplate]="customDay" [markDisabled]="isDisabled" #dc="ngbDatepicker">
+                                    [dayTemplate]="dataFabricao" [markDisabled]="isDisabled" #dc="ngbDatepicker">
                             </div>
                         </div>
-                        <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled">
-                            <span class="custom-day" [class.weekend]="isWeekend(date)" [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth"
+                        <ng-template #dataFabricacao let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled">
+                            <span class="  " [class.weekend]="isWeekend(date)" [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth"
                                 [class.text-muted]="disabled">
                                 {{ date.day }}
                             </span>
@@ -152,11 +152,11 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <input class="form-control validation-field" placeholder="dd-mm-yyyy" name="dp" [formControl]="lote_data_vencimento" ngbDatepicker
-                                    [dayTemplate]="customDay" [markDisabled]="isDisabled" #dc="ngbDatepicker">
+                                    [dayTemplate]="dataVencimento" [markDisabled]="isDisabled" #dc="ngbDatepicker">
 
                             </div>
                         </div>
-                        <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled">
+                        <ng-template #dataVencimento let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled">
                             <span class="custom-day" [class.weekend]="isWeekend(date)" [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth"
                                 [class.text-muted]="disabled">
                                 {{ date.day }}

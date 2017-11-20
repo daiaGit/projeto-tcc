@@ -25,7 +25,7 @@ export class LotesAdmCreateComponent implements OnInit {
   public form: FormGroup;
   public sucessos: Array<any> = [];
   public erros: Array<any> = [];
-  public modelPopup: NgbDateStruct = {year: new Date().getFullYear(), month: new Date().getMonth()+1, day: new Date().getDate()-3};
+  public modelPopup: NgbDateStruct = {day: new Date().getDate()-3, month: new Date().getMonth()+1,year: new Date().getFullYear()};
 
   public produtos: Array<any> = [];
   public unidadesMedida: Array<any> = [];
@@ -46,15 +46,6 @@ export class LotesAdmCreateComponent implements OnInit {
   protected searchStr: string;
   protected captain: string;
   public dataService: CompleterData;
-  protected searchData = [
-    { color: 'red', value: '#f00' },
-    { color: 'green', value: '#0f0' },
-    { color: 'blue', value: '#00f' },
-    { color: 'cyan', value: '#0ff' },
-    { color: 'magenta', value: '#f0f' },
-    { color: 'yellow', value: '#ff0' },
-    { color: 'black', value: '#000' }
-  ];
 
   constructor(router: Router,
     fb: FormBuilder,
@@ -86,7 +77,7 @@ export class LotesAdmCreateComponent implements OnInit {
     this.lote_quantidade = this.form.controls['lote_quantidade'];
     this.unidade_medida_id = this.form.controls['unidade_medida_id'];
     this.qtd_minima_pj = this.form.controls['qtd_minima_pj'];
-    this.qtd_minima_pf = this.form.controls['lqtd_minima_pf'];
+    this.qtd_minima_pf = this.form.controls['qtd_minima_pf'];
     this.vender_para_pf = this.form.controls['vender_para_pf'];
     this.vender_para_pj = this.form.controls['vender_para_pj'];
 
@@ -206,8 +197,7 @@ export class LotesAdmCreateComponent implements OnInit {
           this.erros.push(msgErro);
         }
       },
-      err => {
-        
+      err => {        
         msgErro.item = 'Erro ao carregar os produtos!';
         msgErro.descricao = err;
         this.erros.push(msgErro);
